@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Spatial Data Analysis with R. BayGeo, Spring 2023 Computer Setup</title>
+
+<script src="slides/lib/header-attrs-2.19/header-attrs.js"></script>
+<script src="slides/lib/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="slides/lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="slides/lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="slides/lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="slides/lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="slides/lib/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="slides/lib/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="slides/lib/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="slides/lib/navigation-1.1/tabsets.js"></script>
+<script src="slides/lib/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="slides/lib/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="slides/lib/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="slides/lib/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+<meta name="robots" content="noindex,nofollow"/>
+<script language="javascript" type="text/javascript">
+function TriShowHide(shID) {
+  shIDspan = shID + "span";
+  shIDdiv = shID + "div";
+  if (document.getElementById(shIDdiv).style.display != 'block') {
+    document.getElementById(shIDdiv).style.display = 'block';
+    txtSpan = "&#9660;";
+  } else {
+    document.getElementById(shIDdiv).style.display = 'none';
+    txtSpan = "&#9654;";
+  }
+  document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+}
+function showHide(shID) {
+  if (shID=="soln-show-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="soln-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else if (shID=="hints-show-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="hints-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else {
+    if (document.getElementById(shID)) {
+      if (document.getElementById(shID).style.display != 'block') {
+        document.getElementById(shID).style.display = 'block';
+      } else {
+        document.getElementById(shID).style.display = 'none';
+      }
+    }
+  }
+}
+function CopyToClipboard(containerid) {
+if (document.selection) {
+    var range = document.body.createTextRange();
+    range.moveToElementText(document.getElementById(containerid));
+    range.select().createTextRange();
+    document.execCommand("copy");
+} else if (window.getSelection) {
+    var range = document.createRange();
+    range.selectNode(document.getElementById(containerid));
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    // alert("text copied")
+}}
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-163964617-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163964617-1');
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="css/slidy_styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore"><span class="course-subtitle">Spatial Data
+Analysis with R. <span style="font-size:75%; color:dimgray;">BayGeo,
+Spring 2023</span></span><br/><span class="mod-title">Computer
+Setup</span></h1>
+
+</div>
+
+
+<style type="text/css">
+p {
+  font-size: 120%;
+}
+ol {
+  margin-left: 0px;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-left: 0px;
+}
+h3 {
+  font-size: 18px;
+  margin-top: 2em;
+}
+h4 {
+  font-size: 120%;
+  margin-top: 2em;
+  font-weight: bold;
+  color: dimgray;
+}
+pre {
+  font-size: 16px;
+}
+</style>
+<div style="margin-bottom:3em;">
+
+</div>
+<script>
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="computer-setup" class="section level2">
+<h2>Computer Setup</h2>
+<p>The workshop includes a number of hands-on exercises so you’ll need a
+<strong>laptop</strong> or <strong>desktop</strong> computer (Mac or
+Windows are both fine). As described below, you can
+<strong>either</strong> install RStudio Desktop and a bunch of packages,
+<strong>or</strong> run RStudio in a browser using the RStudio Cloud
+platform. In either case, a <em>mouse is recommended</em> for navigating
+the interactive maps we’ll be creating. A <strong>second
+monitor</strong> is also strongly recommended (see <a
+href="#viewing-rstudio-and-zoom-simultaneously">more below</a>).</p>
+<p>RStudio Desktop is not a terribly big or computationally intensive
+program, however if your laptop is old and slow, consider using the
+RStudio Cloud service.</p>
+<div id="rstudio-cloud" class="section level3">
+<h3>RStudio Cloud</h3>
+<p>A good way to complete the workshop exercises is to use <a
+href="https://rstudio.cloud" target="_blank"><strong>RStudio
+Cloud</strong></a>. RStudio Cloud is a virtual environment that allows
+you to run R in a browser. If you use RStudio Cloud for the workshop,
+you won’t have to install and software or data because the instructor
+will prepare a virtual machine image that you can ‘clone’. It functions
+nearly identical to RStudio Desktop, and works pretty well as long as
+you have reasonably good internet connection. Using RStudio Cloud
+requires setting up an account (free).</p>
+<p>To use RStudio Cloud for the workshop, login to your account and then
+click on this link:</p>
+<p class="indented2">
+<a href='https://rstudio.cloud/content/xxxxxxxx' target='_blank' ref='noopener' style='font-family:monospace;'>https://rstudio.cloud/content/xxxxxxxx</a>
+</p>
+<p>This will open a RStudio Cloud project with all the required packages
+and data ready to go (you’ll get the scripts from the slide deck during
+the workshop). After the project opens, click the ‘<strong>Save a
+Permanent Copy</strong>’ button in the toolbar, which will make a copy
+of the project in your own workspace.</p>
+<p><img src="images/rstudio-cloud_save-perm-copy_334x58.png"
+style="display:block; margin:1em auto; border:1px solid gray;" /></p>
+</div>
+<div id="rstudio-desktop" class="section level3">
+<h3>RStudio Desktop</h3>
+<p>Alternately, you can install R and RStudio Desktop on your own
+computer. R is cross-platform, so Windows, Mac, or Linux should all
+work. R and RStudio Desktop are not large programs, but you should have
+2Gb or more of free HD space (if your laptop is not sufficient consider
+using the RStudio Cloud option instead). Please install R, RStudio, and
+a number of packages as described below.</p>
+<div class="indented2">
+
+<p>1. <strong>Download and Install R</strong> (64-bit):</p>
+<p><a href="https://cran.r-project.org/"
+target="_blank">https://cran.r-project.org/</a></p>
+<p><em>Note</em>: If you already have R installed, please make sure you
+have version <strong>4.0</strong> or later. If needed, you can update R
+by downloading the latest version from CRAN and (re)installing it.</p>
+<p><br />
+</p>
+<p>2. <strong>Download and Install RStudio Desktop</strong></p>
+<p>Download and install RStudio Desktop for your operating system. The
+free version is fine.</p>
+<p><a href="https://www.rstudio.com/products/rstudio/download/"
+target="_blank">https://www.rstudio.com/products/rstudio/download/</a></p>
+<p><br />
+</p>
+<p>3. <strong>Install Packages</strong></p>
+<p>R packages are like add-ons - they expand the capabilities of R. To
+install the packages for the workshop, run the following lines of code
+in RStudio (You can click the little copy button in the green text box
+below, then open RStudio and paste the commands into the console and hit
+enter). An internet connection is required.</p>
+<pre class="r klippy copyme"><code>## Required packages
+pkgs_req &lt;- c(&quot;sf&quot;, &quot;leaflet&quot;, &quot;tmap&quot;, &quot;tmaptools&quot;, &quot;leaflet&quot;, &quot;ggmap&quot;, &quot;maptools&quot;,
+              &quot;RColorBrewer&quot;, &quot;raster&quot;, &quot;maps&quot;, &quot;tidyverse&quot;,  &quot;jsonlite&quot;, 
+              &quot;rasterVis&quot;, &quot;nngeo&quot;, &quot;lwgeom&quot;, &quot;remotes&quot;, 
+              &quot;conflicted&quot;, &quot;tigris&quot;, &quot;tidycensus&quot;, &quot;stars&quot;,
+              &quot;googlesheets4&quot;, &quot;httr&quot;, &quot;rjson&quot;, &quot;RSocrata&quot;, &quot;usethis&quot;, &quot;rinat&quot;,
+              &quot;ggspatial&quot;, &quot;rosm&quot;, &quot;ggimage&quot;, &quot;wrkshputils&quot;, &quot;palmerpenguins&quot;, &quot;here&quot;,
+              &quot;terra&quot;)
+
+## See which ones are missing
+(pkgs_missing &lt;- pkgs_req[!(pkgs_req %in% installed.packages()[,&quot;Package&quot;])])
+
+## Install missing ones
+if (length(pkgs_missing)) install.packages(pkgs_missing, dependencies=TRUE,
+                                           repos = c(&#39;https://cloud.r-project.org&#39;, 
+                                                     &#39;https://ajlyons.r-universe.dev&#39;))
+
+## Re-run the check for missing packages
+pkgs_missing &lt;- pkgs_req[!(pkgs_req %in% installed.packages()[,&quot;Package&quot;])]
+if (length(pkgs_missing)==0) cat(&quot;ALL PACKAGES WERE INSTALLED SUCCESSFULLY \n&quot;)
+
+##########################################
+## TIPS
+##
+## If you are prompted by the question, &#39;Do you want to install from sources the 
+## package which needs compilation?&#39;, select &#39;No&#39;.
+##
+## If you get an error message that a package can&#39;t be installed because 
+## it&#39;s already loaded and can&#39;t be stopped, restart R (Session &gt;&gt; Restart R), 
+## and try again.
+##
+##########################################
+</code></pre>
+<p><br />
+</p>
+<p>4. <strong>Download the Workshop Materials</strong></p>
+<p>The workshop slides, exercise notebooks, and data are all on GitHub
+(~170 Mb). You can download them to your computer by running:</p>
+<pre class = "r klippy copyme" style="font-size:80%;">
+usethis::use_course("ajlyons/rspatial_bgs23")
+</pre>
+<p><br />
+</p>
+<p>Alternately, you can go to the <a
+href="https://github.com/ajlyons/rspatial_bgs23" target="_blank"
+rel="noopener">GitHub Repo</a> and click the green ‘Code’ button.
+Remember to unzip the file to your hard drive in a location of your
+choice. Double-click the <em>rspatial_bgs23.Rproj</em> file to open the
+workshop materials in RStudio.</p>
+<p>Note that the slides and notebooks will continue to be updated
+throughout the course. If you’d like to keep a copy of the workshop
+materials for posterity, plan on downloading it again a week or two
+after the final session.</p>
+<p><br />
+</p>
+<!---------------------
+5\. **Set the working directory in RStudio**
+
+Set the working directory to the 'parent' of the data folder you just downloaded. In other words, if you put the 'data' folder into `C:/Workshops`, you would set the working directory to `C:/Workshops`.
+
+\
+
+<div class="indented2">
+**TIP**: An easy way to set the working directory is to goto the RStudio menu and select Session >> Set Working Directory >> Choose Directory.
+</div>
+
+\
+
+To verify the working directory is set correctly, copy-paste the following lines of code into the RStudio Console. If you see the image, your RStudio session is set up correctly.
+
+
+```{.r .klippy .copyme}
+## Copy-paste these lines into RStudio and run
+load("./data/test_pts.RData")
+plot(pts[[1]], asp=1, pch=16, cex=0.5, type="l", col="red", lwd=2, main="If you can see the picture,\nyour working directory is set correctly!")
+invisible(sapply(pts[2:4], points, asp=1, pch=16, cex=0.5, type="l"))
+```
+
+<img src="setup_files/figure-html/setwd_klippy-1.png" width="600" style="display: block; margin: auto;" />
+
+\
+
+6\. **Open the Slides**
+
+Go to [https://ajlyons.github.io/rspatial_bgs23](https://ajlyons.github.io/rspatial_bgs23){target="_blank"} to open the table of contents for the slides and exercises.
+
+To download a copy of all the workshop materials including the slides for offline viewing, go to [https://github.com/ajlyons/rspatial_bgs23](https://github.com/ajlyons/rspatial_bgs23){target="_blank"} and click the green 'code' button. The slides and notebooks will be in the docs folder. Note that the slides and exercises will be updated during the course, so you may want to wait until the course is over to download a copy to keep.
+
+</div> <!--- class indented2 
+--------->
+<p><br />
+</p>
+</div>
+</div>
+<div id="setting-up-your-workspace" class="section level2">
+<h2>Setting up Your Workspace</h2>
+<p>Try to find a spot which is <strong>comfortable</strong> and
+<strong>relatively free</strong> from <strong>distractions and
+background noise</strong>. Some people find a pair of headphones helps
+minimize distractions.</p>
+<p><strong>Ergonomics</strong> are important! If you’ve ever tried to
+work on a laptop while sitting on a couch for multiple hours, it isn’t
+ideal! We will take at least one short bio-break each session.</p>
+<p>A <strong>second screen</strong> is extremely helpful, especially for
+hands-on workshops where you’ll be working through a software exercise.
+With a second screen, you can view the instructor’s slides or demo on
+one screen, and open RStudio on the other.</p>
+<div
+style="width:660px; margin:2em auto; font-style:italic; font-size:120%; text-align:center;">
+<img src="images/external-monitor_650x350.jpg" style="border:1px solid grey;"/><br/>
+Connecting an external monitor to your computer is the best option for
+completing hands-on software workshops in Zoom
+</div>
+</div>
+<div id="slides-and-exercises" class="section level2">
+<h2>Slides and Exercises</h2>
+<p>Slides will be added to the <a
+href="https://ajlyons.github.io/rspatial_bgs23" target="_blank"
+rel="noopener">course website</a> before each session. The slides will
+be in HTML format, so you can follow-along online, or view them as the
+instructor presents them on Zoom. Practice exercises will mostly be in
+<a href="notebooks.html">R Notebooks</a>, that you’ll have to open in
+RStudio and complete. More info and links will be provided during the
+workshop.</p>
+<p><br />
+</p>
+</div>
+<div id="zoom" class="section level2">
+<h2>Zoom</h2>
+<p>This workshop will be taught entirely online using the Zoom platform
+(the link will be sent you via email).</p>
+<div id="use-the-zoom-client" class="section level3">
+<h3>Use the Zoom Client</h3>
+<p>Although you can join Zoom meetings through a browser, we recommend
+installing the <a href="https://zoom.us/download" target="_blank"
+rel="noopener"><strong>Zoom Client (App)</strong></a> for Meetings. You
+may already have it if you’ve used Zoom before, and you see it in the
+Start Menu (Windows) or Finder (Mac). Please <strong>make sure you have
+the latest version</strong>, as some of the buttons and features may
+have changed.</p>
+<p style="text-align:center; font-style:italic;">
+<img src="images/zoom_update360x632x256.png" style="padding:10px; width:300px;"/><br/>Check
+for updates on the Zoom app
+</p>
+<p>A <strong>Zoom account</strong> is <em>not</em> required. A
+<strong>webcam</strong> is <em>not</em> required.</p>
+</div>
+<div id="managing-zoom-audio" class="section level3">
+<h3>Managing Zoom Audio</h3>
+<p>If you find your Zoom audio is garbled, perhaps due to poor
+bandwidth, you can <strong>dial-in</strong> with a phone. Click the
+microphone button on Zoom for details. In that case, you should
+disconnect from the the audio on your laptop or tablet (to prevent
+echo).</p>
+<p><strong>Muting</strong> and <strong>unmuting</strong> yourself are
+essential skills for Zoom. It’s generally good practice to stay muted
+until you have something to say. If you’re using the Zoom app on
+Windows, click the microphone button. If you’re using the Zoom app for
+phones and tablets, tap the middle of the screen to make the controls
+visible. If you dial-in on a phone, you can use the ‘mute’ button on
+your phone app, or dial <code>*6</code> to mute or unmute yourself.</p>
+</div>
+<div id="viewing-rstudio-and-zoom-simultaneously"
+class="section level3">
+<h3>Viewing RStudio and Zoom Simultaneously</h3>
+<div id="dual-monitors-best-option" class="section level4">
+<h4>Dual Monitors (Best Option)</h4>
+<p>If you have an <strong>external monitor</strong> for your laptop /
+computer, you’re all set. (Tip: turn on Zoom’s <em>dual monitors</em>
+option, see below). Many TVs can be used as a second monitor depending
+on the video connections.</p>
+<p>If you don’t have a second monitor, a <strong>tablet</strong> may
+come in handy for viewing the slides / speaker. The Zoom App is
+available for all major tablets and phones.</p>
+<p>Note however if you watch the slides on a tablet, you should
+<strong>also</strong> have Zoom running on your laptop so you can take
+the polls, click on links in the chat window, share your screen with the
+instructor, etc. In that scenario, you’ll be logged into the Zoom
+meeting on two different devices, but only join the audio on one of the
+devices otherwise you may get a lot of echo!</p>
+</div>
+</div>
+<div id="tips-for-using-zoom-on-a-single-screen" class="section level3">
+<h3>Tips for Using Zoom on a Single Screen</h3>
+<div id="tip-1.-turn-on-dual-monitors" class="section level4">
+<h4>Tip 1. Turn on ‘Dual Monitors’</h4>
+<p>The Zoom client for Windows has a ‘Dual Monitors’ option that will
+open up screen shares in a <strong>separate window</strong>. You don’t
+actually need two monitors. This option is really useful on a single
+monitor, because you can move and resize the screen share window
+anywhere you’d like (and even ‘pin’ it to stay on top, see below).</p>
+<p>To turn on Dual Monitors, click the gear icon (Settings) in the Zoom
+client, then check ‘Dual Monitors’.</p>
+<p><img src="images/zoom-client-setting-btn_300x522x256.png"
+style="display:block; margin:1em auto; border:1px solid grey;" /></p>
+<p><img src="images/zoom-client_dual-monitors_800x500x256.png"
+style="display:block; margin:1em auto; border:1px solid grey;" /></p>
+</div>
+<div id="tip-2.-place-windows-side-by-side" class="section level4">
+<h4>Tip 2. Place Windows Side-by-Side</h4>
+<p>You can arrange your windows so that you see both RStudio and Zoom
+side-by-side (see below for example). You can devote the entire width of
+the Zoom window to the screen share by going to ‘View Options’ and
+making sure side-by-side mode is turned <strong>off</strong>.</p>
+<p>A keyboard shortcut on Windows to move windows to the left or right
+is <em>windows key</em> + <em>left/right arrows</em>. You can then
+choose which of the remaining windows to put in the other half of the
+screen. By default, Windows will divide the screen into equal halves,
+but if you resize the width right after you use the shortcut, it will
+remember the setting.</p>
+<p><a href="./images/rstudio-zoom_side-by-side_1920x1024x256.png" target="_blank"><img src="./images/rstudio-zoom_side-by-side_600x320x256.png" style="display:block; margin:1em auto; border:1px solid grey;"></a></p>
+<p style="text-align:center; font-style:italic;">
+Arranging RStudio and Zoom side-by-side on a single monitor on Windows
+</p>
+</div>
+<div id="tip-3.-use-a-utility-to-keep-the-zoom-window-on-top"
+class="section level4">
+<h4>Tip 3. Use a Utility to Keep the Zoom Window on Top</h4>
+<p>Surprisingly Zoom does not have an ‘always on top’ mode, but you can
+keep the Zoom client on top by using a 3rd party utility. Windows users
+can check out <a
+href="https://efotinis.neocities.org/deskpins/index.html"
+target="_blank" rel="noopener">DeskPins</a>, and Mac users can try <a
+href="https://rectangleapp.com/" target="_blank"
+rel="noopener">Rectangle</a>.</p>
+<div class="indented2"
+style="border:2px solid lightgray; padding:10px;">
+<p><strong>Example: Deskpins</strong></p>
+<p>In conjunction with Zoom’s Dual Monitor options, DeskPins let you
+‘pin’ Zoom’s window with the presenter’s screen share on top, so you can
+watch the presenter’s demo while also working in your GIS program.
+Pinned windows can still be resized and moved around, so it doesn’t get
+in the way of what you’re working on.</p>
+<p><img src="images/deskpins_pinned-window_800x430.jpg"
+style="display:block; margin:1em auto; border:1px solid grey;" /></p>
+<p>To ‘pin’ a window, right-click on the DeskPins icon in the system
+tray, and select ‘Enter Pin Mode’. To ‘unpin’ a window, simply click the
+little ‘x’ button that appears when you hover over the pushpin icon.</p>
+</div>
+</div>
+<div id="tip-4.-use-sticky-notes" class="section level4">
+<h4>Tip 4. Use Sticky Notes</h4>
+<p>If you like to take notes during Zoom meetings, a Sticky Notes
+utility can help. Almost all sticky notes programs have an option to
+stay on top, so you don’t have to worry about your notes disappearing.
+Windows has a built-in ‘Sticky Notes’ app, but an even better one is <a
+href="https://www.zhornsoftware.co.uk/" target="_blank"
+rel="noopener">Stickies</a> from Zhorn Software.</p>
+</div>
+</div>
+<div id="sharing-your-screen" class="section level3">
+<h3>Sharing Your Screen</h3>
+<p>If needed, you can <strong>share your RStudio window</strong> with an
+instructor during an exercise to get help. Click the ‘Share Screen’
+button on Zoom, and select your RStudio window. (Note: please don’t
+share the entire screen to avoid accidentally sharing other
+windows!)</p>
+<p><img src="images/zoom_share_screen_900x558.png"
+style="display:block; margin:1em auto; border:1px solid gray;" /><br />
+</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+
+</body>
+</html>

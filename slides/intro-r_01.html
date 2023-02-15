@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Getting Started with RStudio  " />
+  <meta name="copyright" content="<span class='footer-right'><a href='../acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href=' https://etherpad.wikimedia.org/p/rspatial-bgs23 ' target='_blank'>Forum</a></span><span class='footer-right'><a href=' https://ajlyons.github.io/rspatial_bgs23 '> https://ajlyons.github.io/rspatial_bgs23 </a></span><span class='footer-right'><a href='../index.html'>Home</a></span><span class='footer-subtitle'> Spatial Data Analysis with R </span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Spatial Data Analysis with R  BayGeo, Spring 2023</title>
+  <style type="text/css">
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            pre > code.sourceCode { white-space: pre; position: relative; }
+            pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+            pre > code.sourceCode > span:empty { height: 1.2em; }
+            .sourceCode { overflow: visible; }
+            code.sourceCode > span { color: inherit; text-decoration: inherit; }
+            div.sourceCode { margin: 1em 0; }
+            pre.sourceCode { margin: 0; }
+            @media screen {
+            div.sourceCode { overflow: auto; }
+            }
+            @media print {
+            pre > code.sourceCode { white-space: pre-wrap; }
+            pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+            }
+            pre.numberSource code
+              { counter-reset: source-line 0; }
+            pre.numberSource code > span
+              { position: relative; left: -4em; counter-increment: source-line; }
+            pre.numberSource code > span > a:first-child::before
+              { content: counter(source-line);
+                position: relative; left: -1em; text-align: right; vertical-align: baseline;
+                border: none; display: inline-block;
+                -webkit-touch-callout: none; -webkit-user-select: none;
+                -khtml-user-select: none; -moz-user-select: none;
+                -ms-user-select: none; user-select: none;
+                padding: 0 4px; width: 4em;
+                color: #aaaaaa;
+              }
+            pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+            div.sourceCode
+              {   }
+            @media screen {
+            pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+            }
+            code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+            code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+            code span.at { color: #7d9029; } /* Attribute */
+            code span.bn { color: #40a070; } /* BaseN */
+            code span.bu { color: #008000; } /* BuiltIn */
+            code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+            code span.ch { color: #4070a0; } /* Char */
+            code span.cn { color: #880000; } /* Constant */
+            code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+            code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+            code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+            code span.dt { color: #902000; } /* DataType */
+            code span.dv { color: #40a070; } /* DecVal */
+            code span.er { color: #ff0000; font-weight: bold; } /* Error */
+            code span.ex { } /* Extension */
+            code span.fl { color: #40a070; } /* Float */
+            code span.fu { color: #06287e; } /* Function */
+            code span.im { color: #008000; font-weight: bold; } /* Import */
+            code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+            code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+            code span.op { color: #666666; } /* Operator */
+            code span.ot { color: #007020; } /* Other */
+            code span.pp { color: #bc7a00; } /* Preprocessor */
+            code span.sc { color: #4070a0; } /* SpecialChar */
+            code span.ss { color: #bb6688; } /* SpecialString */
+            code span.st { color: #4070a0; } /* String */
+            code span.va { color: #19177c; } /* Variable */
+            code span.vs { color: #4070a0; } /* VerbatimString */
+            code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+          </style>
+  <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <meta name="robots" content="noindex,nofollow"/>
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) {
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy");
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied")
+  }}
+  </script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163964617-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-163964617-1');
+  </script>
+  <script src="lib/header-attrs-2.19/header-attrs.js"></script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <script src="lib/slidy_shiny-1/slidy_shiny.js"></script>
+  <script src="lib/kePrint-0.0.1/kePrint.js"></script>
+  <link href="lib/lightable-0.0.1/lightable.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="../css/slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<script type="text/javascript">w3c_slidy.mouse_click_enabled = false;</script>
+<div class="slide titlepage">
+  <h1 class="title"><span class="course-title">Spatial Data Analysis
+with R </span><br/><span class="course-subtitle">BayGeo, Spring
+2023</span></h1>
+  <p class="author">
+Getting Started with RStudio <br/><img src='images/blank_10x10.png'/>
+  </p>
+</div>
+<div class="slide section level1">
+
+<script type="text/javascript">
+w3c_slidy.mouse_click_enabled = false;
+</script>
+</div>
+<div id="about-me" class="slide section level1">
+<h1>About Me…</h1>
+<p><img src="images/anr_montage-wide_1120x520.png" /></p>
+</div>
+<div class="slide section level1">
+
+<p><img src="images/igis-team-2022_1160x650.png" /></p>
+</div>
+<div id="goal" class="slide section level1">
+<h1>Goal</h1>
+<p style="text-align:left; margin-left:2em; font-style:italic; font-size:140%; font-weight:bold; color:darkgreen;">
+Move in the direction of becoming functional with R!!
+</p>
+<p><br />
+</p>
+<h2 id="learning-strategy">Learning Strategy</h2>
+<div class="indented2">
+<p>1) Understand foundational terms and concepts</p>
+<p>2) Hands-on practice</p>
+<p>3) Discover RStudio’s bells and whistles</p>
+<p>4) Learn how to get help</p>
+</div>
+<p><br />
+</p>
+<h2 id="todays-focus">Today’s Focus</h2>
+<p><img src="intro-r_01_files/figure-slidy/unnamed-chunk-2-1.png" width="768" /></p>
+<h2 id="learning-tips">Learning Tips</h2>
+<div class="indented1">
+<p>1) Watch now, practice later</p>
+<p>2) Review what we cover within 24 hours</p>
+</div>
+<p><br />
+</p>
+</div>
+<div id="workshop-series" class="slide section level1">
+<h1>Workshop Series</h1>
+<table class="tbl_compact">
+<thead>
+<tr>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Session
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Oct. 11, 2022<br><span style="font-size:85%; font-style:italic;">3:30p -
+5:00p</span>
+</td>
+<td style="text-align:left;font-weight: bold;">
+Part 1. Getting Started
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Oct 12, 2022<br><span style="font-size:85%; font-style:italic;">3:30p -
+5:00p</span>
+</td>
+<td style="text-align:left;font-weight: bold;">
+Part 2. Packages, Piping, and Importing Data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Oct 14, 2022<br><span style="font-size:85%; font-style:italic;">10:30a -
+12:00p</span>
+</td>
+<td style="text-align:left;font-weight: bold;">
+Part III. Data Wrangling
+</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+<p>See also <a
+href="https://igis.ucanr.edu/Training/Learn-R/"><strong>Getting Started
+with R</strong></a> resources.</p>
+</div>
+<div id="r-and-rstudio" class="slide section level1">
+<h1>R and RStudio</h1>
+<div class="shaded-box" style="width:60%;">
+<p><strong>Why is R So Popular?</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>It’s free!</p></li>
+<li><p>Huge user community (especially academics)</p></li>
+<li><p>Thousands of add-ons (packages) that extend its
+capabilities</p></li>
+<li><p>Particularly strong in plotting and reporting</p></li>
+<li><p>Once you get over the initial hump, can work very
+efficiently</p></li>
+<li><p>Makes it easy to get your code “out there”</p></li>
+<li><p>Solid overall programming language</p></li>
+</ol>
+</div>
+<p><br />
+</p>
+</div>
+<div class="slide section level1">
+
+<div class="colleft">
+<p><img src="./images/rlogo_120x120.png" /></p>
+<ul>
+<li>a programming language to write scripts</li>
+<li>software (“environment”) that interprets scripts written in R</li>
+<li>inspired by ‘S’ (1976), first beta version ~2000</li>
+<li><a href="https://rdrr.io/" target="_blank"><em>lots</em></a> of
+user-contributed packages:
+<ul>
+<li><em>CRAN</em>: &gt;22,000<br />
+</li>
+<li><em>Bioconductor</em>: &gt;2,000<br />
+</li>
+<li><em>R-Forge</em>: &gt;2,000</li>
+<li><em>GitHub</em>: &gt;85,400</li>
+</ul></li>
+</ul>
+</div>
+<div class="colright">
+<p><img src="./images/rstudio-logo_300x100.png" /></p>
+<ul>
+<li>a very popular tool (IDE) to work with both R software and R
+scripts</li>
+<li>Version 1.0 came out in late 2016</li>
+<li>RStudio needs R to run, but you can use R without RStudio</li>
+<li><a href="https://rstudio.cloud/" target="_blank">RStudio Cloud</a> -
+run RStudio through a browser</li>
+</ul>
+</div>
+<div class="colclear">
+
+</div>
+</div>
+<div class="slide section level1">
+
+<p><img src="images/rstudio_cloud_logo_460x120x256.png" /></p>
+<div class="indented2">
+<ul>
+<li>online version of RStudio<br />
+</li>
+<li>requires an account (free account gets you 15 hrs / month)<br />
+</li>
+<li>98% same as RStudio Desktop<br />
+</li>
+<li>have to upload your data to the cloud<br />
+</li>
+<li>everything gets saved between sessions<br />
+</li>
+<li>workspaces and projects can be shared with collaborators<br />
+</li>
+</ul>
+</div>
+</div>
+<div id="exercise-1-rstudio-exploration-and-basic-commands"
+class="slide section level1">
+<h1>Exercise 1: RStudio Exploration and Basic Commands</h1>
+<div class="shaded-box li-single" style="width:50%;">
+<p><em>Exercise 1 Topics</em></p>
+<ol style="list-style-type: decimal">
+<li>Using R like a fancy calculator<br />
+</li>
+<li>Order of operations</li>
+<li>Comparison operators</li>
+<li>Saving the results of expressions to variable</li>
+<li>Rules for naming variables</li>
+</ol>
+</div>
+<p>RStudio Cloud project for this workshop:</p>
+<p style="font-family:monospace; font-size:110%; text-align:center;">
+<a href="https://posit.cloud/content/5055980"
+target="_blank">https://posit.cloud/content/5055980</a>
+</p>
+<p>After it opens:</p>
+<p><img src="images/rstudio-cloud_save-perm-copy_334x58.png"
+style="display:block; margin:1em auto; border:1px solid grey;" /></p>
+<p><br />
+</p>
+</div>
+<div id="break" class="slide section level1">
+<h1>Break!</h1>
+<p><img src="images/stretch-break-1130x590x256.png"
+style="display:block; margin:1em auto; border:none;" /></p>
+</div>
+<div id="exercise-review" class="slide section level1">
+<h1>Exercise Review</h1>
+<p>Key vocabulary terms are in <em>italic</em>.</p>
+<div class="indented2 li-single">
+<ul class="incremental">
+<li><p>When you enter an <em>expression</em> at the <em>console</em>, R
+will <em>evaluate</em> the expression, and <em>print the results</em> at
+the console.</p></li>
+<li><p>If you enter an <em>incomplete expression</em>, R will prompt you
+to finish the job by showing a ‘+’ symbol in the console</p></li>
+<li><p>You can <em>save</em> the results of an expression to an
+<em>object</em> (variable) using an <em>assignment operator</em><br/>  
+  <strong><code>=</code></strong><br/>    
+<strong><code>&lt;-</code></strong></p></li>
+<li><p>R objects can be named almost anything (but <em>no spaces</em> or
+<em>hyphens</em> please)</p></li>
+<li><p>R is <em>case sensitive</em> about
+<strong>everything</strong></p></li>
+<li><p>Once defined, R objects can be used in <em>subsequent
+expressions</em></p></li>
+<li><p>R objects can be <em>updated</em> (assigned a new value)</p></li>
+<li><p>R objects are only saved in <em>memory</em>, and will disappear
+when you close RStudio</p></li>
+<li><p><em>Comparison operators</em> return TRUE or FALSE (aka Logical
+values)</p></li>
+</ul>
+<ul class="incremental">
+<li style="list-style:none; margin-left:4em;">
+<tt> &gt;     &gt;=     &lt;     &lt;=     == </tt>
+</li>
+</ul>
+<ul class="incremental">
+<li>R has a few built-in <em>constants</em>, which are like objects but
+you don’t have to define them</li>
+</ul>
+</div>
+</div>
+<div id="naming-objects" class="slide section level1">
+<h1>Naming Objects</h1>
+<style type="text/css">
+span.badcode {
+  color:crimson;
+  font-weight:bold;
+  font-family:monospace;
+}
+</style>
+<p>The rules for naming objects are pretty flexible. You can use
+numbers, letters, and most special characters.</p>
+<p>A few rules to take note of:</p>
+<div class="indented2">
+<ul>
+<li>Can’t start with a number: <span class="badcode">3pieces</span></li>
+<li>Hyphens and spaces not allowed: <span class="badcode">first name,
+last-name</span></li>
+<li>Don’t use the name of a built-in function, constant, or keyword:
+<span class="badcode">c, pi</span></li>
+</ul>
+</div>
+<p><br />
+</p>
+<h2 id="naming-styles">Naming Styles</h2>
+<p>There are a handful of popular <a
+href="https://www.r-bloggers.com/consistent-naming-conventions-in-r/"
+target="_blank">naming styles</a>. Pick one that you like, and be
+consistent!</p>
+<table class="tbl_compact">
+<thead>
+<tr>
+<th style="text-align:left;">
+Style
+</th>
+<th style="text-align:left;">
+Example
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+alllowercase
+</td>
+<td style="text-align:left;font-family: monospace;">
+adjustcolor
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+period.separated
+</td>
+<td style="text-align:left;font-family: monospace;">
+shoe.size
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+underscore_separated (aka snake case)
+</td>
+<td style="text-align:left;font-family: monospace;">
+numeric_version
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lowerCamelCase
+</td>
+<td style="text-align:left;font-family: monospace;">
+addTaskCallback
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+UpperCamelCase
+</td>
+<td style="text-align:left;font-family: monospace;">
+SignatureMethod
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="data-types" class="slide section level1">
+<h1>Data Types</h1>
+<p>All variables have a class or data type, which you can view using
+<tt><strong>class()</strong></tt>.</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>num_plots <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(num_plots)</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+</div>
+<p>Other common data types:</p>
+<div class="indented2">
+<ul>
+<li><strong>character</strong><br />
+</li>
+<li><strong>factor</strong><br />
+</li>
+<li><strong>date</strong><br />
+</li>
+<li><strong>data frame</strong>, <strong>tibble</strong></li>
+<li><strong>matrix</strong><br />
+</li>
+<li><strong>list</strong></li>
+</ul>
+</div>
+</div>
+<div id="vectors" class="slide section level1">
+<h1>Vectors</h1>
+<p><strong>vectors</strong> are R objects that contain <strong>multiple
+values</strong> of the <strong>same class</strong>.</p>
+<p>Example:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">12</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>i</span></code></pre></div>
+<pre><code>## [1]  4  5  6  7  8  9 10 11 12</code></pre>
+</div>
+<p><br />
+</p>
+<p>More examples:</p>
+<p><img src="./images/vectors_450x230x256.png"
+style="margin-left:2em;" /></p>
+<p><br />
+</p>
+</div>
+<div id="creating-vectors" class="slide section level1">
+<h1>Creating Vectors</h1>
+<p>In general, you need to use a <strong>function</strong> or
+<strong>operator</strong> to create a vector.</p>
+<p>Sequence of numbers with the <code>:</code> operator:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<p><br />
+</p>
+<p>Repeat function:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="st">&quot;Quercus lobata&quot;</span>, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Quercus lobata&quot; &quot;Quercus lobata&quot; &quot;Quercus lobata&quot; &quot;Quercus lobata&quot; &quot;Quercus lobata&quot;</code></pre>
+</div>
+<p><br />
+</p>
+<p>Combine elements of the same class with <code>c()</code>:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>yn <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>yn</span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE  TRUE</code></pre>
+</div>
+<p><br />
+</p>
+<p>Some built-in constants are also vectors:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>LETTERS</span></code></pre></div>
+<pre><code>##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot; &quot;O&quot; &quot;P&quot; &quot;Q&quot; &quot;R&quot; &quot;S&quot; &quot;T&quot; &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>state.abb</span></code></pre></div>
+<pre><code>##  [1] &quot;AL&quot; &quot;AK&quot; &quot;AZ&quot; &quot;AR&quot; &quot;CA&quot; &quot;CO&quot; &quot;CT&quot; &quot;DE&quot; &quot;FL&quot; &quot;GA&quot; &quot;HI&quot; &quot;ID&quot; &quot;IL&quot; &quot;IN&quot; &quot;IA&quot; &quot;KS&quot; &quot;KY&quot; &quot;LA&quot; &quot;ME&quot; &quot;MD&quot; &quot;MA&quot; &quot;MI&quot;
+## [23] &quot;MN&quot; &quot;MS&quot; &quot;MO&quot; &quot;MT&quot; &quot;NE&quot; &quot;NV&quot; &quot;NH&quot; &quot;NJ&quot; &quot;NM&quot; &quot;NY&quot; &quot;NC&quot; &quot;ND&quot; &quot;OH&quot; &quot;OK&quot; &quot;OR&quot; &quot;PA&quot; &quot;RI&quot; &quot;SC&quot; &quot;SD&quot; &quot;TN&quot; &quot;TX&quot; &quot;UT&quot;
+## [45] &quot;VT&quot; &quot;VA&quot; &quot;WA&quot; &quot;WV&quot; &quot;WI&quot; &quot;WY&quot;</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>month.name</span></code></pre></div>
+<pre><code>##  [1] &quot;January&quot;   &quot;February&quot;  &quot;March&quot;     &quot;April&quot;     &quot;May&quot;       &quot;June&quot;      &quot;July&quot;      &quot;August&quot;    &quot;September&quot;
+## [10] &quot;October&quot;   &quot;November&quot;  &quot;December&quot;</code></pre>
+</div>
+<p><br />
+</p>
+<p>Random number functions:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">20</span>)</span></code></pre></div>
+<pre><code>##  [1] 0.907280587 0.714210178 0.777900194 0.107258231 0.986981922 0.882116949 0.404137474 0.738147054 0.944215749
+## [10] 0.259620987 0.775327984 0.660711781 0.011256170 0.427286497 0.708286450 0.003475125 0.001228885 0.764713824
+## [19] 0.831704653 0.354012528</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">20</span>)</span></code></pre></div>
+<pre><code>##  [1]  1.71230987  0.53667820 -0.54241254  0.07213631 -0.23530911 -0.29610771 -0.89140641  2.47276241 -2.04875568
+## [10] -1.58161213 -2.13444708 -1.13422394  0.32476110 -1.41797284 -0.16522278 -1.07853816 -1.43322898 -0.94901574
+## [19] -0.29623961  0.60145638</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(month.abb, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Feb&quot; &quot;Jul&quot; &quot;Aug&quot;</code></pre>
+</div>
+</div>
+<div id="how-vectors-behave" class="slide section level1">
+<h1>How Vectors Behave</h1>
+<h2 id="vectorized-operations">Vectorized operations</h2>
+<p>Many R functions and math operators are <strong>vectorized</strong>
+(i.e., operate on each individual element).</p>
+<p><br />
+</p>
+<h3 id="examples">Examples</h3>
+<p>First we create two numeric vectors:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1] 0 1 2 3 4</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">15</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>## [1] 11 12 13 14 15</code></pre>
+</div>
+<p><br />
+</p>
+<p>Are <code>sin()</code> &amp; <code>cos()</code> vectorized?</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(x)</span></code></pre></div>
+<pre><code>## [1]  0.0000000  0.8414710  0.9092974  0.1411200 -0.7568025</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cos</span>(x)</span></code></pre></div>
+<pre><code>## [1]  1.0000000  0.5403023 -0.4161468 -0.9899925 -0.6536436</code></pre>
+</div>
+<p><br />
+</p>
+<p>Addition (and all math functions) is vectorized:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> y</span></code></pre></div>
+<pre><code>## [1] 11 13 15 17 19</code></pre>
+</div>
+<p><br />
+</p>
+<h2 id="aggregate-functions">Aggregate functions</h2>
+<p>Functions that accept a vector and spit out a single value are
+<strong>aggregate</strong>.</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">runif</span>(<span class="dv">20</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##  [1] 0.48399506 0.26434248 0.61992848 0.04060116 0.72778998 0.92868017 0.65462049 0.11255815 0.62856279 0.69265024
+## [11] 0.70428640 0.19325714 0.62480922 0.52943551 0.47454392 0.49210132 0.36064006 0.18796739 0.88284964 0.34539020</code></pre>
+</div>
+<p><br />
+</p>
+<p>Most descriptive stats functions are aggregate:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code></pre></div>
+<pre><code>## [1] 0.4974505</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(x)</span></code></pre></div>
+<pre><code>## [1] 0.5107684</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(x)</span></code></pre></div>
+<pre><code>## [1] 0.2496997</code></pre>
+</div>
+<p><br />
+</p>
+<p>Other aggregate functions:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">first</span>(state.name)</span></code></pre></div>
+<pre><code>## [1] &quot;Alabama&quot;</code></pre>
+</div>
+</div>
+<div id="subsetting-vectors" class="slide section level1">
+<h1>Subsetting Vectors</h1>
+<p>To extract a single element from a vector, use square bracket
+notation. Inside the square brackets, put the index of the element(s)
+you want.</p>
+<p><br />
+</p>
+<h2 id="subset-with-indices">Subset with indices</h2>
+<p><img src="./images/vector_indices_885x80x256.png"
+style="display:block; margin:1em auto; border:1px solid #ddd; padding:1em;" /></p>
+<p><br />
+</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>LETTERS[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;B&quot;</code></pre>
+</div>
+<p>To return multiple elements, pass a vector of indices.</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>LETTERS[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;B&quot; &quot;C&quot; &quot;D&quot;</code></pre>
+</div>
+<p>You can also use square brackets to extract elements in a different
+order.</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>LETTERS[<span class="dv">4</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;D&quot; &quot;C&quot; &quot;B&quot;</code></pre>
+</div>
+<p><br />
+</p>
+<h2 id="subset-with-logicals">Subset with logicals</h2>
+<p>You can also insert a vector of Logical values (TRUE/FALSE) in the
+brackets. R will return the corresponding element for the TRUE
+values.</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>LETTERS[<span class="fu">c</span>(T,T,T,T,T,T,T,T,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F)]</span></code></pre></div>
+<pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot;</code></pre>
+</div>
+<p><br />
+</p>
+<p>Better still, use an expression that returns a vector of logical
+values:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>state.abb[ <span class="fu">substr</span>(state.abb, <span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">==</span> <span class="st">&quot;N&quot;</span> ]</span></code></pre></div>
+<pre><code>## [1] &quot;NE&quot; &quot;NV&quot; &quot;NH&quot; &quot;NJ&quot; &quot;NM&quot; &quot;NY&quot; &quot;NC&quot; &quot;ND&quot;</code></pre>
+</div>
+<p><br />
+</p>
+</div>
+<div id="plotting-vectors" class="slide section level1">
+<h1>Plotting Vectors</h1>
+<p>Base R has simple plotting functions you can use to view the
+distribution of data.</p>
+<p><br />
+</p>
+<h2 id="histograms">Histograms</h2>
+<p>To make a histogram, use <code>hist()</code>:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>my_vals <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(my_vals)</span></code></pre></div>
+<p><img src="intro-r_01_files/figure-slidy/unnamed-chunk-23-1.png" width="768" /></p>
+</div>
+<p><br />
+</p>
+<h2 id="box-plots">Box Plots</h2>
+<p>Prefer a box plot?</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(my_vals)</span></code></pre></div>
+<p><img src="intro-r_01_files/figure-slidy/unnamed-chunk-24-1.png" width="768" /></p>
+</div>
+<p><br />
+</p>
+<h2 id="scatter-plots">Scatter Plots</h2>
+<p>The versatile <code>plot()</code> can be used to make a simple
+scatter plot:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">20</span>))</span></code></pre></div>
+<p><img src="intro-r_01_files/figure-slidy/unnamed-chunk-25-1.png" width="768" /></p>
+</div>
+<p><br />
+</p>
+<h2 id="line-plots">Line Plots</h2>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">20</span>), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
+<p><img src="intro-r_01_files/figure-slidy/unnamed-chunk-26-1.png" width="768" /></p>
+</div>
+<p><br />
+</p>
+</div>
+<div id="scripts" class="slide section level1">
+<h1>Scripts</h1>
+<p>Top five advantages of using scripts over the console:</p>
+<center>
+<ol reversed class="indented1 incremental" style="text-align:center; list-style-position:inside; font-size:130%; font-weight:bold;">
+<li style="color:#800080;">
+Easier to write (and fix!) your code
+</li>
+<li style="color:#f2b111;">
+You can add comments to remind yourself what each command is doing
+</li>
+<li style="color:#2167bb;">
+Reuse your own code
+</li>
+<li style="color:darkgreen;">
+You can add loops and if-then statements later on
+</li>
+<li style="color:crimson;">
+Tell your friends you’re a
+coder!<br/><br/><img src="images/lisa-simpson-coding_360x240x256.png" width="360" height="240"/>
+</li>
+</ol>
+</center>
+</div>
+<div id="exercise-2-working-with-scripts-and-vectors"
+class="slide section level1">
+<h1>Exercise 2: Working with Scripts and Vectors</h1>
+<div class="shaded-box li-single" style="width:50%;">
+<p><em>Exercise 2 Topics</em></p>
+<ol style="list-style-type: decimal">
+<li>Saving code in scripts<br />
+</li>
+<li>Data types<br />
+</li>
+<li>Vectors</li>
+</ol>
+</div>
+</div>
+<div id="exercise-2-review" class="slide section level1">
+<h1>Exercise 2 Review</h1>
+<div class="indented2 li-single">
+<ul class="incremental">
+<li><p><em>vectors</em> are R objects that contain multiple values of
+the same class</p></li>
+<li><p>Some functions that return
+vectors:<br/><tt>  c()<br/>  seq()<br/>  rnorm()<br/>  sample()</tt></p></li>
+<li><p>You can build vectors from scratch using:
+<strong><code>c()</code></strong></p></li>
+<li><p>Functions and operators that operate on each element of a vector
+and return another vector are said to be
+<em>vectorized</em><br/><br/><tt>  round(), abs()<br/>  + - *
+/</tt></p></li>
+<li><p>Functions that take multiple elements of a vector and spit out a
+single value are said to be <em>aggregate
+functions</em><br/><br/><tt>  sum(), min(), mean(), max()</tt></p></li>
+<li><p>You can <em>plot the distribution</em> of numeric data using
+plotting functions like:<br/><br/><tt>   hist(), boxplot(),
+plot()</tt></p></li>
+</ul>
+</div>
+<p><br />
+</p>
+</div>
+<div id="end" class="slide section level1">
+<h1>END!</h1>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>
