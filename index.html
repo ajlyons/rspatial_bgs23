@@ -245,6 +245,13 @@ h1 {
 p {
   font-size: 120%;
 }
+h1.section_head {
+  text-align: center; 
+  background-color: #ddd;
+  padding: 0.5em;
+  border-top: 4px solid gray;
+  border-bottom: 4px solid gray;
+}
 </style>
 <p style="font-size:150%;" onclick="showHide(&#39;vfelgf&#39;);return false;">
 BayGeo, Spring 2023
@@ -286,20 +293,14 @@ target="_blank">https://etherpad.wikimedia.org/p/rspatial-bgs23</a>
 <li class="notebook">
 <a href="notebooks.html" target="_blank" rel="noopener">R Notebooks</a>
 </li>
-<div class="hrleft">
-
-</div>
 <h1 id="part-1-the-basics" class="section_head">
 PART 1: THE BASICS
 </h1>
-<div class="hrleft">
-
-</div>
-<h1 id="feb-14-getting-started" class>
+<h1 id="feb-14-getting-started">
 Feb. 14. Getting Started
 </h1>
 <p style="font-size:100%;">
-6:00p - 8:00p. Getting to know RStudio, commands
+6:00p - 8:00p. Getting to know RStudio, commands, vectors
 </p>
 <li class="slides">
 <a target="_blank" class="slides" href="slides/intro.html">Introduction</a>
@@ -308,26 +309,40 @@ Feb. 14. Getting Started
 Workshop overview, resources, RStudio
 </p>
 <li class="slides">
-<a target="_blank" class="slides" href="slides/intro-r_01.html">Getting
+<a target="_blank" class="slides" href="slides/r-intro_01.html">Getting
 Started with R</a>
 </li>
 <p class="slides_desc">
-Getting to know Rstudio
+R vs RStudio, R as a fancy calculator
 </p>
 <div class="hrleft">
 
 </div>
-<h1 id="feb-16-packages-functions-data-frames-and-importing-data" class>
-Feb. 16. Packages, Functions, Data Frames, and Importing Data
+<h1 id="feb-16-plotting-packages-functions-and-importing-data">
+Feb. 16. Plotting, Packages, Functions, and Importing Data
 </h1>
 <p style="font-size:100%;">
-6:00p - 8:00p. Whats in a package, calling functions, importing tabular
-data
+6:00p - 8:00p. Plotting, whats in a package, calling functions,
+importing tabular data
+</p>
+<li class="slides">
+<a target="_blank" class="slides" href="slides/review-class01.html">Session
+1 Review</a>
+</li>
+<p class="slides_desc">
+Review of last time
+</p>
+<li class="slides">
+<a target="_blank" class="slides" href="slides/r-intro_02.html">Getting
+Started with R</a>
+</li>
+<p class="slides_desc">
+R vs RStudio, R as a fancy calculator
 </p>
 <div class="hrleft">
 
 </div>
-<h1 id="feb-21-wrangling-your-data" class>
+<h1 id="feb-21-wrangling-your-data">
 Feb. 21. Wrangling your Data
 </h1>
 <p style="font-size:100%;">
@@ -336,22 +351,16 @@ Feb. 21. Wrangling your Data
 <div class="hrleft">
 
 </div>
-<h1 id="feb-23-plotting-with-ggplot" class>
+<h1 id="feb-23-plotting-with-ggplot">
 Feb. 23. Plotting with ggplot
 </h1>
 <p style="font-size:100%;">
 6:00p - 8:00p. Making plots with ggplot
 </p>
-<div class="hrleft">
-
-</div>
 <h1 id="part-2-intermediate-skills" class="section_head">
 PART 2: INTERMEDIATE SKILLS
 </h1>
-<div class="hrleft">
-
-</div>
-<h1 id="feb-28-spatial-data-classses-and-importing-vector-data" class>
+<h1 id="feb-28-spatial-data-classses-and-importing-vector-data">
 Feb. 28. Spatial data classses and importing vector data
 </h1>
 <p style="font-size:100%;">
@@ -360,7 +369,7 @@ Feb. 28. Spatial data classses and importing vector data
 <div class="hrleft">
 
 </div>
-<h1 id="mar-2-spatial-data-manipulations-and-visualization" class>
+<h1 id="mar-2-spatial-data-manipulations-and-visualization">
 Mar. 2. Spatial Data Manipulations and Visualization
 </h1>
 <p style="font-size:100%;">
@@ -369,7 +378,7 @@ Mar. 2. Spatial Data Manipulations and Visualization
 <div class="hrleft">
 
 </div>
-<h1 id="mar-7-attribute-queries-automation-and-apis" class>
+<h1 id="mar-7-attribute-queries-automation-and-apis">
 Mar. 7. Attribute Queries, Automation, and APIs
 </h1>
 <p style="font-size:100%;">
@@ -378,7 +387,7 @@ Mar. 7. Attribute Queries, Automation, and APIs
 <div class="hrleft">
 
 </div>
-<h1 id="mar-9-geoprocessing--spatial-queries" class>
+<h1 id="mar-9-geoprocessing--spatial-queries">
 Mar. 9. Geoprocessing &amp; Spatial Queries
 </h1>
 <p style="font-size:100%;">
@@ -387,9 +396,43 @@ Mar. 9. Geoprocessing &amp; Spatial Queries
 <div class="hrleft">
 
 </div>
-<h1 id="bonus-content" class>
+<h1 id="bonus-content">
 Bonus Content
 </h1>
+<li class="slides">
+<a target="_blank" class="slides" href="slides/gis101.html">Foundational
+GIS Concepts</a>
+</li>
+<p class="slides_desc">
+Vector and Raster Data, Projections, Attribute Tables
+</p>
+<li class="slides">
+<a target="_blank" class="slides" href="slides/color.html">Working with
+Color</a>
+</li>
+<p class="slides_desc">
+Color models, color functions, RColorBrewer
+</p>
+<li class="slides">
+<a target="_blank" class="slides" href="slides/branches_loops.html">Automation
+and Batch Processing</a>
+</li>
+<p class="slides_desc">
+Automating tasks with branches and loops; vectorized functions
+</p>
+<li class="slides">
+<a target="_blank" class="slides" href="slides/custom-functions.html">Custom
+Functions</a>
+</li>
+<p class="slides_desc">
+Writing your own functions
+</p>
+<li class="slides">
+<a target="_blank" class="slides" href="slides/geocoding.html">Geocoding</a>
+</li>
+<p class="slides_desc">
+Geocoding with Google, ESRI World Geocoding Service, and OSM Nominatim
+</p>
 <div class="hrleft">
 
 </div>

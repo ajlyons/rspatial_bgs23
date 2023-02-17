@@ -10,6 +10,11 @@ class(shoe_color)
 shoe_size = 5
 class(shoe_size)
 
+## Make a date object
+
+## First, we tell Posit Cloud our preferred time zone
+Sys.setenv(TZ = "America/Los_Angeles")
+
 today = Sys.Date()
 today
 class(today)
@@ -152,33 +157,4 @@ var[ var >= 8 ]
 ## Return elements of var that are divisible by 3:
 
 var[var %% 3 == 0]
-
-#############################################
-## BASIC PLOTTING
-#############################################
-
-# Create vectors x and y
-
-x = rnorm(n = 5000, mean = 100, sd = 15)
-y = rnorm(n = 5000, mean = 100, sd = 5)
-
-# Start with a scatter plot:
-
-plot(x, y)
-
-# Histogram shows the spread of your data:
-
-hist(x)
-hist(y)
-
-# boxplot() accepts multiple vectors so you can compare the distributions side-by-side
-
-boxplot(x, y)
-
-# Let's make a circle!
-
-theta = seq(from = 0, to = 2 * pi, by = 0.15)
-x = cos(theta)
-y = sin(theta)
-plot(x, y, type = "b")
 

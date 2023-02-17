@@ -12,8 +12,9 @@ pkgs_req <- c("sf", "leaflet", "tmap", "tmaptools", "leaflet", "ggmap", "maptool
 
 ## Install missing ones
 if (length(pkgs_missing)) install.packages(pkgs_missing, dependencies=TRUE,
-                                           repos = c('https://cloud.r-project.org', 
+                                           repos = c(getOption("repos"), 
                                                      'https://ajlyons.r-universe.dev'))
+
 
 ## Re-run the check for missing packages
 pkgs_missing <- pkgs_req[!(pkgs_req %in% installed.packages()[,"Package"])]

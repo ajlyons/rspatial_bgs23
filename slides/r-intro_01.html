@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="Getting Started with RStudio  " />
+  <meta name="author" content="Getting Started with R &amp; RStudio  " />
   <meta name="copyright" content="<span class='footer-right'><a href='../acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href=' https://etherpad.wikimedia.org/p/rspatial-bgs23 ' target='_blank'>Forum</a></span><span class='footer-right'><a href=' https://ajlyons.github.io/rspatial_bgs23 '> https://ajlyons.github.io/rspatial_bgs23 </a></span><span class='footer-right'><a href='../index.html'>Home</a></span><span class='footer-subtitle'> Spatial Data Analysis with R </span>"/>
   <meta name="font-size-adjustment" content="2"/>
   <title>Spatial Data Analysis with R  BayGeo, Spring 2023</title>
@@ -220,6 +220,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
   <script src="lib/slidy-2/scripts/slidy.js"></script>
   <script src="lib/slidy_shiny-1/slidy_shiny.js"></script>
+  <script src="lib/clipboard-1.7.1/clipboard.min.js"></script>
+  <link href="lib/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+  <link href="lib/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+  <script src="lib/klippy-0.0.0.9500/js/klippy.min.js"></script>
   <script src="lib/kePrint-0.0.1/kePrint.js"></script>
   <link href="lib/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" media="screen, projection, print"
@@ -233,112 +237,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 with R </span><br/><span class="course-subtitle">BayGeo, Spring
 2023</span></h1>
   <p class="author">
-Getting Started with RStudio <br/><img src='images/blank_10x10.png'/>
+Getting Started with R &amp; RStudio
+<br/><img src='images/r_rstudio_400x120.png'/>
   </p>
 </div>
 <div class="slide section level1">
 
-<script type="text/javascript">
-w3c_slidy.mouse_click_enabled = false;
+<p><br />
+</p>
+<p><br />
+</p>
+<p><img src="./images/postit_bg-trans_with-note_320x320.png"
+style="display:block; margin:1em auto; border:none;" /></p>
+<script>
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
 </script>
-</div>
-<div id="about-me" class="slide section level1">
-<h1>About Me…</h1>
-<p><img src="images/anr_montage-wide_1120x520.png" /></p>
-</div>
-<div class="slide section level1">
-
-<p><img src="images/igis-team-2022_1160x650.png" /></p>
-</div>
-<div id="goal" class="slide section level1">
-<h1>Goal</h1>
-<p style="text-align:left; margin-left:2em; font-style:italic; font-size:140%; font-weight:bold; color:darkgreen;">
-Move in the direction of becoming functional with R!!
-</p>
-<p><br />
-</p>
-<h2 id="learning-strategy">Learning Strategy</h2>
-<div class="indented2">
-<p>1) Understand foundational terms and concepts</p>
-<p>2) Hands-on practice</p>
-<p>3) Discover RStudio’s bells and whistles</p>
-<p>4) Learn how to get help</p>
-</div>
-<p><br />
-</p>
-<h2 id="todays-focus">Today’s Focus</h2>
-<p><img src="intro-r_01_files/figure-slidy/unnamed-chunk-2-1.png" width="768" /></p>
-<h2 id="learning-tips">Learning Tips</h2>
-<div class="indented1">
-<p>1) Watch now, practice later</p>
-<p>2) Review what we cover within 24 hours</p>
-</div>
-<p><br />
-</p>
-</div>
-<div id="workshop-series" class="slide section level1">
-<h1>Workshop Series</h1>
-<table class="tbl_compact">
-<thead>
-<tr>
-<th style="text-align:left;">
-Date
-</th>
-<th style="text-align:left;">
-Session
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Oct. 11, 2022<br><span style="font-size:85%; font-style:italic;">3:30p -
-5:00p</span>
-</td>
-<td style="text-align:left;font-weight: bold;">
-Part 1. Getting Started
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Oct 12, 2022<br><span style="font-size:85%; font-style:italic;">3:30p -
-5:00p</span>
-</td>
-<td style="text-align:left;font-weight: bold;">
-Part 2. Packages, Piping, and Importing Data
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Oct 14, 2022<br><span style="font-size:85%; font-style:italic;">10:30a -
-12:00p</span>
-</td>
-<td style="text-align:left;font-weight: bold;">
-Part III. Data Wrangling
-</td>
-</tr>
-</tbody>
-</table>
-<p><br />
-</p>
-<p>See also <a
-href="https://igis.ucanr.edu/Training/Learn-R/"><strong>Getting Started
-with R</strong></a> resources.</p>
 </div>
 <div id="r-and-rstudio" class="slide section level1">
 <h1>R and RStudio</h1>
 <div class="shaded-box" style="width:60%;">
 <p><strong>Why is R So Popular?</strong></p>
 <ol style="list-style-type: decimal">
-<li><p>It’s free!</p></li>
-<li><p>Huge user community (especially academics)</p></li>
-<li><p>Thousands of add-ons (packages) that extend its
-capabilities</p></li>
-<li><p>Particularly strong in plotting and reporting</p></li>
-<li><p>Once you get over the initial hump, can work very
-efficiently</p></li>
-<li><p>Makes it easy to get your code “out there”</p></li>
-<li><p>Solid overall programming language</p></li>
+<li>It’s free!<br />
+</li>
+<li>Huge user community (especially academics)<br />
+</li>
+<li>Thousands of add-ons (packages) that extend its capabilities<br />
+</li>
+<li>Particularly strong in plotting and reporting<br />
+</li>
+<li>Once you get over the initial hump, can work very efficiently<br />
+</li>
+<li>Makes it easy to get your code “out there”<br />
+</li>
+<li>Solid overall programming language</li>
 </ol>
 </div>
 <p><br />
@@ -370,9 +302,8 @@ user-contributed packages:
 <li>a very popular tool (IDE) to work with both R software and R
 scripts</li>
 <li>Version 1.0 came out in late 2016</li>
+<li>has lots of convenience functions</li>
 <li>RStudio needs R to run, but you can use R without RStudio</li>
-<li><a href="https://rstudio.cloud/" target="_blank">RStudio Cloud</a> -
-run RStudio through a browser</li>
 </ul>
 </div>
 <div class="colclear">
@@ -415,8 +346,8 @@ class="slide section level1">
 </div>
 <p>RStudio Cloud project for this workshop:</p>
 <p style="font-family:monospace; font-size:110%; text-align:center;">
-<a href="https://posit.cloud/content/5055980"
-target="_blank">https://posit.cloud/content/5055980</a>
+<a href="https://posit.cloud/content/5424742"
+target="_blank">https://posit.cloud/content/5424742</a>
 </p>
 <p>After it opens:</p>
 <p><img src="images/rstudio-cloud_save-perm-copy_334x58.png"
@@ -635,15 +566,14 @@ style="margin-left:2em;" /></p>
 <p>Random number functions:</p>
 <div class="indented2 indented2r">
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">20</span>)</span></code></pre></div>
-<pre><code>##  [1] 0.907280587 0.714210178 0.777900194 0.107258231 0.986981922 0.882116949 0.404137474 0.738147054 0.944215749
-## [10] 0.259620987 0.775327984 0.660711781 0.011256170 0.427286497 0.708286450 0.003475125 0.001228885 0.764713824
-## [19] 0.831704653 0.354012528</code></pre>
+<pre><code>##  [1] 0.74185866 0.74685481 0.31511216 0.06785908 0.41491473 0.28153319 0.62411699 0.16335822 0.68631030 0.27043241
+## [11] 0.34698166 0.40761052 0.54661614 0.38739214 0.34255770 0.01538901 0.16655422 0.84734816 0.95053015 0.76270581</code></pre>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">20</span>)</span></code></pre></div>
-<pre><code>##  [1]  1.71230987  0.53667820 -0.54241254  0.07213631 -0.23530911 -0.29610771 -0.89140641  2.47276241 -2.04875568
-## [10] -1.58161213 -2.13444708 -1.13422394  0.32476110 -1.41797284 -0.16522278 -1.07853816 -1.43322898 -0.94901574
-## [19] -0.29623961  0.60145638</code></pre>
+<pre><code>##  [1] -1.092468547 -0.471622526  0.003170048 -0.615951315 -0.585221997 -0.747205853  1.943487594  0.168609846
+##  [9]  0.270966296  0.264527597 -0.163940124  1.124966648  0.740297543 -0.615552967  0.579864512  0.269292204
+## [17] -1.080301199 -0.397501536 -1.017383929 -0.727144264</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(month.abb, <span class="dv">3</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Feb&quot; &quot;Jul&quot; &quot;Aug&quot;</code></pre>
+<pre><code>## [1] &quot;Jun&quot; &quot;Oct&quot; &quot;Sep&quot;</code></pre>
 </div>
 </div>
 <div id="how-vectors-behave" class="slide section level1">
@@ -689,19 +619,19 @@ style="margin-left:2em;" /></p>
 <div class="indented2 indented2r">
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">runif</span>(<span class="dv">20</span>)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
-<pre><code>##  [1] 0.48399506 0.26434248 0.61992848 0.04060116 0.72778998 0.92868017 0.65462049 0.11255815 0.62856279 0.69265024
-## [11] 0.70428640 0.19325714 0.62480922 0.52943551 0.47454392 0.49210132 0.36064006 0.18796739 0.88284964 0.34539020</code></pre>
+<pre><code>##  [1] 0.8788835 0.8597933 0.3472457 0.7743088 0.1919139 0.1339613 0.9999325 0.5023212 0.2005917 0.8803992 0.2703954
+## [12] 0.2744124 0.5088402 0.2925651 0.1142206 0.6965266 0.4387099 0.3949986 0.4341258 0.4358250</code></pre>
 </div>
 <p><br />
 </p>
 <p>Most descriptive stats functions are aggregate:</p>
 <div class="indented2 indented2r">
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code></pre></div>
-<pre><code>## [1] 0.4974505</code></pre>
+<pre><code>## [1] 0.4814985</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(x)</span></code></pre></div>
-<pre><code>## [1] 0.5107684</code></pre>
+<pre><code>## [1] 0.4349754</code></pre>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(x)</span></code></pre></div>
-<pre><code>## [1] 0.2496997</code></pre>
+<pre><code>## [1] 0.274852</code></pre>
 </div>
 <p><br />
 </p>
@@ -759,70 +689,6 @@ values:</p>
 <p><br />
 </p>
 </div>
-<div id="plotting-vectors" class="slide section level1">
-<h1>Plotting Vectors</h1>
-<p>Base R has simple plotting functions you can use to view the
-distribution of data.</p>
-<p><br />
-</p>
-<h2 id="histograms">Histograms</h2>
-<p>To make a histogram, use <code>hist()</code>:</p>
-<div class="indented2 indented2r">
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>my_vals <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(my_vals)</span></code></pre></div>
-<p><img src="intro-r_01_files/figure-slidy/unnamed-chunk-23-1.png" width="768" /></p>
-</div>
-<p><br />
-</p>
-<h2 id="box-plots">Box Plots</h2>
-<p>Prefer a box plot?</p>
-<div class="indented2 indented2r">
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(my_vals)</span></code></pre></div>
-<p><img src="intro-r_01_files/figure-slidy/unnamed-chunk-24-1.png" width="768" /></p>
-</div>
-<p><br />
-</p>
-<h2 id="scatter-plots">Scatter Plots</h2>
-<p>The versatile <code>plot()</code> can be used to make a simple
-scatter plot:</p>
-<div class="indented2 indented2r">
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">20</span>))</span></code></pre></div>
-<p><img src="intro-r_01_files/figure-slidy/unnamed-chunk-25-1.png" width="768" /></p>
-</div>
-<p><br />
-</p>
-<h2 id="line-plots">Line Plots</h2>
-<div class="indented2 indented2r">
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">20</span>), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="intro-r_01_files/figure-slidy/unnamed-chunk-26-1.png" width="768" /></p>
-</div>
-<p><br />
-</p>
-</div>
-<div id="scripts" class="slide section level1">
-<h1>Scripts</h1>
-<p>Top five advantages of using scripts over the console:</p>
-<center>
-<ol reversed class="indented1 incremental" style="text-align:center; list-style-position:inside; font-size:130%; font-weight:bold;">
-<li style="color:#800080;">
-Easier to write (and fix!) your code
-</li>
-<li style="color:#f2b111;">
-You can add comments to remind yourself what each command is doing
-</li>
-<li style="color:#2167bb;">
-Reuse your own code
-</li>
-<li style="color:darkgreen;">
-You can add loops and if-then statements later on
-</li>
-<li style="color:crimson;">
-Tell your friends you’re a
-coder!<br/><br/><img src="images/lisa-simpson-coding_360x240x256.png" width="360" height="240"/>
-</li>
-</ol>
-</center>
-</div>
 <div id="exercise-2-working-with-scripts-and-vectors"
 class="slide section level1">
 <h1>Exercise 2: Working with Scripts and Vectors</h1>
@@ -861,9 +727,12 @@ plot()</tt></p></li>
 </div>
 <p><br />
 </p>
-</div>
-<div id="end" class="slide section level1">
-<h1>END!</h1>
+<p>
+<br/>
+<hr/>
+<strong>Next: </strong> <a href="review-class01.html">Session 1
+Review</a>
+</p>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->
