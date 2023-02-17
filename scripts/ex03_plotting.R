@@ -64,11 +64,11 @@ opar <- par(bg="#02233f", mar=c(0,0,0,0))
 plot(x=seq(-7,7,0.065), y=Vectorize(bm)(1:216, seq(-7,7,0.065)), col="#999900", type="l", lwd=3)
 par(opar)
 
+
 ## Challenge Question
 
 ## Recreate the plot in the following image:
+## https://ajlyons.github.io/rspatial_bgs23/slides/images/exercise3_plot.png
 
-plot(x=1:10, y=10:1, type = "b", xlab = "x", ylab = "y")
-
-
+## Answer: http://bit.ly/3KdRJGk
 
