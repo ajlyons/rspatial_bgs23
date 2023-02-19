@@ -73,8 +73,12 @@ letters[1:10]
 
 ## Q7. If you uncomment the following two lines and run them, you'll get an error. Fix it.
 
+```{r}
 # z = 1:5
 # z[TRUE,TRUE,FALSE,FALSE,TRUE]
+```
+
+\
 
 ```{r}
 z = 1:5

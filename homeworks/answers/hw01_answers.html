@@ -386,13 +386,13 @@ exactly 1000 elements.</h2>
 <div id="q3.-compute-the-mean-minimum-maximum-and-range-of-x." class="section level2">
 <h2>Q3. Compute the mean, minimum, maximum and range of x.</h2>
 <pre class="r"><code>mean(x)</code></pre>
-<pre><code>## [1] 0.03303838</code></pre>
+<pre><code>## [1] -0.002645567</code></pre>
 <pre class="r"><code>min(x)</code></pre>
-<pre><code>## [1] -3.132298</code></pre>
+<pre><code>## [1] -2.555199</code></pre>
 <pre class="r"><code>max(x)</code></pre>
-<pre><code>## [1] 3.405702</code></pre>
+<pre><code>## [1] 3.288334</code></pre>
 <pre class="r"><code>range(x)</code></pre>
-<pre><code>## [1] -3.132298  3.405702</code></pre>
+<pre><code>## [1] -2.555199  3.288334</code></pre>
 <p><br />
 </p>
 </div>
@@ -426,17 +426,16 @@ to ask Google for help.</h2>
 <div id="q7.-if-you-uncomment-the-following-two-lines-and-run-them-youll-get-an-error.-fix-it." class="section level2">
 <h2>Q7. If you uncomment the following two lines and run them, you’ll
 get an error. Fix it.</h2>
-</div>
-<div id="z-15" class="section level1">
-<h1>z = 1:5</h1>
-</div>
-<div id="ztruetruefalsefalsetrue" class="section level1">
-<h1>z[TRUE,TRUE,FALSE,FALSE,TRUE]</h1>
+<pre class="r"><code># z = 1:5
+# z[TRUE,TRUE,FALSE,FALSE,TRUE]</code></pre>
+<p><br />
+</p>
 <pre class="r"><code>z = 1:5
 z[c(TRUE,TRUE,FALSE,FALSE,TRUE)]</code></pre>
 <pre><code>## [1] 1 2 5</code></pre>
 <p><br />
 </p>
+</div>
 <div id="q8.-generate-50-random-numbers-using-a-function-like-runif-rnorm-or-sample.-save-the-results-to-a-object-called-rand_nums." class="section level2">
 <h2>Q8. Generate 50 random numbers using a function like
 <code>runif()</code>, <code>rnorm()</code>, or <code>sample()</code>.
@@ -467,7 +466,6 @@ are bigger than the average.</h2>
 rand_nums that are bigger than the average.</h2>
 <pre class="r"><code>sum(rand_nums &gt; 0.5690193)</code></pre>
 <pre><code>## [1] 21</code></pre>
-</div>
 </div>
 
 
