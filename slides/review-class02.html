@@ -141,11 +141,67 @@ Mostly to save time and increase interactivity, I decided to do a little quiz ra
 
 ------>
 </div>
+<div id="plotting" class="slide section level1">
+<h1>Plotting</h1>
+<p>“Base R” comes with some basic plot functions:<br/></p>
+<p><span style="display:block; margin-left:1em;">
+<code>hist(x)</code><br/> <code>boxplot(x)</code><br/>
+<code>plot(x, y)              ## scatterplot</code><br/>
+<code>plot(x, y, type = 'b')  ## 'b' = plot both points and lines</code>
+</span></p>
+<p>There are packages designing specifically for plotting (e.g.,
+<code>ggplot2</code>)</p>
+</div>
 <div id="packages" class="slide section level1">
 <h1>Packages</h1>
+<div class="indented2">
+<p><strong>packages</strong> are the key to productivity with R</p>
+<p>packages mainly provide additional <strong>functions</strong> (and
+sometimes <strong>data</strong>)</p>
+<p>key packages for geospatial data include
+<strong><code>sf</code></strong> and
+<strong><code>terra</code></strong></p>
+<p>the <strong><em>tidyverse</em></strong> is a family of packages that
+use <strong>piping syntax</strong></p>
+<p><strong>install</strong> packages from the ‘Packages’ pane in
+RStudio, or <code>install.packages()</code></p>
+<p><strong>load</strong> packages into memory with
+<strong><code>library()</code></strong></p>
+<p>to prevent clashes with duplicate function names, specify the package
+using the <code>pkgname::</code> prefix (e.g.,
+<code>dplyr::filter()</code>), or indicate your preferences using the
+<strong><code>conflicted</code></strong> package</p>
+</div>
 </div>
 <div id="functions" class="slide section level1">
 <h1>Functions</h1>
+<p><img src="./images/functions-using_880x350x256.png"
+style="display:block; margin:1em auto;" /></p>
+</div>
+<div id="piping-syntax" class="slide section level1">
+<h1>Piping Syntax</h1>
+<div class="indented2">
+<p><tt>fun_a() <strong>%&gt;%</strong> fun_b() <strong>%&gt;%</strong>
+fun_c() <strong>%&gt;%</strong> … </tt></p>
+<pre style="background-color:white; border:none;">
+iris %>% filter(Sepal.Length > 7) %>% mutate(width_length = Sepal.Width * Sepal.Length)
+<span style="color:DimGrey;">  │        │                             │
+  │        │                             └─ create a new column
+  │        │
+  │        ├─ select those rows where Sepal.Length > 7
+  │        └─ don't have to specify the data frame
+  │    
+  └ start with this data frame 
+</span></pre>
+</div>
+<div class="indented2" style="font-family:monospace">
+<p>ca_counties %&gt;%<br />
+  st_transform(4326) %&gt;%<br />
+  st_geometry() %&gt;%<br />
+  plot()</p>
+</div>
+<p><br />
+</p>
 </div>
 <div id="data-frames" class="slide section level1">
 <h1>Data Frames</h1>
@@ -183,31 +239,6 @@ rel="noopener">Base R cheatsheet</a></p></li>
 href="https://www.rforecology.com/uploads/The_essential_R_Cheatsheet_v1_0.pdf"
 target="_blank" rel="noopener">R for Ecology cheatsheet</a></p></li>
 </ul>
-</div>
-<div id="piping-syntax" class="slide section level1">
-<h1>Piping Syntax</h1>
-<div class="indented2">
-<p><tt>fun_a() <strong>%&gt;%</strong> fun_b() <strong>%&gt;%</strong>
-fun_c() <strong>%&gt;%</strong> … </tt></p>
-<pre style="background-color:white; border:none;">
-iris %>% filter(Sepal.Length > 7) %>% mutate(width_length = Sepal.Width * Sepal.Length)
-<span style="color:DimGrey;">  │        │                             │
-  │        │                             └─ create a new column
-  │        │
-  │        ├─ select those rows where Sepal.Length > 7
-  │        └─ don't have to specify the data frame
-  │    
-  └ start with this data frame 
-</span></pre>
-</div>
-<div class="indented2" style="font-family:monospace">
-<p>ca_counties %&gt;%<br />
-  st_transform(4326) %&gt;%<br />
-  st_geometry() %&gt;%<br />
-  plot()</p>
-</div>
-<p><br />
-</p>
 <p>
 <br/>
 <hr/>
