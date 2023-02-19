@@ -1,0 +1,128 @@
+---
+title: "Homework 2 - ANSWERS"
+author: "Spatial Analysis with R Part 1: The Basics"
+output: html_document
+---
+
+```{css echo = FALSE}
+h2 {
+  font-size:18px;
+  font-weight:bold;
+}
+h4.author {
+  font-weight:bold;
+  color:#666;
+  font-style:italic;
+}
+```
+
+\
+
+
+## Q1. Load the `maps` package into memory.
+
+```{r}
+library(maps)
+```
+
+\
+
+## Q2. The maps package comes with a dataset called `world.cities`. What kind of object is 'world.cities'?
+  
+```{r}
+class(world.cities)
+```
+
+\
+
+## Q3. How many rows and columns does `world.cities` have?
+
+```{r}
+dim(world.cities)
+```
+
+Or:
+
+```{r}
+nrow(world.cities)
+ncol(world.cities)
+```
+
+\
+
+## Q4. What is the original data source of world.cities? Hint: datasets have help pages too!
+
+```{r eval=FALSE}
+?world.cities
+```
+
+*"The data were originally obtained from Stefan Helders' website (http://www.world-gazetteer.com), which now redirects to http://www.populationmondiale.com."*
+
+\
+
+## Q5. What is the average population of the world cities?
+
+```{r}
+mean(world.cities$pop)
+```
+
+\
+
+## Q6. How many world cities have a population larger than 1,000,000?
+
+
+```{r}
+sum(world.cities$pop >= 1000000)
+```
+
+\
+
+## Q7. The maps package also has a dataset called `us.cities`, which includes columns for longitude and latitude. 
+Make a scatter plot of the longitude and latitude
+## coordinates.
+
+```{r}
+plot(us.cities$long, us.cities$lat, pch = 16, asp = 1, cex = 0.5)
+```
+
+\
+
+## Q8. Import the following CSV file as a data frame:
+## https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/main/notebooks/data/sf_libraries.csv
+## How many libraries are there in San Francisco?
+
+```{r}
+libraries <- read.csv("https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/main/notebooks/data/sf_libraries.csv")
+
+nrow(libraries)
+```
+
+\
+
+## Q09. Use `runif()` to generate 20 random numbers uniformly distributed between 100 and 200.
+
+```{r}
+runif(20, min = 100, max = 200)
+```
+
+\
+
+## Q10. Rewrite the following expression with pipes. You can use either the traditional pipe (`%>%`) from the magrittr package, or the more recent native pipe (`|>`).
+
+<p style="font-family:monospace; font-size:120%;">sum(round(rnorm(n = 200, mean = 50, sd = 5)))</p>
+
+\
+
+```{r}
+rnorm(n = 200, mean = 50, sd = 5) |> round() |> sum()
+```
+
+or
+
+```{r}
+library(magrittr)
+rnorm(n = 200, mean = 50, sd = 5) %>% round() %>% sum()
+```
+
+\
+
