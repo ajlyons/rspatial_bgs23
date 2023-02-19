@@ -1,5 +1,5 @@
 #############################################
-## BASIC PLOTTING
+## EXERCISE 03: Basic Plotting
 #############################################
 
 # Create vectors x and y

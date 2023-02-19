@@ -1,5 +1,5 @@
 ##################################################
-## Data Types
+## EXERCISE 02: Object classes, vectors
 ##################################################
 
 ## All R objects have a class

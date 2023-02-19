@@ -377,8 +377,8 @@ Yoda
 <p><strong>Cheatsheets!</strong></p>
 <div class="indented2 li-single">
 <ul>
-<li><a href="./extras/base-r.pdf" target="_blank" rel="noopener">Base R
-cheatsheet</a><br />
+<li><a href="../extras/base-r_cheatsheet.pdf" target="_blank"
+rel="noopener">Base R cheatsheet</a><br />
 </li>
 <li><a
 href="https://www.rforecology.com/uploads/The_essential_R_Cheatsheet_v1_0.pdf"
@@ -516,7 +516,7 @@ them <em>starting with the 2nd argument</em> (or use named
 arguments):</p>
 <div class="indented2 indented2r">
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## [1] 0.32 0.85 0.42 0.79 0.52</code></pre>
+<pre><code>## [1] 0.14 0.63 0.03 0.16 0.64</code></pre>
 </div>
 <p><br />
 </p>
@@ -530,13 +530,18 @@ where pipe values should go with a dot:</p>
 <p><br />
 </p>
 </div>
-<div id="exercise-4-packages-and-piping" class="slide section level1">
-<h1>Exercise 4: Packages and Piping</h1>
+<div id="exercise-4-packages-calling-functions-and-piping"
+class="slide section level1">
+<h1>Exercise 4: Packages, Calling Functions, and Piping</h1>
 <div class="shaded-box li-single" style="width:50%;">
 <p><em>Exercise 4 Topics</em></p>
 <ol style="list-style-type: decimal">
-<li>Installing packages</li>
-<li>Loading packages into memory with <code>library()</code></li>
+<li>Install a packages<br />
+</li>
+<li>Loading packages into memory with <code>library()</code><br />
+</li>
+<li>Calling functions with arguments<br />
+</li>
 <li>Piping syntax</li>
 </ol>
 </div>
@@ -713,54 +718,30 @@ your project.</p>
 <p><br />
 </p>
 </div>
-<div id="exercise-5-importing-data-and-working-with-data-frames"
+<div id="exercise-5-importing-csv-files-and-working-with-data-frames"
 class="slide section level1">
-<h1>Exercise 5: Importing Data and Working with Data Frames</h1>
+<h1>Exercise 5: Importing CSV Files and Working with Data Frames</h1>
 <div class="shaded-box li-single" style="width:50%;">
 <p><em>Exercise 5 Topics</em></p>
 <ol style="list-style-type: decimal">
+<li>import a csv</li>
 <li>create data frames from scratch<br />
 </li>
 <li>explore R’s built-in data frames<br />
 </li>
 <li>compute summary stats on individual columns<br />
 </li>
-<li>import a csv</li>
 <li>subset rows</li>
 <li>identify NA values</li>
 </ol>
 </div>
-</div>
-<div id="review-data-frames" class="slide section level1">
-<h1>Review: Data Frames</h1>
-<p>The most common class for storing tabular data in R is the
-<strong>data frame</strong></p>
-<p>View the first few rows of a data frame with
-<strong><code>head()</code></strong></p>
-<p>View an entire data frame with
-<strong><code>View()</code></strong></p>
-<p>Grab an individual column with <strong><code>$</code></strong></p>
-<!------
-
-Grab specific rows and columns with <span style='font-weight:bold; font-family:monospace;'>my_df[*rows-expression*, *cols-expression*]</span>
-
-<div class="indented2">
-where *rows-expression* and *cols-expression* are a vector of:
-  <div class="indented2">
-  integers  
-  logicals (TRUE / FALSE) (or an expression that returns a vector of logicals)
-  column names
-  </div>
-</div>
-
------->
 <p><br />
 </p>
 <p>
 <br/>
 <hr/>
-<strong>Next: </strong> <a href="gis101.html">Foundational GIS
-Concepts</a>
+<strong>Next: </strong> <a href="review-class02.html">Session 2
+Review</a>
 </p>
 </div>
 
