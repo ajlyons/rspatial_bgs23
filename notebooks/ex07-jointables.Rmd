@@ -1,0 +1,66 @@
+---
+title: "Exercise 6: Data Wrangling Pt 2"
+output: 
+  html_notebook:
+    toc: yes
+    toc_float: yes
+---
+
+# Join tables
+
+Import a dataset with some (fake) genetic information about Penguins:
+
+```{r chunk01}
+library(readr)
+genetics_tbl <- read_csv("./data/penguin_genetic_diversity.csv")
+genetics_tbl
+```
+
+\
+
+We can join these columns to the Palmer Penguins dataset:
+
+```{r chunk02}
+library(palmerpenguins)
+library(dplyr)
+
+penguins %>%
+  left_join(genetics_tbl, by = "species") %>% 
+  head()
+```
+
+# Reshape Data
+
+We begin by importing the January 2050 projected daily minimum and maximum temperature for Sacramento:
+
+```{r chunk03}
+sac_temps_tbl <- read_csv("./data/sacramento_daily_temp_jan2050.csv")
+sac_temps_tbl %>% head()
+```
+
+\
+
+Convert from a long to wide format:
+
+```{r chunk04}
+library(tidyr)
+
+sac_temps_tbl %>% 
+  pivot_wider(names_from = clim_var, values_from = temp_f) %>% 
+  head()
+```
+
+\
+
+# Compute Daily Temperature Rnage
+
+Compute the daily temperature range:
+
+```{r chunk05}
+sac_temps_tbl %>% 
+  pivot_wider(names_from = clim_var, values_from = temp_f) %>% 
+  mutate(diurnal_range_f = tasmax - tasmin) %>% 
+  head()
+```
+
+
