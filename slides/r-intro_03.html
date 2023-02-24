@@ -364,10 +364,10 @@ R.</p>
 <p>Part of the <a href="https://www.tidyverse.org"
 target="_blank">tidyverse</a>.</p>
 <p>Best way to familiarize yourself - explore the <a
-href="../extras/data-transformation.pdf" target="_blank">cheat
+href="../extras/data-transformation-1.pdf" target="_blank">cheat
 sheet</a>:</p>
 <p><a
-href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf"
+href="https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf"
 target="_blank" rel="noopener"><img
 src="./images/data-transformation-600x464.png"
 style="display:block; margin:1em auto; border:2px solid grey;" /></a></p>
@@ -465,14 +465,14 @@ group_by()
 <pre><code>## [1] 11859    13</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(storms)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 13
-##   name   year month   day  hour   lat  long status              category  wind pressure tropicalstorm_force_diameter hurrican…¹
-##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;ord&gt;    &lt;int&gt;    &lt;int&gt;                        &lt;int&gt;      &lt;int&gt;
-## 1 Amy    1975     6    27     0  27.5 -79   tropical depression -1          25     1013                           NA         NA
-## 2 Amy    1975     6    27     6  28.5 -79   tropical depression -1          25     1013                           NA         NA
-## 3 Amy    1975     6    27    12  29.5 -79   tropical depression -1          25     1013                           NA         NA
-## 4 Amy    1975     6    27    18  30.5 -79   tropical depression -1          25     1013                           NA         NA
-## 5 Amy    1975     6    28     0  31.5 -78.8 tropical depression -1          25     1012                           NA         NA
-## 6 Amy    1975     6    28     6  32.4 -78.7 tropical depression -1          25     1012                           NA         NA
+##   name   year month   day  hour   lat  long status              category  wind pressure tropicalstorm_force_diameter hurricane_f…¹
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;ord&gt;    &lt;int&gt;    &lt;int&gt;                        &lt;int&gt;         &lt;int&gt;
+## 1 Amy    1975     6    27     0  27.5 -79   tropical depression -1          25     1013                           NA            NA
+## 2 Amy    1975     6    27     6  28.5 -79   tropical depression -1          25     1013                           NA            NA
+## 3 Amy    1975     6    27    12  29.5 -79   tropical depression -1          25     1013                           NA            NA
+## 4 Amy    1975     6    27    18  30.5 -79   tropical depression -1          25     1013                           NA            NA
+## 5 Amy    1975     6    28     0  31.5 -78.8 tropical depression -1          25     1012                           NA            NA
+## 6 Amy    1975     6    28     6  32.4 -78.7 tropical depression -1          25     1012                           NA            NA
 ## # … with abbreviated variable name ¹​hurricane_force_diameter</code></pre>
 </div>
 <p><br />
@@ -505,7 +505,7 @@ column names in quotes</p>
 <h1>R Notebooks</h1>
 <p>R Notebooks are written in “R Markdown”, which combines text and R
 code.</p>
-<div style='position:relative; border:none; height:768px;width:960px; margin:0 auto; '>
+<div style='position:relative; border:none; height:768px;'>
 <img src="images/rnotebooks%20(1).png"/>
 <img src="images/rnotebooks%20(2).png" class="incremental stackme"/>
 <img src="images/rnotebooks%20(3).png" class="incremental stackme"/>
@@ -516,6 +516,8 @@ code.</p>
 <img src="images/rnotebooks%20(8).png" class="incremental stackme"/>
 <img src="images/rnotebooks%20(9).png" class="incremental stackme"/>
 </div>
+<p><br />
+</p>
 </div>
 <div id="exercise-5-wrangle-the-penguins" class="slide section level1">
 <h1>Exercise 5: Wrangle the Penguins</h1>

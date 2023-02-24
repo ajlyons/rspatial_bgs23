@@ -1,0 +1,134 @@
+---
+title: "Homework 3 - ANSWERS"
+author: "Spatial Analysis with R Part 1: The Basics"
+output: html_document
+---
+
+```{css echo = FALSE}
+h2 {
+  font-size:18px;
+  font-weight:bold;
+}
+h4.author {
+  font-weight:bold;
+  color:#666;
+  font-style:italic;
+}
+```
+
+## Setup
+
+First we load some data from the San Francisco Open Data Portal. Specifically, we'll import a selection of 311 calls from San Francisco ([more info](https://data.sfgov.org/resource/vw6y-z8j6)).
+
+```{r}
+## Define a URL to a CSV
+url1 <- "https://data.sfgov.org/resource/vw6y-z8j6.csv?$select=service_request_id,requested_datetime,agency_responsible,service_name,service_subtype,address,neighborhoods_sffind_boundaries,source&$limit=100&$where=requested_datetime between '2023-02-21T00:00:00' and '2023-02-21T23:59:59'"
+
+## Next, read in the data. (URLencode() removes spaces in the URL)
+df <- read.csv(URLencode(url1))
+
+## Finally, change the name of one of the columns
+library(dplyr)
+df <- df |> rename(neighborhood = neighborhoods_sffind_boundaries)
+```
+
+\
+
+If you'd like, uncomment the following line to view the data frame in a View pane:
+
+```{r}
+# View(df)
+```
+
+\
+
+## Q1. How many rows and how many columns does this data frame have?
+
+```{r}
+dim(df)
+```
+
+\
+
+## Q02. Write an expression that returns the column names of this data frame.
+
+*Hint*: Look for a function that returns the names of a data frame
+
+```{r}
+names(df)
+```
+
+\
+
+## Q03. Write an expression that returns the data frame sorted by the responsible agency.
+
+```{r}
+df |> arrange(agency_responsible) |> head()
+```
+
+\
+
+## Q04. Write an expression that just returns three of columns (of your choice).
+
+```{r}
+df |> select(service_name, service_subtype, source) |> head()
+```
+
+\
+
+## Q05. Write an expression that just returns 311 calls that were submitted by phone.
+ 
+```{r}
+df |> filter(source == 'Phone') |> head()
+```
+ 
+\
+
+## Q06. How many 311 calls were submitted by phone?
+
+```{r}
+df |> filter(source == 'Phone') |> nrow()
+```
+
+\
+
+## Q07. Write an expression that returns the number of calls per neighborhood, sorted *alphabetically by neighborhood*.
+
+```{r}
+df |> group_by(neighborhood) |> summarise(num_calls = n()) |> arrange(neighborhood)
+```
+
+\
+
+## Q08. Write an expression that returns the number of calls per neighborhood, sorted by the *number of calls*.
+
+```{r}
+df |> group_by(neighborhood) |> summarise(num_calls = n()) |> arrange(desc(num_calls)) 
+```
+
+\
+
+## Q09. What is the most common service requested?
+
+```{r}
+df |> group_by(service_name) |> summarize(num_recs = n()) |> arrange(desc(num_recs))
+```
+
+Or:
+
+```{r}
+df |> group_by(service_name) |> summarize(num_recs = n()) |> slice_max(num_recs, n = 1)
+```
+
+\
+
+## Q10. What is the least common service requested?
+
+```{r}
+df |> group_by(service_name) |> summarize(num_recs = n()) |> slice_min(num_recs, n = 1)
+```
+
+
+
+
+
