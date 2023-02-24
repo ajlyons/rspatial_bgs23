@@ -544,6 +544,12 @@ span.fakecode {
   line-height: 150%;
 }
 
+img.stackme {
+  position:absolute;
+  top:0;
+  left:0;
+}
+
 
 
 /* ======== No longer used ==============
