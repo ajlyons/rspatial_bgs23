@@ -431,7 +431,7 @@ li.bonus:after {
 /*   font-size: 120%;    */ 
 /* }                     */ 
 
-li.data, li.website, li.forum, li.setup, li.exercises, li.slides, li.script, li.acknowledgment, li.notebook {
+li.data, li.website, li.forum, li.setup, li.homeworks, li.exercises, li.slides, li.script, li.acknowledgment, li.notebook {
   margin-top: 1em;
   margin-left: 20px;
   list-style: none;
@@ -446,6 +446,12 @@ li.slides:before {
 }
 li.exercises:before {
   content: url(keyboard_24x24c.png);
+  text-decoration: none;
+  display: inline-block;
+  width: 28px;
+}
+li.homeworks:before {
+  content: url(homework_24x24.png);
   text-decoration: none;
   display: inline-block;
   width: 28px;
@@ -515,6 +521,11 @@ p.exercises_desc {
   font-style:italic;
   font-size:90%;
 }
+p.homeworks_desc {
+  margin-left: 52px;
+  font-style:italic;
+  font-size:90%;
+}
 
 .copyme {
   background-color:#e6fee6;
@@ -549,7 +560,10 @@ img.stackme {
   top:0;
   left:0;
 }
-
+span.answer_key {
+  font-size:90%;
+  font-style:italic;
+}
 
 
 /* ======== No longer used ==============

@@ -1,15 +1,37 @@
 ---
-title: "R Syntax Review"
+title: "Manipulating Columns with dplyr"
 output: html_notebook
 ---
 
-Manipulating Columns with dplyr
+Start by importing 311 call data from the San Francisco open data portal:
 
+1. We define the URL to a CSV
+
+```{r}
+url1 <- "https://data.sfgov.org/resource/vw6y-z8j6.csv?$select=service_request_id,requested_datetime,agency_responsible,service_name,service_subtype,address,neighborhoods_sffind_boundaries,source&$limit=100&$where=requested_datetime between '2023-02-21T00:00:00' and '2023-02-21T23:59:59'"
+```
+
+\
+
+Next, read in the data. (URLencode() removes spaces in the URL)
+
+```{r}
+df <- read.csv(URLencode(url1))
+```
+
+\
+
+Finally, change the name of one of the columns:
+
+```{r}
+library(dplyr)
+df <- df |> rename(neighborhood = neighborhoods_sffind_boundaries)
+```
 
 ## Add a column called "Selected" 
 
-## The service request id is an 8-digit integer. 
-## Write an expression  that returns the first four digits of the service request id.
+
+## The service request id is an 8-digit integer. Write an expression  that returns the first four digits of the service request id.
 
 
 df |> mutate(id_first_four = )
@@ -30,8 +52,6 @@ library(lubridate)
 "2023-02-21T00:04:21.000" |>  lubridate::ymd_hms()
 
 "2023-02-21T00:04:21.000" |>  lubridate::ymd_hms(tz = "America/Los_Angeles")
-
-
 
 df$requested_datetime[1] |> lubridate::ymd_hms()
 
