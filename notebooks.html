@@ -11,7 +11,7 @@
 
 
 
-<title> Spatial Data Analysis with R  Outline</title>
+<title>Spatial Data Analysis with R. BayGeo, Spring 2023 R Notebooks</title>
 
 <script src="slides/lib/header-attrs-2.19/header-attrs.js"></script>
 <script src="slides/lib/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -231,9 +231,10 @@ pre code {
 
 
 
-<h1 class="title toc-ignore"><a href='http://ccsfgis.org' target='_blank' rel='nooperner'><img src='images/gis-ed-center_logo_300x77.png' style='margin-bottom:0.5em;'/></a><br/><span
-class="course-title">Spatial Data Analysis with R<br/></span><br/><span
-class="mod-title">Outline</span></h1>
+<h1 class="title toc-ignore"><span class="course-subtitle">Spatial Data
+Analysis with R. <span style="font-size:75%; color:dimgray;">BayGeo,
+Spring 2023</span></span><br/><span class="mod-title">R
+Notebooks</span></h1>
 
 </div>
 
@@ -243,258 +244,99 @@ h1 {
   font-size: 130%;
 }
 p {
-  font-size: 120%;
+  font-size: 130%;
 }
-h1.section_head {
-  text-align: center; 
-  background-color: #ddd;
-  padding: 0.5em;
-  border-top: 4px solid gray;
-  border-bottom: 4px solid gray;
+td {
+  padding:5px 15px;
+  font-size: 130%;
+}
+tbody tr:nth-child(odd) {
+   background-color:#eee;
+}
+span.desc {
+  font-size:90%;
+  font-style:italic;
 }
 </style>
-<p style="font-size:150%;" onclick="showHide(&#39;vfelgf&#39;);return false;">
-BayGeo, Spring 2023
-</p>
-<div id="vfelgf" class="hint">
-<div
-style="font-size:140%; font-weight:normal; margin-left:0.5em; margin-right:0.5em;">
-<p>As we get going, please:<br />
-i) open the course website:<br/><tt><a
-href="https://ajlyons.github.io/rspatial_bgs23"
-class="uri">https://ajlyons.github.io/rspatial_bgs23</a></tt><br />
-<br />
-ii) introduce yourself on the community forum:<br/><tt><a
-href="https://etherpad.wikimedia.org/p/rspatial-bgs23"
-class="uri">https://etherpad.wikimedia.org/p/rspatial-bgs23</a></tt></p>
-</div>
-</div>
-<div class="hrleft">
-
-</div>
-<div id="workshop-materials" class="section level1">
-<h1>Workshop Materials</h1>
-<li class="website">
-Website: <span style="font-family:monospace;"><a
-href="https://ajlyons.github.io/rspatial_bgs23"
-target="_blank">https://ajlyons.github.io/rspatial_bgs23</a></span>
-</li>
-<li class="forum">
-Community Forum: <a
-href="https://etherpad.wikimedia.org/p/rspatial-bgs23"
-target="_blank">https://etherpad.wikimedia.org/p/rspatial-bgs23</a>
-</li>
-<li class="setup">
-<a href="setup.html" target="_blank">Setup</a>
-</li>
-<li class="data">
-<a href="datasets.html" target="_blank">Data files</a>
-</li>
-<li class="notebook">
-<a href="notebooks.html" target="_blank" rel="noopener">R Notebooks</a>
-</li>
-<h1 id="part-1-the-basics" class="section_head">
-PART 1: THE BASICS
-</h1>
-<h1 id="feb-14-getting-started">
-Feb. 14. Getting Started
-</h1>
-<p style="font-size:100%;">
-6:00p - 8:00p. Getting to know RStudio, commands, vectors
-</p>
-<li class="slides">
-<a target="_blank" class="slides" href="slides/intro.html">Introduction</a>
-</li>
-<p class="slides_desc">
-Workshop overview, resources, RStudio
-</p>
-<li class="slides">
-<a target="_blank" class="slides" href="slides/r-intro_01.html">Getting
-Started with R</a>
-</li>
-<p class="slides_desc">
-R vs RStudio, R as a fancy calculator
-</p>
-<li class="homeworks">
-<a target="_blank" class="homeworks" href="homeworks/hw01.R">Homework
-1</a> <span
-class="answer_key">(<a href='./homeworks/answers/hw01_answers.html' target='_blank'>solutions</a>)</span>
-</li>
-<p class="homeworks_desc">
-Create vectors, descriptive stats, subset vectors with square bracket
-notation
-</p>
-<div class="hrleft">
-
-</div>
-<h1 id="feb-16-plotting-packages-functions-and-importing-data">
-Feb. 16. Plotting, Packages, Functions, and Importing Data
-</h1>
-<p style="font-size:100%;">
-6:00p - 8:00p. Plotting, whats in a package, calling functions,
-importing tabular data
-</p>
-<li class="slides">
-<a target="_blank" class="slides" href="slides/review-class01.html">Session
-1 Review &amp; Plotting</a>
-</li>
-<p class="slides_desc">
-Review of last time
-</p>
-<li class="slides">
-<a target="_blank" class="slides" href="slides/r-intro_02.html">Packages,
-Functions, Data Frames, and Importing Data</a>
-</li>
-<p class="slides_desc">
-What’s in a package? Using functions, Importing CSV files as data frames
-</p>
-<li class="homeworks">
-<a target="_blank" class="homeworks" href="homeworks/hw02.R">Homework
-2</a> <span
-class="answer_key">(<a href='./homeworks/answers/hw02_answers.html' target='_blank'>solutions</a>)</span>
-</li>
-<p class="homeworks_desc">
-Explore buit-in data frames, make a scatterplot map, import a CSV file
-</p>
-<div class="hrleft">
-
-</div>
-<h1 id="feb-21-wrangling-your-data">
-Feb. 21. Wrangling your Data
-</h1>
-<p style="font-size:100%;">
-6:00p - 8:00p. Data wrangling with dplyr and tidyr, Notebooks
-</p>
-<li class="slides">
-<a target="_blank" class="slides" href="slides/review-class02.html">Session
-2 Review</a>
-</li>
-<p class="slides_desc">
-Review of last time
-</p>
-<li class="slides">
-<a target="_blank" class="slides" href="slides/r-intro_03.html">Data
-wrangling with dplyr</a>
-</li>
-<p class="slides_desc">
-Data frame methods, piping, dplyr, importing csv files
-</p>
-<li class="homeworks">
-<a target="_blank" class="homeworks" href="homeworks/hw03.R">Homework
-3</a> <span
-class="answer_key">(<a href='./homeworks/answers/hw03_answers.html' target='_blank'>solutions</a>)</span>
-</li>
-<p class="homeworks_desc">
-Mix and match functions from dplyr to perform specific data wrangling
-tasks
-</p>
-<div class="hrleft">
-
-</div>
-<h1 id="feb-23-plotting-with-ggplot">
-Feb. 23. Plotting with ggplot
-</h1>
-<p style="font-size:100%;">
-6:00p - 8:00p. Making plots with ggplot
-</p>
-<li class="slides">
-<a target="_blank" class="slides" href="slides/r-intro_04_ggplot.html">Plotting
-with ggplot</a>
-</li>
-<p class="slides_desc">
-More dplyr, lubridate, ggplot
-</p>
-<h1 id="part-2-intermediate-skills" class="section_head">
-PART 2: INTERMEDIATE SKILLS
-</h1>
-<h1 id="feb-28-spatial-data-classses-and-importing-vector-data">
-Feb. 28. Spatial data classses and importing vector data
-</h1>
-<p style="font-size:100%;">
-6:00p - 8:00p. Integrating R and GIS
-</p>
-<div class="hrleft">
-
-</div>
-<h1 id="mar-2-spatial-data-manipulations-and-visualization">
-Mar. 2. Spatial Data Manipulations and Visualization
-</h1>
-<p style="font-size:100%;">
-6:00p - 8:00p.
-</p>
-<div class="hrleft">
-
-</div>
-<h1 id="mar-7-attribute-queries-automation-and-apis">
-Mar. 7. Attribute Queries, Automation, and APIs
-</h1>
-<p style="font-size:100%;">
-6:00p - 8:00p.
-</p>
-<div class="hrleft">
-
-</div>
-<h1 id="mar-9-geoprocessing--spatial-queries">
-Mar. 9. Geoprocessing &amp; Spatial Queries
-</h1>
-<p style="font-size:100%;">
-6:00p - 8:00p.
-</p>
-<div class="hrleft">
-
-</div>
-<h1 id="bonus-content">
-Bonus Content
-</h1>
-<li class="slides">
-<a target="_blank" class="slides" href="slides/gis101.html">Foundational
-GIS Concepts</a>
-</li>
-<p class="slides_desc">
-Vector and Raster Data, Projections, Attribute Tables
-</p>
-<li class="slides">
-<a target="_blank" class="slides" href="slides/color.html">Working with
-Color</a>
-</li>
-<p class="slides_desc">
-Color models, color functions, RColorBrewer
-</p>
-<li class="slides">
-<a target="_blank" class="slides" href="slides/text-functions.html">Working
-with Text</a>
-</li>
-<p class="slides_desc">
-Text manipulation functions in R
-</p>
-<li class="slides bonus">
-<a target="_blank" class="slides" href="slides/socrata-api.html">Using
-the Socrata API</a>
-</li>
-<p class="slides_desc">
-Importing SF Data using the Socrata API
-</p>
-<div class="hrleft">
-
-</div>
-</div>
-<div id="other" class="section level1">
-<h1>Other</h1>
-<li class="website">
-<a href="resources.html" target="_blank" rel="noopener">Other
-Resources</a>
-</li>
-<li class="script">
-<a href="scripts/" target="_blank" rel="noopener">Sample Scripts</a>
-</li>
-<li class="acknowledgment">
-<a href="acknowledgements.html" target="_blank"
-rel="noopener">Acknowledgements</a>
-</li>
 <p><br />
-<br />
 </p>
-</div>
+<p>The following R Notebooks are available to practice the material
+covered in the workshop.</p>
+<p><br />
+</p>
+<table>
+<tr>
+<td>
+<ol style="list-style-type: decimal">
+<li><strong>Data Wrangling 1</strong><br/><span class="desc">Manipulate
+tables with dplyr</span>
+</td>
+<td>
+<a href="https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/master/notebooks/nb_datawrangling_01.Rmd" target="_blank" rel="noopener">Rmd</a>
+</td>
+<td>
+<a href="https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_datawrangling_01.nb.html" target="_blank" rel="noopener">HTML</a>
+</td>
+<td>
+<a href="https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_datawrangling_01_ans.nb.html" target="_blank" rel="noopener">Answers</a>
+</td>
+</tr>
+<tr>
+<td>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Data Wrangling 2</strong><br/><span class="desc">Join and
+reshape tables</span>
+</td>
+<td>
+<a href="https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/master/notebooks/nb_datawrangling_02.Rmd" target="_blank" rel="noopener">Rmd</a>
+</td>
+<td>
+<a href="https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_datawrangling_02.nb.html" target="_blank" rel="noopener">HTML</a>
+</td>
+<td>
+<a href="https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_datawrangling_02_ans.nb.html" target="_blank" rel="noopener">Answers</a>
+</td>
+</tr>
+<tr>
+<td>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Getting started with ggplot</strong><br/><span
+class="desc">Getting started with ggplot; use colors and shapes to
+differentiate groups of points; facets; boxplots; histograms</span>
+</td>
+<td>
+<a href="https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/master/notebooks/nb_ggplot-101.Rmd" target="_blank" rel="noopener">Rmd</a>
+</td>
+<td>
+<a href="https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_ggplot-101.nb.html" target="_blank" rel="noopener">HTML</a>
+</td>
+<td>
+<a href="https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_ggplot-101_ans.nb.html" target="_blank" rel="noopener">Answers</a>
+</td>
+</tr>
+<tr>
+<td>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Importing vector data</strong><br/><span class="desc">Import
+vector spatial data from a variety of file formats</span>
+</td>
+<td>
+<a href="https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/master/notebooks/nb_import-vector.Rmd" target="_blank" rel="noopener">Rmd</a>
+</td>
+<td>
+<a href="https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_import-vector.nb.html" target="_blank" rel="noopener">HTML</a>
+</td>
+<td>
+<a href="https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_import-vector_ans.nb.html" target="_blank" rel="noopener">Answers</a>
+</td>
+</tr>
+</table></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol>
+<p><br />
+</p>
 
 
 
