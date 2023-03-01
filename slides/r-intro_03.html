@@ -262,12 +262,12 @@ style="display:block; margin:1em auto; border:none;" /></p>
 </li>
 <li>dplyr<br />
 </li>
-<li>Exercise XXXX</li>
-<li>joining tables<br />
+<li><em>Notebook exercise: manipulating rows and columns</em></li>
+<li>Joining tables<br />
 </li>
-<li>reshaping tables<br />
+<li>Reshaping tables<br />
 </li>
-<li>Exercise XXXX</li>
+<li><em>Notebook exercise: join and reshape data frames</em></li>
 </ul>
 </div>
 </div>
@@ -279,12 +279,12 @@ for the function(s) you want to use for analysis and visualization.
 </p>
 <p><img src="./images/jello_sculpture_575x340.jpg"
 style="display:block; margin:1em auto; border:none;" /></p>
-<p style="font-style:italic;">
-AKA data munging, manipulation, transformation, etc.
+<p style="font-style:italic; text-align:center;">
+also called data munging, manipulation, transformation, etc.
 </p>
 <p>Often includes one or more of:</p>
 <div class="indented2 li-single">
-<ul>
+<ol style="list-style-type: decimal">
 <li>dropping columns<br />
 </li>
 <li>renaming columns<br />
@@ -306,7 +306,7 @@ AKA data munging, manipulation, transformation, etc.
 <li>splitting tables<br />
 </li>
 <li>aggregating rows into groups</li>
-</ul>
+</ol>
 </div>
 <p><br />
 </p>
@@ -349,11 +349,15 @@ src="./images/googlesheets4_140x121.png" style="margin-left:2em;" /></p>
 </div>
 <p><br />
 </p>
+<div class="centerblock">
 <p><a
 href="https://rawgit.com/rstudio/cheatsheets/master/data-import.pdf"
 target="_blank" rel="noopener"><img
 src="./images/data-import-cheatsheet_600x460x256.png"
-style="display:block; margin:1em auto; border:2px solid grey;" /></a></p>
+style="border:1px solid grey;" /></a></p>
+</div>
+<p><br />
+</p>
 </div>
 <div id="data-wrangling-with-dplyr" class="slide section level1">
 <h1>Data Wrangling with <code>dplyr</code></h1>
@@ -364,13 +368,15 @@ R.</p>
 <p>Part of the <a href="https://www.tidyverse.org"
 target="_blank">tidyverse</a>.</p>
 <p>Best way to familiarize yourself - explore the <a
-href="../extras/data-transformation-1.pdf" target="_blank">cheat
-sheet</a>:</p>
+href="https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf"
+target="_blank">cheat sheet</a>:</p>
+<div class="centerblock">
 <p><a
 href="https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf"
 target="_blank" rel="noopener"><img
 src="./images/data-transformation-600x464.png"
-style="display:block; margin:1em auto; border:2px solid grey;" /></a></p>
+style="border:1px solid grey;" /></a></p>
+</div>
 <p><br />
 </p>
 </div>
@@ -456,8 +462,8 @@ group_by()
 <p><br />
 </p>
 </div>
-<div id="example" class="slide section level1">
-<h1>Example</h1>
+<div id="dplyr-example" class="slide section level1">
+<h1><code>dplyr</code> Example</h1>
 <p>Look at the <em>storms</em> tibble:</p>
 <div class="indented2 indented2r">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -465,14 +471,15 @@ group_by()
 <pre><code>## [1] 11859    13</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(storms)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 13
-##   name   year month   day  hour   lat  long status              category  wind pressure tropicalstorm_force_diameter hurricane_force_diameter
-##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;ord&gt;    &lt;int&gt;    &lt;int&gt;                        &lt;int&gt;                    &lt;int&gt;
-## 1 Amy    1975     6    27     0  27.5 -79   tropical depression -1          25     1013                           NA                       NA
-## 2 Amy    1975     6    27     6  28.5 -79   tropical depression -1          25     1013                           NA                       NA
-## 3 Amy    1975     6    27    12  29.5 -79   tropical depression -1          25     1013                           NA                       NA
-## 4 Amy    1975     6    27    18  30.5 -79   tropical depression -1          25     1013                           NA                       NA
-## 5 Amy    1975     6    28     0  31.5 -78.8 tropical depression -1          25     1012                           NA                       NA
-## 6 Amy    1975     6    28     6  32.4 -78.7 tropical depression -1          25     1012                           NA                       NA</code></pre>
+##   name   year month   day  hour   lat  long status              category  wind pressure tropicalstorm_force_diameter hurricane_forc…¹
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;ord&gt;    &lt;int&gt;    &lt;int&gt;                        &lt;int&gt;            &lt;int&gt;
+## 1 Amy    1975     6    27     0  27.5 -79   tropical depression -1          25     1013                           NA               NA
+## 2 Amy    1975     6    27     6  28.5 -79   tropical depression -1          25     1013                           NA               NA
+## 3 Amy    1975     6    27    12  29.5 -79   tropical depression -1          25     1013                           NA               NA
+## 4 Amy    1975     6    27    18  30.5 -79   tropical depression -1          25     1013                           NA               NA
+## 5 Amy    1975     6    28     0  31.5 -78.8 tropical depression -1          25     1012                           NA               NA
+## 6 Amy    1975     6    28     6  32.4 -78.7 tropical depression -1          25     1012                           NA               NA
+## # … with abbreviated variable name ¹​hurricane_force_diameter</code></pre>
 </div>
 <p><br />
 </p>
@@ -520,19 +527,8 @@ code.</p>
 </div>
 <div id="exercise-5-wrangle-the-penguins" class="slide section level1">
 <h1>Exercise 5: Wrangle the Penguins</h1>
-<div style="width:320px; float:right; padding:2em; text-align:center;">
-<p><a href="https://allisonhorst.github.io/palmerpenguins/"
-target="_blank" rel="noopener"><img
-src="./images/palmer-penguins-logo_130x150.png" /></a></p>
-<p><img src="./images/penguiin-culmen-depth_310x200.png"
-style="display:block; margin:1em auto; border:none;" /></p>
-</div>
 <p>Exercises 5 will be <em>R Notebook</em>!</p>
-<p>We’ll be looking at the <a
-href="https://allisonhorst.github.io/palmerpenguins/" target="_blank"
-rel="noopener">Palmer Penguins</a> dataset.</p>
 <div class="shaded-box li-single" style="width:50%;">
-<p><em>Exercise 5 Topics</em></p>
 <ol style="list-style-type: decimal">
 <li>Importing messy data from Excel</li>
 <li>Subsetting columns</li>
@@ -542,9 +538,15 @@ rel="noopener">Palmer Penguins</a> dataset.</p>
 <li>Creating summaries</li>
 </ol>
 </div>
-<div style="clear:both;">
-
-</div>
+<h2 id="data">Data</h2>
+<p>We’ll be looking at the <a
+href="https://allisonhorst.github.io/palmerpenguins/" target="_blank"
+rel="noopener">Palmer Penguins</a> dataset.</p>
+<p><a href="https://allisonhorst.github.io/palmerpenguins/"
+target="_blank" rel="noopener"><img
+src="./images/palmer-penguins-logo_130x150.png" /></a> <img
+src="./images/penguiin-culmen-depth_310x200.png" /></p>
+<p><a href='https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/master/notebooks/nb_datawrangling_01.Rmd' target='_blank'>nb_datawrangling_01.Rmd</a></p>  <p style='font-size:80%;'><a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_datawrangling_01.nb.html' target='_blank' rel='noopener' style='color:#8993d3;'>preview notebook</a> | <a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_datawrangling_01_ans.nb.html' target='_blank' style='color:#8993d3;'>answer key</a></p>
 </div>
 <div id="break" class="slide section level1">
 <h1>Break!</h1>
@@ -671,8 +673,14 @@ style="display:block; margin:1em auto; border:1px solid grey;" /></a></p>
 <p><br />
 </p>
 </div>
-<div id="end" class="slide section level1">
-<h1>END!</h1>
+<div id="notebook-exercise" class="slide section level1">
+<h1>Notebook Exercise</h1>
+<p><a href='https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/master/notebooks/nb_datawrangling_02.Rmd' target='_blank'>nb_datawrangling_02.Rmd</a></p> <div class='nb_desc'>Join and reshape tables</div> <p style='font-size:80%;'><a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_datawrangling_02.nb.html' target='_blank' rel='noopener' style='color:#8993d3;'>preview notebook</a> | <a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_datawrangling_02_ans.nb.html' target='_blank' style='color:#8993d3;'>answer key</a></p>
+<p>
+<br/>
+<hr/>
+<strong>Next: </strong> <a href="hw03.html">Homework 3</a>
+</p>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->
