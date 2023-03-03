@@ -1,0 +1,863 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Common Manipulations for sf Objects  " />
+  <meta name="copyright" content="<span class='footer-right'><a href='../acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href=' https://etherpad.wikimedia.org/p/rspatial-bgs23 ' target='_blank'>Forum</a></span><span class='footer-right'><a href=' https://ajlyons.github.io/rspatial_bgs23 '> https://ajlyons.github.io/rspatial_bgs23 </a></span><span class='footer-right'><a href='../index.html'>Home</a></span><span class='footer-subtitle'> Spatial Data Analysis with R </span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Spatial Data Analysis with R  BayGeo, Spring 2023</title>
+  <style type="text/css">
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            pre > code.sourceCode { white-space: pre; position: relative; }
+            pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+            pre > code.sourceCode > span:empty { height: 1.2em; }
+            .sourceCode { overflow: visible; }
+            code.sourceCode > span { color: inherit; text-decoration: inherit; }
+            div.sourceCode { margin: 1em 0; }
+            pre.sourceCode { margin: 0; }
+            @media screen {
+            div.sourceCode { overflow: auto; }
+            }
+            @media print {
+            pre > code.sourceCode { white-space: pre-wrap; }
+            pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+            }
+            pre.numberSource code
+              { counter-reset: source-line 0; }
+            pre.numberSource code > span
+              { position: relative; left: -4em; counter-increment: source-line; }
+            pre.numberSource code > span > a:first-child::before
+              { content: counter(source-line);
+                position: relative; left: -1em; text-align: right; vertical-align: baseline;
+                border: none; display: inline-block;
+                -webkit-touch-callout: none; -webkit-user-select: none;
+                -khtml-user-select: none; -moz-user-select: none;
+                -ms-user-select: none; user-select: none;
+                padding: 0 4px; width: 4em;
+                color: #aaaaaa;
+              }
+            pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+            div.sourceCode
+              {   }
+            @media screen {
+            pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+            }
+            code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+            code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+            code span.at { color: #7d9029; } /* Attribute */
+            code span.bn { color: #40a070; } /* BaseN */
+            code span.bu { color: #008000; } /* BuiltIn */
+            code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+            code span.ch { color: #4070a0; } /* Char */
+            code span.cn { color: #880000; } /* Constant */
+            code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+            code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+            code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+            code span.dt { color: #902000; } /* DataType */
+            code span.dv { color: #40a070; } /* DecVal */
+            code span.er { color: #ff0000; font-weight: bold; } /* Error */
+            code span.ex { } /* Extension */
+            code span.fl { color: #40a070; } /* Float */
+            code span.fu { color: #06287e; } /* Function */
+            code span.im { color: #008000; font-weight: bold; } /* Import */
+            code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+            code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+            code span.op { color: #666666; } /* Operator */
+            code span.ot { color: #007020; } /* Other */
+            code span.pp { color: #bc7a00; } /* Preprocessor */
+            code span.sc { color: #4070a0; } /* SpecialChar */
+            code span.ss { color: #bb6688; } /* SpecialString */
+            code span.st { color: #4070a0; } /* String */
+            code span.va { color: #19177c; } /* Variable */
+            code span.vs { color: #4070a0; } /* VerbatimString */
+            code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+          </style>
+  <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <meta name="robots" content="noindex,nofollow"/>
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) {
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy");
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied")
+  }}
+  </script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163964617-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-163964617-1');
+  </script>
+  <script src="lib/header-attrs-2.19/header-attrs.js"></script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <script src="lib/slidy_shiny-1/slidy_shiny.js"></script>
+  <script src="lib/clipboard-1.7.1/clipboard.min.js"></script>
+  <link href="lib/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+  <link href="lib/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+  <script src="lib/klippy-0.0.0.9500/js/klippy.min.js"></script>
+  <script src="lib/kePrint-0.0.1/kePrint.js"></script>
+  <link href="lib/lightable-0.0.1/lightable.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="../css/slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<script type="text/javascript">w3c_slidy.mouse_click_enabled = false;</script>
+<div class="slide titlepage">
+  <h1 class="title"><span class="course-title">Spatial Data Analysis
+with R </span><br/><span class="course-subtitle">BayGeo, Spring
+2023</span></h1>
+  <p class="author">
+Common Manipulations for sf Objects
+<br/><img src='images/sf_200x200.gif'/>
+  </p>
+</div>
+<div id="simple-features" class="slide section level1">
+<h1>Simple Features</h1>
+<script>
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<p>simple features is an <a
+href="http://www.opengeospatial.org/standards/sfa" target="_blank">ISO
+standard</a> for storing and accessing spatial data. It is widely
+adopted in spatial databases, open source formats like GeoJSON, GIS
+software, tools, etc.</p>
+<p>sf employs a standard called “Well Known Text” (WKT) to encode the
+geometry. WKT is a very simple written representation of the
+‘connect-the-dots’ vector data model.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Geometry
+</th>
+<th style="text-align:left;">
+Sample WKT
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+point
+</td>
+<td style="text-align:left;width: 20em; font-family: monospace;">
+POINT (2 4)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+multipoint
+</td>
+<td style="text-align:left;width: 20em; font-family: monospace;">
+MULTIPOINT (2 2, 3 3, 3 2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+linestring
+</td>
+<td style="text-align:left;width: 20em; font-family: monospace;">
+LINESTRING (0 3, 1 4, 2 3)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+polygon
+</td>
+<td style="text-align:left;width: 20em; font-family: monospace;">
+POLYGON ((1 0, 3 4, 5 1, 1 0))
+</td>
+</tr>
+</tbody>
+</table>
+<div class="tryit">
+<p>Import the Yosemite points-of-interest Shapefile.</p>
+<div class="indented1 indented1r">
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Import the Yosemite Points-of-Interest Shapefile</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>yose_poi_utm <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn=</span><span class="st">&quot;./data&quot;</span>, <span class="at">layer=</span><span class="st">&quot;yose_poi&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## View column names in the attribute table</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(yose_poi_utm)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the points</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yose_poi_utm <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>(), <span class="at">pch=</span><span class="dv">16</span>, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">cex=</span><span class="fl">0.5</span>, <span class="at">axes=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Reading layer `yose_poi&#39; from data source `D:\Workshops\R-Spatial\rspatial_mod\outputs\rspatial_bgs23\notebooks\data&#39; using driver `ESRI Shapefile&#39;
+## Simple feature collection with 2720 features and 30 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 246416.2 ymin: 4153717 xmax: 301510.7 ymax: 4208419
+## Projected CRS: NAD83 / UTM zone 11N
+##  [1] &quot;OBJECTID&quot;   &quot;POINAME&quot;    &quot;POIALTNAME&quot; &quot;POILABEL&quot;   &quot;POIFEATTYP&quot; &quot;POITYPE&quot;    &quot;UNITCODE&quot;   &quot;UNITNAME&quot;   &quot;GROUPCODE&quot; 
+## [10] &quot;REGIONCODE&quot; &quot;ISEXTANT&quot;   &quot;MAPMETHOD&quot;  &quot;MAPSOURCE&quot;  &quot;SRCESCALE&quot;  &quot;SOURCEDATE&quot; &quot;XYERROR&quot;    &quot;LOCATIONID&quot; &quot;ASSETID&quot;   
+## [19] &quot;NOTES&quot;      &quot;DISTRIBUTE&quot; &quot;RESTRICTIO&quot; &quot;CREATEDATE&quot; &quot;CREATEUSER&quot; &quot;EDITDATE&quot;   &quot;EDITUSER&quot;   &quot;FEATUREID&quot;  &quot;GEOMETRYID&quot;
+## [28] &quot;PLACESID&quot;   &quot;GlobalID&quot;   &quot;TAGS&quot;       &quot;geometry&quot;</code></pre>
+<p><img src="sf-manip_files/figure-slidy/import_poi_klippy-1.png" width="768" /></p>
+<p>Take a closer look at the geometry column:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(yose_poi_utm<span class="sc">$</span>geometry)</span></code></pre></div>
+<pre><code>## [1] &quot;sfc_POINT&quot; &quot;sfc&quot;</code></pre>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(yose_poi_utm[, <span class="st">&quot;geometry&quot;</span>])</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 0 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 260859.4 ymin: 4153717 xmax: 270931.1 ymax: 4179771
+## Projected CRS: NAD83 / UTM zone 11N
+##                   geometry
+## 1 POINT (260859.4 4178493)
+## 2 POINT (264115.4 4158415)
+## 3 POINT (268276.8 4153717)
+## 4 POINT (268620.1 4178344)
+## 5 POINT (269052.6 4178870)
+## 6 POINT (270931.1 4179771)</code></pre>
+</div>
+</div>
+<!--- try it --->
+<div class="infobox">
+<p>The geometry column of a <tt>sf</tt> object does not have to be
+called ‘geometry’. You can view the column name by running <tt>attr(x,
+"sf_column")</tt> where <tt>x</tt> is a <tt>sf</tt> object.</p>
+<p>The features in a <tt>sf</tt> object can be a <strong>mix</strong> of
+points, lines, and polyons. The data class of the geometry column is
+therefore <tt>sfc</tt> (simple features collection).</p>
+<p><img src="images/simple_features_600x600.png" /></p>
+</div>
+</div>
+<div id="other-properties-of-sf-objects" class="slide section level1">
+<h1>Other properties of sf objects</h1>
+<p><strong>Bounding box</strong></p>
+<p>It’s often useful to view the metadata of a sf object. You can get
+the bounding box (aka extent) with
+<tt><strong>st_bbox()</strong></tt>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(yose_poi_utm)</span></code></pre></div>
+<pre><code>##      xmin      ymin      xmax      ymax 
+##  246416.2 4153717.3  301510.7 4208419.0</code></pre>
+<p><strong>Coordinates</strong></p>
+<p>To extract the coordinates of a sf object as a matrix, use
+<tt><strong>st_coordinates()</strong></tt>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(yose_poi_utm)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
+<pre><code>##          X       Y
+## 1 260859.4 4178493
+## 2 264115.4 4158415
+## 3 268276.8 4153717
+## 4 268620.1 4178344
+## 5 269052.6 4178870
+## 6 270931.1 4179771</code></pre>
+</div>
+<div id="projections" class="slide section level1">
+<h1>Projections</h1>
+<p>Projections are particularly important whenever you want to:</p>
+<div class="indented1">
+<ul>
+<li>overlay layers in a plot (most R packages do not reproject on the
+fly)</li>
+<li>use geometric measurements, like distance or area<br />
+</li>
+<li>do spatial queries or joins</li>
+</ul>
+</div>
+<div class="infobox">
+<p>The more generic term for projections as is Coordinate Reference
+System (<strong>CRS</strong>).</p>
+<p><strong>CRS</strong> also includes unprojected geographic coordinates
+(longitude &amp; latitude).</p>
+<p>A CRS has three parts:</p>
+<ol style="list-style-type: lower-roman">
+<li>a mathematical representation of the Earth (datum)<br />
+</li>
+<li>a 2D to 3D transformation model (projected CRS’s)</li>
+<li>an origin</li>
+</ol>
+</div>
+</div>
+<div id="crs-functions" class="slide section level1">
+<h1>CRS functions</h1>
+<p>All <tt><strong>sf</strong></tt> objects are able to store projection
+info.</p>
+<div class="indented1">
+<p><tt>st_read()</tt> <strong>imports</strong> the CRS info from
+standard GIS file formats</p>
+<p><tt>st_crs()</tt> <strong>creates</strong>, <strong>views</strong>,
+or <strong>assigns</strong> the CRS</p>
+<p><tt>st_transform()</tt> <strong>(re)projects</strong> sf objects into
+a different crs</p>
+</div>
+</div>
+<div id="using-established-crss" class="slide section level1">
+<h1>Using Established CRSs</h1>
+<p>The <tt>sf</tt> package uses the <em>PROJ.4</em> library for
+established CRS. It provides two ways to specify a known projection:</p>
+<div class="indented2">
+<ul>
+<li>EPSG numbers (recommended)</li>
+<li>proj4 strings</li>
+</ul>
+</div>
+<div class="infobox">
+<p>EPSG codes were developed by the European Petroluem Survey Group.</p>
+</div>
+<p>The following are equivalent:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(<span class="st">&quot;+init=epsg:3857&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(<span class="dv">3857</span>)</span></code></pre></div>
+<p>If you happen to know the proj4string, you can use it also</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(<span class="st">&quot;+proj=utm +zone=10 +ellps=GRS80 +datum=NAD83 +units=m +no_defs&quot;</span>)</span></code></pre></div>
+<pre><code>## Coordinate Reference System:
+##   User input: +proj=utm +zone=10 +ellps=GRS80 +datum=NAD83 +units=m +no_defs 
+##   wkt:
+## PROJCRS[&quot;unknown&quot;,
+##     BASEGEOGCRS[&quot;unknown&quot;,
+##         DATUM[&quot;North American Datum 1983&quot;,
+##             ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+##                 LENGTHUNIT[&quot;metre&quot;,1]],
+##             ID[&quot;EPSG&quot;,6269]],
+##         PRIMEM[&quot;Greenwich&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8901]]],
+##     CONVERSION[&quot;UTM zone 10N&quot;,
+##         METHOD[&quot;Transverse Mercator&quot;,
+##             ID[&quot;EPSG&quot;,9807]],
+##         PARAMETER[&quot;Latitude of natural origin&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8801]],
+##         PARAMETER[&quot;Longitude of natural origin&quot;,-123,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8802]],
+##         PARAMETER[&quot;Scale factor at natural origin&quot;,0.9996,
+##             SCALEUNIT[&quot;unity&quot;,1],
+##             ID[&quot;EPSG&quot;,8805]],
+##         PARAMETER[&quot;False easting&quot;,500000,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8806]],
+##         PARAMETER[&quot;False northing&quot;,0,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8807]],
+##         ID[&quot;EPSG&quot;,16010]],
+##     CS[Cartesian,2],
+##         AXIS[&quot;(E)&quot;,east,
+##             ORDER[1],
+##             LENGTHUNIT[&quot;metre&quot;,1,
+##                 ID[&quot;EPSG&quot;,9001]]],
+##         AXIS[&quot;(N)&quot;,north,
+##             ORDER[2],
+##             LENGTHUNIT[&quot;metre&quot;,1,
+##                 ID[&quot;EPSG&quot;,9001]]]]</code></pre>
+</div>
+<div id="common-epsg-numbers" class="slide section level1">
+<h1>Common EPSG Numbers</h1>
+<h2 id="geographic-crss">Geographic CRSs</h2>
+<div class="indented2">
+<p>4326. Geographic, WGS84 (default for lon/lat)<br />
+4269. Geographic, NAD83 (USA Fed agencies like Census)</p>
+</div>
+<h2 id="projected-crss">Projected CRSs</h2>
+<div class="indented2">
+<p>5070. USA Contiguous Albers Equal Area Conic<br />
+3310. CA ALbers Equal Area<br />
+32610. UTM Zone 10, WGS84 (Northern Cal)<br />
+32611. UTM Zone 11, WGS84 (Southern Cal)<br />
+3857. Web Mercator (web maps)</p>
+</div>
+<div class="infobox">
+<p>The one-stop shop for finding proj4 strings and epsg numbers is <a
+href="http://www.spatialreference.org"
+target="_blank">http://www.spatialreference.org</a>. (Google usually
+works also).</p>
+<p>Reference code for your convenience:</p>
+<div class="indented1 indented1-r">
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Some common epsg numbers in California</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>epsg_geo_wgs84 <span class="ot">&lt;-</span> <span class="dv">4326</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>epsg_geo_nad83 <span class="ot">&lt;-</span> <span class="dv">4269</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>epsg_utm10n_wgs84 <span class="ot">&lt;-</span> <span class="dv">32610</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>epsg_utm11n_wgs84 <span class="ot">&lt;-</span> <span class="dv">32611</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>epsg_utm10n_nad83 <span class="ot">&lt;-</span> <span class="dv">26910</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>epsg_utm11n_nad83 <span class="ot">&lt;-</span> <span class="dv">26911</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>epsg_webmerc <span class="ot">&lt;-</span> <span class="dv">3857</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>epsg_caalbers <span class="ot">&lt;-</span> <span class="dv">3310</span></span></code></pre></div>
+</div>
+<p>To view <em>all</em> EPSG codes (&gt;5,500), run
+<code>rgdal::make_EPSG()</code></p>
+<p>See also <a
+href="https://nrm.dfg.ca.gov/FileHandler.ashx?DocumentID=109326&amp;inline"
+target="_blank">Projection and Datum Guidelines for California</a>
+(CDFW)</p>
+</div>
+</div>
+<div id="view-or-assign-the-crs" class="slide section level1">
+<h1>View or Assign the CRS</h1>
+<p><strong>View the CRS</strong></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(yose_trails)</span></code></pre></div>
+<pre><code>## Coordinate Reference System:
+##   User input: NAD83 / UTM zone 11N 
+##   wkt:
+## PROJCRS[&quot;NAD83 / UTM zone 11N&quot;,
+##     BASEGEOGCRS[&quot;NAD83&quot;,
+##         DATUM[&quot;North American Datum 1983&quot;,
+##             ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+##                 LENGTHUNIT[&quot;metre&quot;,1]]],
+##         PRIMEM[&quot;Greenwich&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         ID[&quot;EPSG&quot;,4269]],
+##     CONVERSION[&quot;UTM zone 11N&quot;,
+##         METHOD[&quot;Transverse Mercator&quot;,
+##             ID[&quot;EPSG&quot;,9807]],
+##         PARAMETER[&quot;Latitude of natural origin&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8801]],
+##         PARAMETER[&quot;Longitude of natural origin&quot;,-117,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8802]],
+##         PARAMETER[&quot;Scale factor at natural origin&quot;,0.9996,
+##             SCALEUNIT[&quot;unity&quot;,1],
+##             ID[&quot;EPSG&quot;,8805]],
+##         PARAMETER[&quot;False easting&quot;,500000,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8806]],
+##         PARAMETER[&quot;False northing&quot;,0,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8807]]],
+##     CS[Cartesian,2],
+##         AXIS[&quot;(E)&quot;,east,
+##             ORDER[1],
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##         AXIS[&quot;(N)&quot;,north,
+##             ORDER[2],
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##     USAGE[
+##         SCOPE[&quot;unknown&quot;],
+##         AREA[&quot;North America - 120Â°W to 114Â°W and NAD83 by country&quot;],
+##         BBOX[30.88,-120,83.5,-114]],
+##     ID[&quot;EPSG&quot;,26911]]</code></pre>
+<p><strong>Set the CRS</strong></p>
+<p>Occasionally, you have a <tt>sf</tt> object that doesn’t have a CRS
+recorded. This is most common when you are importing a CSV file and are
+turning it into a <tt>sf</tt> object. In thse cases, you can use
+<tt>st_crs()</tt> to assign the CRS.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(my_gps_pts) <span class="ot">&lt;-</span> <span class="dv">4326</span></span></code></pre></div>
+<p>Note: this is <em>not</em> the same as projecting data. You’re simply
+telling it the CRS.</p>
+</div>
+<div id="projecting-data" class="slide section level1">
+<h1>Projecting Data</h1>
+<p>You can project data from one CRS to another with:</p>
+<p><tt><strong>st_transform(<em>sf_object</em>,
+<em>new_crs</em>)</strong></tt></p>
+<p>Let’s ‘unproject’ the Yosemite trails layer from UTM to geographic
+coordinates.</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## (Un)project the trails layer to geographic coordinates</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>yose_trails_ll <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(yose_trails, <span class="dv">4269</span>)</span></code></pre></div>
+<p>Now that the trails are in geographic coordinates, we can overlay
+them on the boundary and historical points.</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the trails, then overlay the historic points and park boundary</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yose_trails_ll <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>(), <span class="at">asp=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&quot;bisque3&quot;</span>, <span class="at">axes=</span>T, <span class="at">main=</span><span class="st">&quot;Yosemite National Park&quot;</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yose_hp <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>(), <span class="at">col=</span><span class="st">&quot;gray30&quot;</span>, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yose_bnd_ll <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>(), <span class="at">col=</span><span class="cn">NA</span>, <span class="at">border=</span><span class="st">&quot;chartreuse4&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">add=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="sf-manip_files/figure-slidy/plot_ynp_all_klippy-1.png" width="768" /></p>
+<div class="tip">
+<p>You can project one layer to match another without knowing the exact
+CRS. Just extract the CRS of the layer you’re trying to match with
+st_crs(), and use that as the second argument in st_transform().</p>
+<div class="indented1 indented1-r">
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>yose_trails_ll <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(yose_trails, <span class="fu">st_crs</span>(yose_bnd_ll))</span></code></pre></div>
+</div>
+</div>
+<div class="tryit">
+<p>Import the <a href="../datasets.html#yose_roads">Yosemite roads</a>
+and add those to your map. You may use the code below to get
+started.</p>
+<div class="indented1 indented1-r">
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the path to the geodatabase </span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>gdbroads_fn <span class="ot">&lt;-</span> <span class="st">&quot;./data/yose_roads.gdb&quot;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(gdbroads_fn)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Import the roads layer</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>yose_roads_utm <span class="ot">&lt;-</span> <span class="fu">st_read</span>(gdbroads_fn, <span class="at">layer=</span><span class="st">&quot;Yosemite_Roads&quot;</span>)</span></code></pre></div>
+</div>
+<p><span id="soln_zbpaxy" class="showhidesoln"
+onclick="showHide(&#39;zbpaxy&#39;);return false;">[Solution]</span></p>
+<div id="zbpaxy" class="hint">
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## (Un)project the roads layer to geographic coordinates</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>yose_roads_ll <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(yose_roads_utm, <span class="dv">4269</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot all four layers</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yose_trails_ll <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>(), <span class="at">asp=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&quot;bisque3&quot;</span>, <span class="at">axes=</span>T, <span class="at">main=</span><span class="st">&quot;Yosemite&quot;</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yose_roads_ll <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>(), <span class="at">col=</span><span class="st">&quot;navyblue&quot;</span>, <span class="at">lwd=</span><span class="dv">1</span>, <span class="at">lty=</span><span class="dv">5</span>, <span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yose_hp <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>(), <span class="at">col=</span><span class="st">&quot;gray30&quot;</span>, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yose_bnd_ll <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>(), <span class="at">col=</span><span class="cn">NA</span>, <span class="at">border=</span><span class="st">&quot;chartreuse4&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">add=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p><img src="sf-manip_files/figure-slidy/plot_ynp_roads_execute-1.png" width="768" /></p>
+</div>
+</div>
+</div>
+<div id="convert-plain-data-frames-to-sf-data-frames"
+class="slide section level1">
+<h1>Convert Plain Data Frames to sf Data Frames</h1>
+<p>To turn a data frame into a sf object, use</p>
+<p><tt><strong>st_as_sf(<em>df</em>, <em>coords</em>,
+<em>crs</em>)</strong></tt></p>
+<p>where:</p>
+<div class="indented1">
+<ul>
+<li><em>df</em> - the data frame<br />
+</li>
+<li><em>coords</em> - a character vector containing the names of the
+columns containing x and y coordinates<br />
+</li>
+<li><em>crs</em> - the coordinate reference system (an EPSG code or
+proj4 string)</li>
+</ul>
+</div>
+<h3 id="example-turn-the-quakes-data-frame-into-a-sf-object">Example:
+Turn the quakes Data Frame into a sf Object</h3>
+<p><code>quakes</code> is a dataframe that comes with R (in the datasets
+package). Here we turn it into a sf data frame.</p>
+<div class="indented1 indented1r">
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Make a sf object from the built-in &#39;quakes&#39; dataset</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(quakes)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>quakes_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(quakes, <span class="at">coords=</span><span class="fu">c</span>(<span class="st">&quot;long&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="at">crs=</span><span class="dv">4326</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(quakes_sf <span class="sc">%&gt;%</span> <span class="fu">st_geometry</span>(), <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##      lat   long depth mag stations
+## 1 -20.42 181.62   562 4.8       41
+## 2 -20.62 181.03   650 4.2       15
+## 3 -26.00 184.10    42 5.4       43
+## 4 -17.97 181.66   626 4.1       19
+## 5 -20.42 181.96   649 4.0       11
+## 6 -19.68 184.31   195 4.0       12</code></pre>
+<p><img src="sf-manip_files/figure-slidy/covert_quakes_klippy-1.png" width="768" /></p>
+</div>
+<div class="tip">
+<p>If you don’t know the datum for geographic coordinates, use WGS84
+(epsg 4326).</p>
+</div>
+</div>
+<div id="exporting-sf-objects-to-disk" class="slide section level1">
+<h1>Exporting sf objects to disk</h1>
+<p>You can export sf objects as Shapefiles and other formats using
+<tt><strong>st_write()</strong></tt></p>
+<p>If you name the output file with a standard extension (e.g., .shp,
+.kml), <tt>st_write()</tt> will know which format to use. Otherwise you
+have to add the <tt>driver</tt> argument.</p>
+<div class="indented1 indented1r">
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## For testing purposes, pull out fires from the 2000s</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>yose_fires20_pt <span class="ot">&lt;-</span> yose_fires_pt <span class="sc">|&gt;</span> <span class="fu">filter</span>(DECADE <span class="sc">==</span> <span class="dv">2000</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Export to Shapefile</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(yose_fires20_pt, </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">dsn=</span><span class="st">&quot;~yose_fires20s_pt.shp&quot;</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Export to GeoPackage</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(yose_fires20_pt, </span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">dsn=</span><span class="st">&quot;~yose_fires.gpkg&quot;</span>, </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">layer=</span><span class="st">&quot;yose_fires20s&quot;</span>)</span></code></pre></div>
+</div>
+<div class="tip">
+<p>By default, <tt>st_write()</tt> will throw an error if the output
+file already exists. To overwrite existing data (not recommended), add
+<tt>delete_dsn = TRUE</tt>.</p>
+</div>
+</div>
+<div id="notebook-time" class="slide section level1">
+<h1>Notebook Time!</h1>
+<p><a href='https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/master/notebooks/nb_sf-manip.Rmd' target='_blank'>nb_sf-manip.Rmd</a></p> <div class='nb_desc'>Convert a CSV file to a simple feature data frame, project it, and export as GeoJSON</div> <p style='font-size:80%;'><a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_sf-manip.nb.html' target='_blank' rel='noopener' style='color:#8993d3;'>preview notebook</a> | <a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_sf-manip_ans.nb.html' target='_blank' style='color:#8993d3;'>answer key</a></p>
+</div>
+<div id="repairing-geometries" class="slide section level1">
+<h1>Repairing Geometries</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Function
+</th>
+<th style="text-align:left;">
+Fix
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 16em; font-family: monospace;">
+tidyr::drop_na(geometry)
+</td>
+<td style="text-align:left;">
+drop rows where there geometry column contains NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 16em; font-family: monospace;">
+sf::st_zm()
+</td>
+<td style="text-align:left;">
+Drop Z and/or M dimensions from feature geometries
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 16em; font-family: monospace;">
+sf::st_is_valid()
+</td>
+<td style="text-align:left;">
+check if features have geometry problems
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 16em; font-family: monospace;">
+sf::st_make_valid()
+</td>
+<td style="text-align:left;">
+repair common geometry problems
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="converting-sf-sp" class="slide section level1">
+<h1>Converting sf ↔︎ sp</h1>
+<p>sf is relatively new, and many R packages still use the older data
+classes from the sp package.</p>
+<p>Fortunately it’s relatively easy to convert back and forth:</p>
+<p>
+<div class="indented2" style="width:5em; display:inline-block;">
+sp → sf
+</div>
+<div style="display:inline;">
+<tt>st_as_sf()</tt>
+</div>
+</p>
+<p>
+<div class="indented2" style="width:5em; display:inline-block;">
+sf → sp
+</div>
+<div style="display:inline;">
+<tt>as(x, “Spatial”)</tt>
+</div>
+</p>
+<h3 id="example-sp-sf">Example: sp → sf</h3>
+<div class="indented1 indented1r">
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get a sample sp object from the maptools package</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maptools)</span></code></pre></div>
+<pre><code>## Loading required package: sp</code></pre>
+<pre><code>## Checking rgeos availability: TRUE
+## Please note that &#39;maptools&#39; will be retired by the end of 2023,
+## plan transition at your earliest convenience;
+## some functionality will be moved to &#39;sp&#39;.</code></pre>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(wrld_simpl)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(wrld_simpl)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Convert sp to sf</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>wrld_simpl_sf <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(wrld_simpl)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(wrld_simpl_sf)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the sf object</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(wrld_simpl_sf[<span class="st">&quot;REGION&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;SpatialPolygonsDataFrame&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;sp&quot;
+## [1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
+<p><img src="sf-manip_files/figure-slidy/sp_to_sf_klippy-1.png" width="768" /></p>
+</div>
+<div class="infobox">
+<p>See also:</p>
+<div class="indented2">
+<ul>
+<li><a href="https://geocompx.org/post/2021/spatial-classes-conversion/"
+target="_blank" rel="noopener"><em>Conversions between different spatial
+classes in R</em></a>, by Jakub Nowosad &amp; Robin Lovelace</li>
+</ul>
+</div>
+</div>
+<!--- infobox --->
+</div>
+<div id="summary" class="slide section level1">
+<h1>Summary</h1>
+<p>Today we saw how to:</p>
+<div class="compact">
+<ul>
+<li>reference known CRSs with epsg numbers<br />
+</li>
+<li>view and assign projections to <tt>sf</tt> objects<br />
+</li>
+<li>(re)project sf objects with <tt>st_transform()</tt><br />
+</li>
+<li>export sf objects to standard GIS file formats<br />
+</li>
+<li>convert a <tt>sf</tt> object into a <tt>sp</tt> object and
+vice-versa<br />
+</li>
+<li>convert a plain data frame to a sf data frame with
+<code>st_as_Sf()</code></li>
+</ul>
+</div>
+<div class="infobox">
+<p>Additional Resources</p>
+<div class="indented1">
+<p><a href="https://r-spatial.github.io/sf/articles/sf1.html"
+target="_blank">sf package Vignette #1</a></p>
+<p><a href="https://geocompr.robinlovelace.net/reproj-geo-data.html"
+target="_blank">Geocomputation with R. Chapter 6: Reprojecting
+geographic data</a>, Robin Lovelace</p>
+<p><a href="https://geocompr.robinlovelace.net/read-write.html"
+target="_blank">Geocomputation with R. Chapter 7 Geographic data
+I/O</a>, Robin Lovelace</p>
+</div>
+</div>
+<p>
+<br/>
+<hr/>
+<strong>Next: </strong> <a href="tmap-leaflet.html">Visualization with
+tmap and leaflet</a>
+</p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

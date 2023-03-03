@@ -15,6 +15,8 @@ if (length(pkgs_missing)) install.packages(pkgs_missing, dependencies=TRUE,
                                            repos = c(getOption("repos"), 
                                                      'https://ajlyons.r-universe.dev'))
 
+## ESRI2SF (not critical)
+remotes::install_github("yonghah/esri2sf")
 
 ## Re-run the check for missing packages
 pkgs_missing <- pkgs_req[!(pkgs_req %in% installed.packages()[,"Package"])]
