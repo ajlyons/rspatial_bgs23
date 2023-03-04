@@ -1,0 +1,72 @@
+---
+title: "Homework 5 - ANSWERS"
+author: "Spatial Analysis with R Part 2"
+output: html_document
+---
+
+```{css echo = FALSE}
+h2 {
+  font-size:18px;
+  font-weight:bold;
+}
+h4.author {
+  font-weight:bold;
+  color:#666;
+  font-style:italic;
+}
+```
+
+## Q01. Import the Yosemite Watersheds
+
+Looking at the datasets page on the course website, we see that the Yosemite watersheds are stored in a GeoPackage. 
+
+Step 1 is to construct the path to the geopackage file. Here we'll use the here() function that returns the path to the RStudio project folder. 
+
+```{r}
+yose_water_fn <- here::here("./notebooks/data/yose_watersheds.gpkg")
+file.exists(yose_water_fn)
+```
+
+
+\
+
+Note: If you didn't open the RStudio project, `here()` won't work. In that case, you can enter your own path. For example:
+
+`yose_water_fn <- "c:/path/to/data/yose_watersheds.gpkg"`
+
+\
+
+Next, let's view the layers in this GeoPackage:
+
+```{r}
+library(sf)
+st_layers(yose_water_fn)
+```
+
+\
+
+Import `calw221`:
+
+```{r}
+yose_water_sf <- st_read(yose_water_fn, layer="calw221")
+```
+
+\
+
+## Q02. What coordinate reference system are the watersheds in?
+
+```{r}
+st_crs(yose_water_sf)
+```
+
+Answer: California Albers / NAD83
+
+\
+
+## Q03. Plot the watersheds
+
+```{r}
+plot(yose_water_sf$geom, axes = TRUE)
+```
+
+

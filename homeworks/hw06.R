@@ -1,6 +1,6 @@
 ##################################################
 ## HOMEWORK 6
-## Spatial Analysis with R Part 2: The Basics
+## Spatial Analysis with R Part 2
 ##
 ## Type your answer below each prompt.
 ##################################################
