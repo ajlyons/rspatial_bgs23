@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="Plotting with ggplot  " />
+  <meta name="author" content="Making maps with ggplot  " />
   <meta name="copyright" content="<span class='footer-right'><a href='../acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href=' https://etherpad.wikimedia.org/p/rspatial-bgs23 ' target='_blank'>Forum</a></span><span class='footer-right'><a href=' https://ajlyons.github.io/rspatial_bgs23 '> https://ajlyons.github.io/rspatial_bgs23 </a></span><span class='footer-right'><a href='../index.html'>Home</a></span><span class='footer-subtitle'> Spatial Data Analysis with R </span>"/>
   <meta name="font-size-adjustment" content="2"/>
   <title>Spatial Data Analysis with R  BayGeo, Spring 2023</title>
@@ -235,47 +235,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 with R </span><br/><span class="course-subtitle">BayGeo, Spring
 2023</span></h1>
   <p class="author">
-Plotting with ggplot
-<br/><img src='images/2d-data-munging_645x160.png'/>
+Making maps with ggplot
+<br/><img src='images/ggplot2-maps_540x220x256.png'/>
   </p>
-</div>
-<div class="slide section level1">
-
-<p><br />
-</p>
-<p><br />
-</p>
-<p><img src="./images/postit_bg-trans_with-note_320x320.png"
-style="display:block; margin:1em auto; border:none;" /></p>
-<script>
-  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
-</script>
-</div>
-<div id="ggplot-101" class="slide section level1">
-<h1>ggplot 101</h1>
-<p>Load Palmer Penguins data frame:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins)</span></code></pre></div>
-<pre><code>## # A tibble: 6 × 8
-##   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g sex     year
-##   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
-## 1 Adelie  Torgersen           39.1          18.7               181        3750 male    2007
-## 2 Adelie  Torgersen           39.5          17.4               186        3800 female  2007
-## 3 Adelie  Torgersen           40.3          18                 195        3250 female  2007
-## 4 Adelie  Torgersen           NA            NA                  NA          NA &lt;NA&gt;    2007
-## 5 Adelie  Torgersen           36.7          19.3               193        3450 female  2007
-## 6 Adelie  Torgersen           39.3          20.6               190        3650 male    2007</code></pre>
-<p><br />
-</p>
-<p>Use ggplot to make a scatter plot:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> bill_length_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Bill Length vs Flipper Length for 3 Species of Penguins&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 2 rows containing missing values (`geom_point()`).</code></pre>
-<p><img src="r-intro_04_ggplot_files/figure-slidy/ggplot_demo-1.png" width="768" /></p>
 </div>
 <div id="anatomy-of-a-ggplot" class="slide section level1">
 <h1>Anatomy of a ggplot</h1>
+<script>
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<style type="text/css">
+img.stackme {
+  position:absolute;
+  top:0;
+  left:0;
+}
+</style>
 <div style='position:relative; border:none; height:592px;'>
 <img src="images/ggplot_anatomy_001.png"/>
 <img src="images/ggplot_anatomy_002.png" class="incremental stackme"/>
@@ -285,116 +260,149 @@ style="display:block; margin:1em auto; border:none;" /></p>
 <img src="images/ggplot_anatomy_006.png" class="incremental stackme"/>
 <img src="images/ggplot_anatomy_007.png" class="incremental stackme"/>
 </div>
+<p><br />
+</p>
 </div>
-<div id="maping-columns-to-symbology-properties-with-aes"
+<div id="making-maps-with-ggplot" class="slide section level1">
+<h1>Making maps with ggplot</h1>
+<p>Making ggplots with geospatial data (i.e., maps) is not that
+different than regular ggplots.</p>
+<p>A few differences:</p>
+<div class="indented2 singlespace">
+<ul>
+<li>we use sf objects as the data source (must all be in the same
+CRS)<br />
+</li>
+<li>draw layers with <code>geom_sf()</code><br />
+</li>
+<li>most layers will be based on different spatial data, so in general
+there is no need to define data in the opening
+<code>ggplot()</code><br />
+</li>
+<li>order of the layers matters<br />
+</li>
+<li>the <code>ggspatial</code> package has functions you can use to add
+other map elements (e.g., scale bar)</li>
+</ul>
+</div>
+<p><br />
+</p>
+</div>
+<div id="geom_sf" class="slide section level1">
+<h1><code>geom_sf()</code></h1>
+<p>The magical powers of <code>geom_sf()</code>:</p>
+<div class="indented2 singlespace">
+<ul>
+<li>no need to define the columns for ‘x’ and ‘y’ in <code>aes()</code>,
+<code>geom_sf()</code> figures it out!<br />
+</li>
+<li><code>geom_sf()</code> will draw points, lines or polygons,
+depending on the feature type<br />
+</li>
+<li>Just like other geom functions, <code>geom_sf()</code> provides lots
+of options to customize the visual properties. Most of these can be
+mapped to attribute fields!<br />
+</li>
+</ul>
+</div>
+<div class="indented4 singlespace">
+<ul>
+<li>fill color<br />
+</li>
+<li>outline color<br />
+</li>
+<li>point size and shape<br />
+</li>
+<li>line color<br />
+</li>
+<li>etc.<br />
+</li>
+</ul>
+</div>
+<p><br />
+</p>
+</div>
+<div id="make-a-map-of-yosemite-fire-points"
 class="slide section level1">
-<h1>Maping Columns to Symbology Properties with <code>aes()</code></h1>
-<pre style="font-weight:normal;">
-ggplot(penguins, <strong>aes(x = flipper_length_mm , y = bill_length_mm , color = species)</strong>) +
-  geom_point() +
-  ggtitle("Bill Length vs Flipper Length for 3 Species of Penguins")
-</pre>
-<div class="indented1 singlespace">
-<ul>
-<li><code>aes()</code> sets the default source for each visual property
-(or aesthetic) of the plot layers
-<ul>
-<li>note you don’t need to put column names in quotes<br />
-</li>
-</ul></li>
-<li>some common visual properties:</li>
-</ul>
-<div class="indented2">
-<p><code>x</code> - where it falls along the x-axis<br />
-<code>y</code> - where it falls along the y-axis<br />
-<code>color</code><br />
-<code>fill</code><br />
-<code>size</code></p>
-</div>
-<ul>
-<li>which visual properties are needed depends on the
-<code>geom_xxxx()</code> functions you use<br />
-</li>
-<li>only put in <code>aes()</code> the visual properties you want linked
-to the data</li>
-</ul>
-</div>
-</div>
-<div id="geoms" class="slide section level1">
-<h1>Geoms</h1>
-<div class="indented1">
-<ul>
-<li><p><code>geom_xxxx()</code> functions add layers</p></li>
-<li><p>drawn from the bottom up</p></li>
-<li><p>some common geoms:</p></li>
-</ul>
-<div class="indented2 singlespace" style="font-family:monospace;">
-<ul>
-<li>geom_point()<br />
-</li>
-<li>geom_bar()<br />
-</li>
-<li>geom_boxplot()<br />
-</li>
-<li>geom_histogram()<br />
-</li>
-</ul>
-</div>
-<ul>
-<li>visual properties can be linked to a column in the data frame or
-manually specified</li>
-</ul>
-<div class="indented2" style="font-family:monospace;">
-<p>geom_point(col = pop_size)<br />
-geom_point(col = “red”)</p>
-</div>
-<ul>
-<li><p>visual properties are inherited (from
-<code>aes()</code>)</p></li>
-<li><p>each geom has default color palettes and legend settings</p></li>
-</ul>
+<h1>Make a map of Yosemite Fire Points</h1>
+<div class="indented1 indented1r">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>epsg_utm11n_nad83 <span class="ot">&lt;-</span> <span class="dv">26911</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>yose_bnd_utm <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="at">dsn=</span><span class="st">&quot;./data&quot;</span>, <span class="at">layer=</span><span class="st">&quot;yose_boundary&quot;</span>, <span class="at">quiet=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(epsg_utm11n_nad83)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> yose_bnd_utm)</span></code></pre></div>
+<p><img src="ggplot-maps_files/figure-slidy/ggplot_yose_bnd-1.png" width="768" /></p>
 </div>
 <p><br />
 </p>
-<h2 id="example">Example:</h2>
-<p>In the example below, note where <code>geom_boxplot()</code> gets its
-visual properties:</p>
-<div class="indented1 singlespace">
-<ul>
-<li><strong>x</strong> and <strong>y</strong> are linked to columns in
-the dataframe and inherited from <code>aes()</code><br />
-</li>
-<li><strong>color</strong>, <strong>fill</strong>, and
-<strong>size</strong> are manually specified</li>
-</ul>
+<p>You may notice, no matter what the CRS of the underlying data, the
+graticules (gridlines) are drawn in long-lat.</p>
+<p>To force the axes to use the projected map coordinates, add
+<code>coord_sf()</code>.</p>
+<div class="indented1 indented1r">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> yose_bnd_utm) <span class="sc">+</span> <span class="fu">coord_sf</span>(<span class="at">datum =</span> <span class="fu">st_crs</span>(yose_bnd_utm))</span></code></pre></div>
+<p><img src="ggplot-maps_files/figure-slidy/ggplot_yose_bnd_utm-1.png" width="768" /></p>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> bill_length_mm)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">&quot;navy&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 2 rows containing non-finite values (`stat_boxplot()`).</code></pre>
-<p><img src="r-intro_04_ggplot_files/figure-slidy/ggplot2-1.png" width="768" /></p>
 <p><br />
 </p>
-<h2 id="adding-visual-elements-to-a-plot">Adding visual elements to a
-plot</h2>
-<p><code>geom_xxxx()</code> functions can also be used to add other
-graphic elements:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> bill_length_mm)) <span class="sc">+</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">&quot;navy&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">43.9</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">y =</span> <span class="dv">58</span>, <span class="at">label =</span> <span class="st">&quot;Gentoo penguins </span><span class="sc">\n</span><span class="st"> are just the best!&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 2 rows containing non-finite values (`stat_boxplot()`).</code></pre>
-<p><img src="r-intro_04_ggplot_files/figure-slidy/ggplot3-1.png" width="768" /></p>
+<p>Next, we add fire ignition points:</p>
+<div class="indented1 indented1r">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>yose_firehist_pts_utm <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="st">&quot;./data/yose_firehistory.gdb&quot;</span>, <span class="st">&quot;YNP_FireHistoryPoints&quot;</span>, <span class="at">quiet=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> yose_bnd_utm) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> yose_firehist_pts_utm)</span></code></pre></div>
+<p><img src="ggplot-maps_files/figure-slidy/ggplot_yose_firepts-1.png" width="768" /></p>
+</div>
+<p><br />
+</p>
+<p>Modify the visual properties:</p>
+<div class="indented1 indented1r">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> yose_bnd_utm, <span class="at">fill =</span> <span class="st">&quot;#5ab676&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> yose_firehist_pts_utm, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span><span class="fl">0.4</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Fire Ignition Points in YNP&quot;</span>)</span></code></pre></div>
+<p><img src="ggplot-maps_files/figure-slidy/ggplot_yose_firepts2-1.png" width="768" /></p>
+</div>
+<p><br />
+</p>
+<div class="tip">
+<p>To use a different point symbol, set the <code>pch</code> (plot
+character) property to one of the following:</p>
+<p><img src="./images/points-symbols_400x400x256.png"
+style="border:1px solid gray; margin-left:2em; padding:1em;" /></p>
+<p>See also the <a
+href="https://cran.r-project.org/web/packages/ggstar/"><code>ggstar</code></a>
+package, which provides about 30 additional shapes for point
+features.</p>
+</div>
 <p><br />
 </p>
 </div>
-<div id="notebook-exercise" class="slide section level1">
-<h1>Notebook Exercise</h1>
-<p><a href='https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/master/notebooks/nb_ggplot-101.Rmd' target='_blank'>nb_ggplot-101.Rmd</a></p> <div class='nb_desc'>Getting started with ggplot; use colors and shapes to differentiate groups of points; facets; boxplots; histograms</div> <p style='font-size:80%;'><a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_ggplot-101.nb.html' target='_blank' rel='noopener' style='color:#8993d3;'>preview notebook</a> | <a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_ggplot-101_ans.nb.html' target='_blank' style='color:#8993d3;'>answer key</a></p>
+<div id="facet-maps" class="slide section level1">
+<h1>Facet Maps</h1>
+<p>Here we add <code>facet_grid()</code> to create a separate plot for
+each fire cause (which is saved in the <code>CAUSE</code> column):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>yose_firehist_pts_utm<span class="sc">$</span>CAUSE <span class="sc">|&gt;</span> <span class="fu">table</span>()</span></code></pre></div>
+<pre><code>## 
+##   HC  LTG   MI 
+##  829 3355  248</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> yose_bnd_utm, <span class="at">fill =</span> <span class="st">&quot;#5ab676&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> yose_firehist_pts_utm, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span><span class="fl">0.4</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> CAUSE) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>((<span class="st">&quot;Fire Ignition Points by Cause&quot;</span>))</span></code></pre></div>
+<p><img
+src="ggplot-maps_files/figure-slidy/ggplot_yose_firepts_facets1-1.png" /><!-- --></p>
+</div>
+<div id="notebook-time" class="slide section level1">
+<h1>Notebook time!</h1>
+<p><a href='https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/master/notebooks/nb_ggplot-maps.Rmd' target='_blank'>nb_ggplot-maps.Rmd</a></p> <div class='nb_desc'>Make maps with ggplot; define a custom extent; add basemaps; use icons for point symbols; create contour maps; heat maps</div> <p style='font-size:80%;'><a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_ggplot-maps.nb.html' target='_blank' rel='noopener' style='color:#8993d3;'>preview notebook</a> | <a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_ggplot-maps_ans.nb.html' target='_blank' style='color:#8993d3;'>answer key</a></p>
 <p>
 <br/>
 <hr/>
-<strong>Next: </strong> <a href="rgis-integration.html">Integrating R
-&amp; GIS</a>
+<strong>Next: </strong> <a href="r-arcgis.html">Connecting R &amp;
+ArcGIS</a>
 </p>
 </div>
 

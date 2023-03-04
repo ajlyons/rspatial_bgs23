@@ -28,7 +28,7 @@ Let's reduce the number of columns:
 ```{r chunk02}
 library(dplyr)
 
-miss_pips_thin_df <- miss_pips_df %>% 
+miss_pips_thin_df <- miss_pips_df |> 
   select(Long, Lat, Type, CaseNumber, IncidYear, ContactMet, IncidType, NumberofSu, GroupDynam, 
          SubjectCat, SubSex, SubAge, IncidContr, Scenario, RescueMeth, Incident_N, Found_GR_N)
 

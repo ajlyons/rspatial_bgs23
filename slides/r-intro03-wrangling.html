@@ -471,15 +471,15 @@ group_by()
 <pre><code>## [1] 11859    13</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(storms)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 13
-##   name   year month   day  hour   lat  long status              category  wind pressure tropicalstorm_force_diameter hurricane_forc…¹
-##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;ord&gt;    &lt;int&gt;    &lt;int&gt;                        &lt;int&gt;            &lt;int&gt;
-## 1 Amy    1975     6    27     0  27.5 -79   tropical depression -1          25     1013                           NA               NA
-## 2 Amy    1975     6    27     6  28.5 -79   tropical depression -1          25     1013                           NA               NA
-## 3 Amy    1975     6    27    12  29.5 -79   tropical depression -1          25     1013                           NA               NA
-## 4 Amy    1975     6    27    18  30.5 -79   tropical depression -1          25     1013                           NA               NA
-## 5 Amy    1975     6    28     0  31.5 -78.8 tropical depression -1          25     1012                           NA               NA
-## 6 Amy    1975     6    28     6  32.4 -78.7 tropical depression -1          25     1012                           NA               NA
-## # … with abbreviated variable name ¹​hurricane_force_diameter</code></pre>
+##   name   year month   day  hour   lat  long status              category  wind pressure tropicalstorm_force_dia…¹ hurri…²
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;ord&gt;    &lt;int&gt;    &lt;int&gt;                     &lt;int&gt;   &lt;int&gt;
+## 1 Amy    1975     6    27     0  27.5 -79   tropical depression -1          25     1013                        NA      NA
+## 2 Amy    1975     6    27     6  28.5 -79   tropical depression -1          25     1013                        NA      NA
+## 3 Amy    1975     6    27    12  29.5 -79   tropical depression -1          25     1013                        NA      NA
+## 4 Amy    1975     6    27    18  30.5 -79   tropical depression -1          25     1013                        NA      NA
+## 5 Amy    1975     6    28     0  31.5 -78.8 tropical depression -1          25     1012                        NA      NA
+## 6 Amy    1975     6    28     6  32.4 -78.7 tropical depression -1          25     1012                        NA      NA
+## # … with abbreviated variable names ¹​tropicalstorm_force_diameter, ²​hurricane_force_diameter</code></pre>
 </div>
 <p><br />
 </p>

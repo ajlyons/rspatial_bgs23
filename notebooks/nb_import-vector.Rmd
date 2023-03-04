@@ -90,7 +90,7 @@ To plot just the geometry of a sf object (i.e., no symbology from the attribute 
 
 ```{r chunk08}
 ## Plot the geometry (outline) of the Yosemite boundary
-plot(yose_bnd_ll %>% st_geometry(), asp=1)
+plot(yose_bnd_ll |> st_geometry(), asp=1)
 ```
 
 \
@@ -157,8 +157,8 @@ Remember to overlay more than one layer on a plot:
 
 ```{r chunk15}
 ## Plot the boundary, then the historic places
-{plot(yose_bnd_ll %>% st_geometry(), asp=1)
-plot(yose_hp_ll %>% st_geometry(), add=TRUE)}
+{plot(yose_bnd_ll |> st_geometry(), asp=1)
+plot(yose_hp_ll |> st_geometry(), add=TRUE)}
 ```
 
 ## Import a GeoJSON file
@@ -237,8 +237,8 @@ The following code does **not** work to make a plot of the park boundary and the
 
 
 ```{r chunk24}
-{plot(yose_bnd_ll %>% st_geometry())
-plot(yose_trails %>% st_geometry(), add=TRUE)}
+{plot(yose_bnd_ll |> st_geometry())
+plot(yose_trails |> st_geometry(), add=TRUE)}
 ```
 
 ## Import from a GeoPackage
@@ -269,32 +269,6 @@ What CRS are the Yosemite watersheds in? [Answer](http://bit.ly/38XePO7)
 
 ```{r chunk27}
 
-```
-
-\
-
-## Import a CSV file
-
-Import a CSV file containing missing persons records. Step 1 is to import it as a data frame:
-
-```{r chunk28}
-## Import missing people csv file
-missing_df <- read.csv("./data/yosemite_missing_people.csv", stringsAsFactors = FALSE)
-tibble::glimpse(missing_df)
-```
-
-Step 2 is to convert it to a sf data frame. We can surmise from the column names that the coordinates are geographic. We don't know precisely which datum, but passing crs=4326 (WGS84) will be close enough.
-
-```{r chunk29}
-## Convert to sf and plot
-yose_missing_ll <- st_as_sf(missing_df, coords=c("Long", "Lat"), crs=4326)
-```
-
-Plot to make sure:
-
-```{r chunk 30}
-{plot(yose_bnd_ll %>% st_geometry(), col=NA, border="chartreuse4", lwd=3, main = "Missing Persons!")
-plot(yose_missing_ll %>% st_geometry(), pch=16, cex=0.5, add=TRUE)}
 ```
 
 \
