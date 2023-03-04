@@ -1,0 +1,160 @@
+---
+title: "Homework 4 - ANSWERS"
+author: "Spatial Analysis with R Part 2"
+output: html_document
+---
+
+```{css echo = FALSE}
+h2 {
+  font-size:18px;
+  font-weight:bold;
+}
+h4.author {
+  font-weight:bold;
+  color:#666;
+  font-style:italic;
+}
+```
+
+## Introduction
+
+The end goal of this homework is to produce a map of San Francisco libraries overlaid on top of San Francisco neighborhoods. The final product should look something like:
+
+![](https://github.com/ajlyons/rspatial_bgs23/blob/main/homeworks/images/hw05_map.png)
+
+
+## Q1. Import the SF neighborhoods boundaries from [DataSF](https://data.sfgov.org){target="_blank" rel="noopener"}.
+
+You can use the following Neighborhood boundaries GeoJSON file from DataSF: <https://data.sfgov.org/resource/ajp5-b2md.geojson>. More info on SF Neighborhoods: <https://data.sfgov.org/dataset/Neighborhoods-Analysis-Boundaries/ajp5-b2md>. [Answer](http://bit.ly/3IHQsoM)
+
+```{r}
+library(sf)
+sfnb_url <- "https://data.sfgov.org/resource/ajp5-b2md.geojson"
+sfnb_sf <- st_read(sfnb_url)
+```
+
+\
+
+## Q2. How many neighborhoods are there?
+
+[Answer](http://bit.ly/3EWBxpF)
+
+```{r}
+nrow(sfnb_sf)
+```
+
+\
+
+## Q3. What coordinate reference system are the neighborhood boundaries in?
+
+[Answer](http://bit.ly/3YojH5P)
+
+```{r}
+st_crs(sfnb_sf)
+```
+
+\
+
+## Q4. Plot the neighborhood boundaries using tmap.
+
+Tip: with so many neighborhoods, you may want to hide the legend
+
+[Answer](http://bit.ly/3IK6kHk)
+
+```{r}
+library(tmap)
+
+tm_shape(sfnb_sf) + 
+  tm_polygons(col = "nhood") + 
+  tm_layout(legend.show = FALSE)
+```
+
+\
+
+## Q5. Import the San Francisco Public Library locations from a CSV file
+
+CSV file: <https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/main/notebooks/data/sf_libraries_longlat.csv>
+
+[Answer](http://bit.ly/3IPuPmC)
+
+```{r}
+sflib_url <- "https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/main/notebooks/data/sf_libraries_longlat.csv"
+sflib_df <- read.csv(sflib_url)
+head(sflib_df)
+```
+
+\
+
+## Q6. How many public libraries are there?
+
+[Answer](http://bit.ly/3KS6fnH)
+
+```{r}
+nrow(sflib_df)
+```
+
+\
+
+## Q7. Construct a SF Public libraries simple feature data frame.
+
+Tip: You can assume the coordinates are geographic with WGS84 (epsg = 4326).
+
+[Answer](http://bit.ly/3ZlAVCa)
+
+```{r}
+## View the column names:
+names(sflib_df)
+
+## Create the sf object:
+sflib_sf <- st_as_sf(sflib_df, coords = c("long", "lat"), crs = 4326)
+sflib_sf
+```
+
+\
+
+## Q8. Plot the libraries on top of the neighborhoods.
+
+[Answer](http://bit.ly/41NVQQ3)
+
+```{r}
+tm_shape(sfnb_sf) + 
+  tm_polygons(col = "nhood") + 
+  tm_shape(sflib_sf) + 
+  tm_symbols(col = "black", size = 0.75) +
+  tm_layout(legend.show = FALSE)
+```
+
+\
+
+## Q9. Give your map a title.
+
+[Answer](http://bit.ly/41JqvxO)
+
+```{r}
+tm_shape(sfnb_sf) + 
+  tm_polygons(col = "nhood") + 
+  tm_shape(sflib_sf) + 
+  tm_symbols(col = "black", size = 0.75) +
+  tm_layout(title = "San Francisco Public Libraries",
+            legend.show = FALSE) 
+```
+
+\
+
+## Q10. Make an interactive version of your map.
+
+Tip: Interactive maps don't always work well in R Notebooks. Run your code from a script or the console instead.
+
+
+[Answer](http://bit.ly/3KWw45R)
+
+```{r}
+tmap_mode("view")
+
+tm_shape(sfnb_sf) + 
+  tm_polygons(col = "nhood", legend.show = FALSE, id = "nhood") + 
+  tm_shape(sflib_sf) + 
+  tm_symbols(col = "black", size = 0.75, popup.vars = c("branch", "address"), id = "branch")
+```
+
+
