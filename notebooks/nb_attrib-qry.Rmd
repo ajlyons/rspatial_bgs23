@@ -93,6 +93,10 @@ Q4. For each decade, compute the number of fires, and the mean fire size.
 
 Q05. Plot the total acreage burned for each decade. 
 
+```{r chunk08}
+## Your answer here
+
+```
 
 
 
@@ -102,7 +106,7 @@ Attribute queries can be done using the dplyr filter():
 
 Example:
 
-```{r chunk08}
+```{r chunk09}
 fires30s_sf <- yose_fires_pt %>% 
   filter(DECADE == 1930)
 
@@ -117,7 +121,7 @@ tm_shape(fires30s_sf) + tm_dots(col = "red", size = 0.3)
 
 Q05. Make a plot of top 10% of fires:
 
-```{r chunk09}
+```{r chunk10}
 
 ```
 
