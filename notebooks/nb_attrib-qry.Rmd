@@ -1,0 +1,123 @@
+---
+title: "Exploring the Fire Ignition Points Attribute Table"
+output: 
+  html_notebook:
+    toc: yes
+    toc_float: yes
+---
+
+In this Notebook, we'll do compute some summary stats for the attribute table of the Yosemite fire ignition points, then use attriubute queries to filter them.
+
+Load the packages we'll need:
+
+```{r chunk01}
+library(sf)
+library(dplyr)
+library(tmap)
+```
+
+\
+
+Pro-actively resolve any name clashes:
+
+```{r chunk02}
+library(conflicted)
+
+# Set conflict preferences
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("count", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("arrange", "dplyr", quiet = TRUE)
+```
+
+\
+
+Next import fire ignition points layer:
+
+```{r chunk03}
+## Define the location of the geodatabase
+gdb_fires_fn <- "./data/yose_firehistory.gdb"
+file.exists(gdb_fires_fn)
+
+## View the layers in this source
+st_layers(gdb_fires_fn)
+
+## Import the historic fires ignition points
+yose_fires_pt <- st_read(gdb_fires_fn, layer="YNP_FireHistoryPoints")
+
+## Preview
+glimpse(yose_fires_pt)
+```
+
+\
+
+## CHALLENGE QUESTIONS
+
+Q01. What is the distribution of acres burned?
+
+TIP: You can compute a frequency table or plot a histogram. 
+
+```{r chunk04}
+## Your answer here
+
+```
+
+\
+
+Q2. Compute a frequency table of fire causes:
+
+```{r chunk05}
+## Your answer here
+
+```
+
+\
+
+Q3. What was the largest fire?
+
+```{r chunk06}
+## Your answer here
+  
+```
+
+\
+
+Q4. For each decade, compute the number of fires, and the mean fire size.
+
+```{r chunk07}
+## Your answer here
+
+```
+
+\
+
+Q05. Plot the total acreage burned for each decade. 
+
+
+
+
+## Attribute Queries
+
+Attribute queries can be done using the dplyr filter():
+
+Example:
+
+```{r chunk08}
+fires30s_sf <- yose_fires_pt %>% 
+  filter(DECADE == 1930)
+
+fires30s_sf
+
+tm_shape(fires30s_sf) + tm_dots(col = "red", size = 0.3)
+```
+
+\
+
+## CHALLENGE
+
+Q05. Make a plot of top 10% of fires:
+
+```{r chunk09}
+
+```
+
