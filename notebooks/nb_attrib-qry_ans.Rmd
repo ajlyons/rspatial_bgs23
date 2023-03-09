@@ -94,8 +94,14 @@ TIP: To view the distribution, compute the quantiles or make a histogram plot.
 [Answer](http://bit.ly/3kXVHZA)
 
 ```{r chunk07}
-## Your answer here
+## Because the 'ACRES' column is numeric, you can compute the quantitles with summary()
+summary(yose_fires_pt$ACRES)
 
+## Or:
+quantile(yose_fires_pt$ACRES)
+
+## Histogram
+hist(yose_fires_pt$ACRES, breaks = 20)
 ```
 
 \
@@ -105,8 +111,10 @@ Q02. Compute a frequency table of fire causes.
 [Answer](http://bit.ly/3ZzvT5a)
 
 ```{r chunk08}
-## Your answer here
+table(yose_fires_pt$CAUSE)
 
+#Or 
+yose_fires_pt |> st_drop_geometry() |> group_by(CAUSE) |> tally()
 ```
 
 \
@@ -116,8 +124,18 @@ Q03. What was the largest fire?
 [Answer](http://bit.ly/3Zx0K2k)
 
 ```{r chunk09}
-## Your answer here
+yose_fires_pt |> st_drop_geometry() |> slice_max(ACRES, n=1)
+```
 
+\
+
+Or:
+
+```{r chunk10}
+yose_fires_pt |> 
+  st_drop_geometry() |> 
+  arrange(desc(ACRES)) |> 
+  slice(1)
 ```
 
 \
@@ -127,8 +145,10 @@ Q04. For each decade, compute the number of fires, and the mean fire size.
 [Answer](http://bit.ly/3F5Zb3e)
 
 ```{r chunk11}
-## Your answer here
-
+yose_fires_pt |> 
+  st_drop_geometry() |> 
+  group_by(DECADE) |> 
+  summarise(count = n(), avg_size_acres = mean(ACRES))
 ```
 
 \
@@ -160,8 +180,13 @@ Q05. Make a plot of all the human caused fire ignition points.
 [Answer](http://bit.ly/3l1uLZ0)
 
 ```{r chunk13}
-## Your answer here
+fires_hc_sf <- yose_fires_pt |>  
+  filter(CAUSE == 'HC')
 
+tm_shape(yose_bnd_sf) +
+  tm_borders() +
+tm_shape(fires_hc_sf) + 
+  tm_dots(col = "red", size = 0.2)
 ```
 
 \
@@ -171,8 +196,15 @@ Q06. Make a plot of all the human caused fire ignition points in the 1980s (only
 [Answer](http://bit.ly/3l05iiB)
 
 ```{r chunk14}
-## Your answer here
+fires_hc80s_sf <- yose_fires_pt |>  
+  filter(CAUSE == 'HC', DECADE == 1980)
 
+tm_shape(yose_bnd_sf) +
+  tm_borders() +
+tm_shape(fires_hc80s_sf) + 
+  tm_dots(col = "red", size = 0.2) +
+tm_layout(main.title = "Human Caused Fires During the 1980s",
+          main.title.size = 1)
 ```
 
 \
@@ -184,7 +216,15 @@ Tip: See `tm_facets()`
 [Answer](http://bit.ly/3mGs7YY)
 
 ```{r chunk15}
-## Your answer here
+fires_hc50s20_sf <- yose_fires_pt |>  
+  filter(CAUSE == 'HC', DECADE >= 1980)
 
+tm_shape(yose_bnd_sf) +
+  tm_borders() +
+tm_shape(fires_hc50s20_sf) + 
+  tm_dots(col = "red", size = 0.2) +
+tm_facets(by = "DECADE") +
+  tm_layout(main.title = "Human Caused Fires Per Decade",
+            main.title.size = 1)
 ```
 

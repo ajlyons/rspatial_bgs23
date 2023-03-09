@@ -8,7 +8,7 @@
 # The end goal of this homework is to produce a map of San Francisco libraries overlaid on 
 # top of San Francisco neighborhoods. The final product should look something like:
 
-# https://github.com/ajlyons/rspatial_bgs23/blob/main/homeworks/images/hw05_map.png
+# https://github.com/ajlyons/rspatial_bgs23/blob/main/homeworks/images/hw06_map.png
 
 
 ## Q1. Import the SF neighborhoods. You can use the following Neighborhood boundaries GeoJSON file

@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Working with Attribute Tables  " />
+  <meta name="copyright" content="<span class='footer-right'><a href='../acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href=' https://etherpad.wikimedia.org/p/rspatial-bgs23 ' target='_blank'>Forum</a></span><span class='footer-right'><a href=' https://ajlyons.github.io/rspatial_bgs23 '> https://ajlyons.github.io/rspatial_bgs23 </a></span><span class='footer-right'><a href='../index.html'>Home</a></span><span class='footer-subtitle'> Spatial Data Analysis with R </span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Spatial Data Analysis with R  BayGeo, Spring 2023</title>
+  <style type="text/css">
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            pre > code.sourceCode { white-space: pre; position: relative; }
+            pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+            pre > code.sourceCode > span:empty { height: 1.2em; }
+            .sourceCode { overflow: visible; }
+            code.sourceCode > span { color: inherit; text-decoration: inherit; }
+            div.sourceCode { margin: 1em 0; }
+            pre.sourceCode { margin: 0; }
+            @media screen {
+            div.sourceCode { overflow: auto; }
+            }
+            @media print {
+            pre > code.sourceCode { white-space: pre-wrap; }
+            pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+            }
+            pre.numberSource code
+              { counter-reset: source-line 0; }
+            pre.numberSource code > span
+              { position: relative; left: -4em; counter-increment: source-line; }
+            pre.numberSource code > span > a:first-child::before
+              { content: counter(source-line);
+                position: relative; left: -1em; text-align: right; vertical-align: baseline;
+                border: none; display: inline-block;
+                -webkit-touch-callout: none; -webkit-user-select: none;
+                -khtml-user-select: none; -moz-user-select: none;
+                -ms-user-select: none; user-select: none;
+                padding: 0 4px; width: 4em;
+                color: #aaaaaa;
+              }
+            pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+            div.sourceCode
+              {   }
+            @media screen {
+            pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+            }
+            code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+            code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+            code span.at { color: #7d9029; } /* Attribute */
+            code span.bn { color: #40a070; } /* BaseN */
+            code span.bu { color: #008000; } /* BuiltIn */
+            code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+            code span.ch { color: #4070a0; } /* Char */
+            code span.cn { color: #880000; } /* Constant */
+            code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+            code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+            code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+            code span.dt { color: #902000; } /* DataType */
+            code span.dv { color: #40a070; } /* DecVal */
+            code span.er { color: #ff0000; font-weight: bold; } /* Error */
+            code span.ex { } /* Extension */
+            code span.fl { color: #40a070; } /* Float */
+            code span.fu { color: #06287e; } /* Function */
+            code span.im { color: #008000; font-weight: bold; } /* Import */
+            code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+            code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+            code span.op { color: #666666; } /* Operator */
+            code span.ot { color: #007020; } /* Other */
+            code span.pp { color: #bc7a00; } /* Preprocessor */
+            code span.sc { color: #4070a0; } /* SpecialChar */
+            code span.ss { color: #bb6688; } /* SpecialString */
+            code span.st { color: #4070a0; } /* String */
+            code span.va { color: #19177c; } /* Variable */
+            code span.vs { color: #4070a0; } /* VerbatimString */
+            code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+          </style>
+  <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <meta name="robots" content="noindex,nofollow"/>
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) {
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy");
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied")
+  }}
+  </script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163964617-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-163964617-1');
+  </script>
+  <script src="lib/header-attrs-2.19/header-attrs.js"></script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <script src="lib/slidy_shiny-1/slidy_shiny.js"></script>
+  <script src="lib/clipboard-1.7.1/clipboard.min.js"></script>
+  <link href="lib/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+  <link href="lib/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+  <script src="lib/klippy-0.0.0.9500/js/klippy.min.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="../css/slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<script type="text/javascript">w3c_slidy.mouse_click_enabled = false;</script>
+<div class="slide titlepage">
+  <h1 class="title"><span class="course-title">Spatial Data Analysis
+with R </span><br/><span class="course-subtitle">BayGeo, Spring
+2023</span></h1>
+  <p class="author">
+Working with Attribute Tables <br/><img src='images/blank_10x10.png'/>
+  </p>
+</div>
+<div class="slide section level1">
+
+<p><br />
+</p>
+<p><br />
+</p>
+<p><img src="./images/postit_bg-trans_with-note_320x320.png"
+style="display:block; margin:1em auto; border:none;" /></p>
+<script>
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+</div>
+<div id="exploring-the-attribute-table" class="slide section level1">
+<h1>Exploring the Attribute Table</h1>
+<p>The attribute table is commonly used for querying, symbology, and
+analysis.</p>
+<p>Before you start working with the attribute table, it helps to
+understand the data.</p>
+<p>First place to check - metadata files that come with the data.</p>
+<p>Useful R functions to explore any data frame:</p>
+<div class="indented1">
+<p><tt>View()<br />
+names()<br />
+summary()<br />
+class()<br />
+unique()<br />
+table()<br />
+hist() </tt></p>
+</div>
+<div class="tip">
+<p>Most dplyr functions work fine on <strong>sf</strong> objects, and
+will return another <strong>sf</strong> object.</p>
+<p>When needed, you can ‘drop’ the geometry column of a
+<strong>sf</strong> object with
+<tt><strong>st_drop_geometry()</strong></tt> (returns a data frame)</p>
+<p>To get the values for a single column, you can use the
+<tt><strong>$</strong></tt> operator or
+<tt><strong>dplyr::pull()</strong></tt>.</p>
+</div>
+<h3 id="example-explore-the-yosemites-fire-history">Example: Explore the
+Yosemite’s Fire History</h3>
+<p>The <a href="../data.html#yose_firehistory" target="_blank">Yosemite
+Fire History</a> geodatabase contains a point layer of fire ignition
+points, and a polygon layer of fire burned areas in YNP, 1930-2016.</p>
+<pre><code>## Reading layer `yose_poi&#39; from data source `D:\Workshops\R-Spatial\rspatial_mod\outputs\rspatial_bgs23\notebooks\data&#39; using driver `ESRI Shapefile&#39;
+## Simple feature collection with 2720 features and 30 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 246416.2 ymin: 4153717 xmax: 301510.7 ymax: 4208419
+## Projected CRS: NAD83 / UTM zone 11N</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre><code>## Reading layer `Yosemite_Roads&#39; from data source 
+##   `D:\Workshops\R-Spatial\rspatial_mod\outputs\rspatial_bgs23\notebooks\data\yose_roads.gdb&#39; using driver `OpenFileGDB&#39;
+## Simple feature collection with 823 features and 40 fields
+## Geometry type: MULTILINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: 234658.1 ymin: 4139484 xmax: 324852.6 ymax: 4250252
+## Projected CRS: NAD83 / UTM zone 11N</code></pre>
+<p><img src="attrib-tbl_files/figure-slidy/plot_fire_pts-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Import the fire ignition points layer:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Import fire ignition points</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Define the location of the geodatabase</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>gdb_fires_fn <span class="ot">&lt;-</span> <span class="st">&quot;./data/yose_firehistory.gdb&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(gdb_fires_fn)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## View the layers in this source</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">st_layers</span>(gdb_fires_fn)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Import the historic fires ignition points</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>yose_fires_pt <span class="ot">&lt;-</span> <span class="fu">st_read</span>(gdb_fires_fn, <span class="at">layer=</span><span class="st">&quot;YNP_FireHistoryPoints&quot;</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>yose_fires_pt</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<pre><code>## Driver: OpenFileGDB 
+## Available layers:
+##              layer_name geometry_type features fields             crs_name
+## 1 YNP_FireHistoryPoints         Point     4432     21 NAD83 / UTM zone 11N
+## 2  YNP_FireHistoryPolys Multi Polygon     4422     21 NAD83 / UTM zone 11N</code></pre>
+<pre><code>## Reading layer `YNP_FireHistoryPoints&#39; from data source 
+##   `D:\Workshops\R-Spatial\rspatial_mod\outputs\rspatial_bgs23\notebooks\data\yose_firehistory.gdb&#39; using driver `OpenFileGDB&#39;
+## Simple feature collection with 4432 features and 21 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 243771.7 ymin: 4152632 xmax: 304217.2 ymax: 4227949
+## Projected CRS: NAD83 / UTM zone 11N</code></pre>
+<pre><code>## Simple feature collection with 4432 features and 21 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 243771.7 ymin: 4152632 xmax: 304217.2 ymax: 4227949
+## Projected CRS: NAD83 / UTM zone 11N
+## First 10 features:
+##    OBJECTID FIRE_ID    LINK_ID SACS_ID FILE_ID             NAME ACRES YEAR TYPE CAUSE    HECTARES     AREA PERIMETER
+## 1         1   YNP-2  1930YNP-2 YNP-002                          0.004 1930   WF   LTG 0.001780549   17.805  14.97941
+## 2         2   YNP-3  1930YNP-3 YNP-003                          0.007 1930   WF   LTG 0.002750173   27.502  18.61561
+## 3         3   YNP-7  1930YNP-7 YNP-007                          0.870 1930   WF   LTG 0.352157100 3521.572 210.64806
+## 4         8  YNP-10 1931YNP-10 YNP-010               Dog Lake\n 0.099 1931   WF   LTG 0.040217169  402.172  71.18618
+## 5         7  YNP-11 1931YNP-11 YNP-011         Rafferty Creek\n 0.050 1931   WF   LTG 0.020073619  200.736  50.29261
+## 6        10  YNP-15 1931YNP-15 YNP-015          Cottonwood Cree 1.989 1931   WF   LTG 0.804988998 8049.891 318.48152
+## 7         5  YNP-19 1931YNP-19 YNP-019            Merced Lake\n 0.011 1931   WF   LTG 0.004530046   45.301  23.89166
+## 8         9  YNP-20 1931YNP-20 YNP-020            Onoin Creek\n 1.492 1931   WF   LTG 0.603740051 6037.401 275.81270
+## 9         6   YNP-3  1931YNP-3 YNP-003           Coyote Creek\n 0.994 1931   WF   LTG 0.402460960 4024.610 225.19107
+## 10        4   YNP-5  1931YNP-5 YNP-005            Badger Pass\n 0.079 1931   WF   LTG 0.032129019  321.289  63.62673
+##    SEQ_NO DECADE  STARTDATE    OUTDATE  X_COORD Y_COORD ET_ID ORIG_FID                    Shape
+## 1     157   1930 1899-12-30 1899-12-30 262412.7 4163816     0        1 POINT (262412.7 4163816)
+## 2     156   1930 1899-12-30 1899-12-30 267727.9 4166016     0        2 POINT (267727.9 4166016)
+## 3     155   1930 1899-12-30 1899-12-30 266014.8 4167194     0        3 POINT (266014.8 4167194)
+## 4     150   1930 1899-12-30 1899-12-30 287444.7 4197420     0        8 POINT (287444.7 4197420)
+## 5     151   1930 1899-12-30 1899-12-30 295170.0 4192392     0        7   POINT (295170 4192392)
+## 6     148   1930 1899-12-30 1899-12-30 256659.1 4198577     0       10 POINT (256659.1 4198577)
+## 7     153   1930 1899-12-30 1899-12-30 285626.0 4178935     0        5   POINT (285626 4178935)
+## 8     149   1930 1899-12-30 1899-12-30 256657.1 4197587     0        9 POINT (256657.1 4197587)
+## 9     152   1930 1899-12-30 1899-12-30 261539.1 4181555     0        6 POINT (261539.1 4181555)
+## 10    154   1930 1899-12-30 1899-12-30 264529.5 4171437     0        4 POINT (264529.5 4171437)</code></pre>
+<p>Explore the ignition points attribute table using the following
+functions.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## View the column types and first few values</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(yose_fires_pt)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">## If you want to see all the data, open up the attribute table in a separate tab</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View(yose_fires_pt)</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="do">## View a summary of the ACRES column</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(yose_fires_pt<span class="sc">$</span>ACRES)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="do">## View the unique values of the &#39;CAUSE&#39; column</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>yose_fires_pt <span class="sc">%&gt;%</span> sf<span class="sc">::</span><span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(CAUSE)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="do">## This would also work:</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="do">## unique(yose_fires_pt$CAUSE)</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a frequency table of the DECADE column</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>yose_fires_pt <span class="sc">%&gt;%</span> <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="fu">count</span>(DECADE)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Also works:</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co"># table(yose_fires_pt$DECADE)</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="do">## View the column types and first few values</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(yose_fires_pt)</span></code></pre></div>
+<pre><code>## Rows: 4,432
+## Columns: 22
+## $ OBJECTID  &lt;int&gt; 1, 2, 3, 8, 7, 10, 5, 9, 6, 4, 18, 12, 28, 31, 29, 30, 27, 26, 14, 17, 23, 21, 32, 33, 25, 24, 22, 20…
+## $ FIRE_ID   &lt;chr&gt; &quot;YNP-2&quot;, &quot;YNP-3&quot;, &quot;YNP-7&quot;, &quot;YNP-10&quot;, &quot;YNP-11&quot;, &quot;YNP-15&quot;, &quot;YNP-19&quot;, &quot;YNP-20&quot;, &quot;YNP-3&quot;, &quot;YNP-5&quot;, &quot;YNP-1…
+## $ LINK_ID   &lt;chr&gt; &quot;1930YNP-2&quot;, &quot;1930YNP-3&quot;, &quot;1930YNP-7&quot;, &quot;1931YNP-10&quot;, &quot;1931YNP-11&quot;, &quot;1931YNP-15&quot;, &quot;1931YNP-19&quot;, &quot;1931Y…
+## $ SACS_ID   &lt;chr&gt; &quot;YNP-002&quot;, &quot;YNP-003&quot;, &quot;YNP-007&quot;, &quot;YNP-010&quot;, &quot;YNP-011&quot;, &quot;YNP-015&quot;, &quot;YNP-019&quot;, &quot;YNP-020&quot;, &quot;YNP-003&quot;, &quot;Y…
+## $ FILE_ID   &lt;chr&gt; &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot;…
+## $ NAME      &lt;chr&gt; &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot;Dog Lake\n&quot;, &quot;Rafferty Creek\n&quot;, &quot;Cottonwood Cree&quot;, &quot;Merced Lake\n&quot;, &quot;Onoin Creek\n&quot;,…
+## $ ACRES     &lt;dbl&gt; 0.004, 0.007, 0.870, 0.099, 0.050, 1.989, 0.011, 1.492, 0.994, 0.079, 0.010, 0.010, 5.271, 0.005, 0.0…
+## $ YEAR      &lt;int&gt; 1930, 1930, 1930, 1931, 1931, 1931, 1931, 1931, 1931, 1931, 1932, 1932, 1932, 1932, 1932, 1932, 1932,…
+## $ TYPE      &lt;chr&gt; &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;, &quot;WF&quot;,…
+## $ CAUSE     &lt;chr&gt; &quot;LTG&quot;, &quot;LTG&quot;, &quot;LTG&quot;, &quot;LTG&quot;, &quot;LTG&quot;, &quot;LTG&quot;, &quot;LTG&quot;, &quot;LTG&quot;, &quot;LTG&quot;, &quot;LTG&quot;, &quot;LTG&quot;, &quot;LTG&quot;, &quot;LTG&quot;, &quot;LTG&quot;, &quot;LT…
+## $ HECTARES  &lt;dbl&gt; 0.001780549, 0.002750173, 0.352157100, 0.040217169, 0.020073619, 0.804988998, 0.004530046, 0.60374005…
+## $ AREA      &lt;dbl&gt; 17.805, 27.502, 3521.572, 402.172, 200.736, 8049.891, 45.301, 6037.401, 4024.610, 321.289, 39.661, 39…
+## $ PERIMETER &lt;dbl&gt; 14.97941, 18.61561, 210.64806, 71.18618, 50.29261, 318.48152, 23.89166, 275.81270, 225.19107, 63.6267…
+## $ SEQ_NO    &lt;dbl&gt; 157, 156, 155, 150, 151, 148, 153, 149, 152, 154, 140, 146, 130, 127, 129, 128, 131, 132, 144, 141, 1…
+## $ DECADE    &lt;int&gt; 1930, 1930, 1930, 1930, 1930, 1930, 1930, 1930, 1930, 1930, 1930, 1930, 1930, 1930, 1930, 1930, 1930,…
+## $ STARTDATE &lt;dttm&gt; 1899-12-30, 1899-12-30, 1899-12-30, 1899-12-30, 1899-12-30, 1899-12-30, 1899-12-30, 1899-12-30, 1899…
+## $ OUTDATE   &lt;dttm&gt; 1899-12-30, 1899-12-30, 1899-12-30, 1899-12-30, 1899-12-30, 1899-12-30, 1899-12-30, 1899-12-30, 1899…
+## $ X_COORD   &lt;dbl&gt; 262412.7, 267727.9, 266014.8, 287444.7, 295170.0, 256659.1, 285626.0, 256657.1, 261539.1, 264529.5, 2…
+## $ Y_COORD   &lt;dbl&gt; 4163816, 4166016, 4167194, 4197420, 4192392, 4198577, 4178935, 4197587, 4181555, 4171437, 4175627, 41…
+## $ ET_ID     &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ ORIG_FID  &lt;int&gt; 1, 2, 3, 8, 7, 10, 5, 9, 6, 4, 18, 12, 28, 31, 29, 30, 27, 26, 14, 17, 23, 21, 32, 33, 25, 24, 22, 20…
+## $ Shape     &lt;POINT [m]&gt; POINT (262412.7 4163816), POINT (267727.9 4166016), POINT (266014.8 4167194), POINT (287444.7 4…</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## If you want to see all the data, open up the attribute table in a separate tab</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># View(yose_fires_pt)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="do">## View a summary of the ACRES column</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(yose_fires_pt<span class="sc">$</span>ACRES)</span></code></pre></div>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+##     0.00     0.10     0.10    92.21     0.99 78892.00</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## View the unique values of the &#39;CAUSE&#39; column</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>yose_fires_pt <span class="sc">%&gt;%</span> sf<span class="sc">::</span><span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(CAUSE)</span></code></pre></div>
+<pre><code>##   CAUSE
+## 1   LTG
+## 2    HC
+## 3    MI</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## This would also work:</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="do">## unique(yose_fires_pt$CAUSE)</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a frequency table of the DECADE column</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>yose_fires_pt <span class="sc">%&gt;%</span> <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="fu">count</span>(DECADE)</span></code></pre></div>
+<pre><code>##    DECADE   n
+## 1       0   2
+## 2    1930 157
+## 3    1940 142
+## 4    1950 393
+## 5    1960 598
+## 6    1970 607
+## 7    1980 768
+## 8    1990 859
+## 9    2000 579
+## 10   2010 327</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Also works:</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># yose_fires_pt %&gt;% </span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  st_drop_geometry() %&gt;% </span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  group_by(DECADE) %&gt;% </span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  summarise(num_rows=n())</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># table(yose_fires_pt$DECADE)</span></span></code></pre></div>
+<div class="tryit">
+<p>What was the largest fire on record?</p>
+<p>Hint: check the <a href="../extras/data-transformation.pdf"
+target="_blank">data transformation cheat sheet</a></p>
+<p>[<span id="soln_jsweun" class="showhidesoln"
+onclick="showHide(&#39;jsweun&#39;);return false;">Answer</span>]</p>
+<div id="jsweun" class="hint">
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>yose_fires_pt <span class="sc">%&gt;%</span> <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span>  <span class="fu">top_n</span>(<span class="dv">1</span>, ACRES)</span></code></pre></div>
+<pre><code>##   OBJECTID     FIRE_ID LINK_ID SACS_ID FILE_ID NAME ACRES YEAR TYPE CAUSE HECTARES AREA PERIMETER SEQ_NO DECADE
+## 1       NA CA-YNP-0126    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;  Rim 78892 2013   WF    HC       NA   NA        NA     NA   2010
+##    STARTDATE    OUTDATE  X_COORD Y_COORD ET_ID ORIG_FID
+## 1 2013-08-22 2013-10-18 255255.8 4197057    NA       NA</code></pre>
+<p>The <strong>2013 Rim fire</strong> was the largest on record.</p>
+</div>
+</div>
+<div class="challenge">
+<p>For each decade, compute the number of fires and mean size. Create a
+scatterplot of the values.</p>
+<p>[<span id="soln_fyvjzl" class="showhidesoln"
+onclick="showHide(&#39;fyvjzl&#39;);return false;">Solution</span>]</p>
+<div id="fyvjzl" class="hint">
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>decade_size <span class="ot">&lt;-</span> yose_fires_pt <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span>  </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(DECADE) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_size =</span> <span class="fu">mean</span>(ACRES)) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(DECADE <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>decade_size</span></code></pre></div>
+<pre><code>## # A tibble: 9 × 2
+##   DECADE mean_size
+##    &lt;int&gt;     &lt;dbl&gt;
+## 1   1930     12.2 
+## 2   1940     86.2 
+## 3   1950     12.8 
+## 4   1960      9.12
+## 5   1970     41.7 
+## 6   1980     76.9 
+## 7   1990    154.  
+## 8   2000    116.  
+## 9   2010    307.</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot these</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decade_size)</span></code></pre></div>
+<p><img src="attrib-tbl_files/figure-slidy/challenge_decade_size-1.png" width="768" /></p>
+</div>
+</div>
+</div>
+<div id="attribute-queries" class="slide section level1">
+<h1>Attribute Queries</h1>
+<p>‘query’ = ‘select’ features</p>
+<p>‘attribute query’ = ‘select features by their attribute values’</p>
+<p>Because <code>sf</code> objects are based on data frames, the
+<code>dplyr</code> functions work natively. Pass a <code>sf</code>
+object and you get a <code>sf</code> object back!</p>
+<h3 id="examples-attribute-queries">Examples: Attribute Queries</h3>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Attribute queries</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Fires from the 1930s</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>fires_80s <span class="ot">&lt;-</span> yose_fires_pt <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DECADE<span class="sc">==</span><span class="dv">1980</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Fires between 1996 and 2005</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>fires_9605 <span class="ot">&lt;-</span> yose_fires_pt <span class="sc">%&gt;%</span> <span class="fu">filter</span>(YEAR <span class="sc">&gt;=</span> <span class="dv">1996</span> <span class="sc">&amp;</span> YEAR <span class="sc">&lt;=</span> <span class="dv">2005</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Top 10 largest fires</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>fires_top10 <span class="ot">&lt;-</span> yose_fires_pt <span class="sc">%&gt;%</span> <span class="fu">top_n</span>(<span class="dv">10</span>, ACRES)</span></code></pre></div>
+<div class="tryit">
+<p>1. Plot just the fires that were started by humans. (Hint:
+CAUSE=‘HC’)</p>
+<p>[<span id="soln_asrzkn" class="showhidesoln"
+onclick="showHide(&#39;asrzkn&#39;);return false;">Solution</span>]</p>
+<div id="asrzkn" class="hint">
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Human caused fires</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>fires_hc <span class="ot">&lt;-</span> yose_fires_pt <span class="sc">%&gt;%</span> <span class="fu">filter</span>(CAUSE <span class="sc">==</span> <span class="st">&#39;HC&#39;</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_bnd_ll) <span class="sc">+</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>() <span class="sc">+</span> </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(fires_hc) <span class="sc">+</span> </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_symbols</span>(<span class="at">size=</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_layout</span>(<span class="at">main.title =</span> <span class="st">&quot;Human Caused Fires&quot;</span>)</span></code></pre></div>
+<p><img src="attrib-tbl_files/figure-slidy/plot_hc_fires_klippy-1.png" width="768" /></p>
+</div>
+<p>2. Plot the top 10% of fires in terms of size. (Hint: you can use
+<tt>quantile()</tt> to compute a specific quantile value.)</p>
+<p>[<span id="soln_czxplt" class="showhidesoln"
+onclick="showHide(&#39;czxplt&#39;);return false;">Solution</span>]</p>
+<div id="czxplt" class="hint">
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Largest 10% fires</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>fire_90pct_size <span class="ot">&lt;-</span> yose_fires_pt <span class="sc">%&gt;%</span> <span class="fu">pull</span>(ACRES) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(<span class="fl">0.9</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>fire_90pct_size</span></code></pre></div>
+<pre><code>##     90% 
+## 16.1287</code></pre>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fires_top10pct <span class="ot">&lt;-</span> yose_fires_pt <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ACRES <span class="sc">&gt;=</span> fire_90pct_size)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_bnd_ll) <span class="sc">+</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>() <span class="sc">+</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(fires_top10pct) <span class="sc">+</span> </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_symbols</span>(<span class="at">col=</span><span class="st">&quot;YEAR&quot;</span>, <span class="at">size=</span><span class="fl">0.2</span>, <span class="at">n=</span><span class="dv">10</span>, <span class="at">palette =</span> <span class="st">&quot;RdYlBu&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_layout</span>(<span class="at">main.title =</span> <span class="st">&quot;Largest 10% of Fires&quot;</span>, </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.bg.color=</span><span class="st">&quot;white&quot;</span>, </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.frame =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.format =</span> <span class="fu">list</span>(<span class="at">format=</span><span class="st">&quot;s&quot;</span>))</span></code></pre></div>
+<p><img src="attrib-tbl_files/figure-slidy/plot_top10_fires_klippy-1.png" width="768" /></p>
+</div>
+</div>
+<div class="challenge">
+<p>1. Plot the fires that burned for two weeks or longer.</p>
+<p>[<span id="soln_bjjgcz" class="showhidesoln"
+onclick="showHide(&#39;bjjgcz&#39;);return false;">Hint</span>] [<span
+id="soln_nbahvb" class="showhidesoln"
+onclick="showHide(&#39;nbahvb&#39;);return false;">Solution</span>]</p>
+<div id="bjjgcz" class="hint">
+<p>Use <tt>mutate()</tt> to add a new column for the length of time the
+fire burned.</p>
+<p>For help on working with dates, view the <a
+href="https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf"
+target="_blank">lubridate</a> cheat sheet</p>
+</div>
+<div id="nbahvb" class="hint">
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load the lubridate package (functions for working with dates and times)</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the long fires lasting &gt;= 2 weeks</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>fires_long <span class="ot">&lt;-</span> yose_fires_pt <span class="sc">%&gt;%</span> </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>                <span class="fu">filter</span>(STARTDATE <span class="sc">&gt;</span> <span class="fu">ymd</span>(<span class="dv">19300101</span>), <span class="do">## Get rid of records with bad dates </span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>                       OUTDATE <span class="sc">&gt;</span> <span class="fu">ymd</span>(<span class="dv">19300101</span>), </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>                       STARTDATE <span class="sc">&lt;</span> <span class="fu">ymd</span>(<span class="dv">20200101</span>), </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>                       OUTDATE <span class="sc">&lt;</span> <span class="fu">ymd</span>(<span class="dv">20200101</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">mutate</span>(<span class="at">FIRE_DAYS =</span> <span class="fu">difftime</span>(OUTDATE, STARTDATE, <span class="at">units=</span><span class="st">&quot;days&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co"># add column</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">filter</span>(FIRE_DAYS <span class="sc">&gt;=</span> <span class="dv">14</span>)  <span class="co"># keep only the long ones</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_bnd_ll) <span class="sc">+</span> </span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>() <span class="sc">+</span> </span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(fires_long) <span class="sc">+</span> </span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_symbols</span>(<span class="at">col =</span> <span class="st">&quot;YEAR&quot;</span>, <span class="at">size =</span> <span class="fl">0.2</span>, <span class="at">n =</span> <span class="dv">10</span>, <span class="at">palette =</span> <span class="st">&quot;RdYlBu&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_layout</span>(<span class="at">main.title =</span> <span class="st">&quot;Fires that Burned for &gt; 2 Weeks&quot;</span>, </span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.bg.color =</span> <span class="st">&quot;white&quot;</span>, </span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.frame =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.format =</span> <span class="fu">list</span>(<span class="at">format=</span><span class="st">&quot;s&quot;</span>))</span></code></pre></div>
+<p><img src="attrib-tbl_files/figure-slidy/plot_long_fires_klippy-1.png" width="768" /></p>
+</div>
+<p>2. Create a separate fire map for each decade.</p>
+<p>[<span id="soln_milqmt" class="showhidesoln"
+onclick="showHide(&#39;milqmt&#39;);return false;">Hint</span>] [<span
+id="soln_pwwfjh" class="showhidesoln"
+onclick="showHide(&#39;pwwfjh&#39;);return false;">Solution</span>]</p>
+<div id="milqmt" class="hint">
+<p>You don’t actually need an attribute query for this! Google
+‘<tt>tm_facets</tt>’.</p>
+</div>
+<div id="pwwfjh" class="hint">
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot fires by decade using tm_facets()</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_bnd_ll) <span class="sc">+</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>() <span class="sc">+</span> </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_fires_pt <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DECADE <span class="sc">&gt;</span> <span class="dv">0</span>)) <span class="sc">+</span> </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_symbols</span>(<span class="at">col=</span><span class="st">&quot;YEAR&quot;</span>, <span class="at">size=</span><span class="fl">0.2</span>, <span class="at">n=</span><span class="dv">10</span>, <span class="at">palette =</span> <span class="st">&quot;RdYlBu&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_facets</span>(<span class="st">&quot;DECADE&quot;</span>, <span class="at">ncol=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_layout</span>(<span class="at">main.title=</span><span class="st">&quot;Fires by Decade&quot;</span>, <span class="at">legend.show=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="attrib-tbl_files/figure-slidy/plot_fires_facets_klippy-1.png" width="768" /></p>
+</div>
+</div>
+</div>
+<div id="join-an-attribute-table-to-a-data-frame"
+class="slide section level1">
+<h1>Join an Attribute Table to a Data Frame</h1>
+<p>To join an attribute table to a data frame based on a common field,
+you can use <tt>left_join()</tt>, <tt>right_join()</tt>, or
+<tt>inner_join()</tt> from dplyr.</p>
+<p>More soon.</p>
+</div>
+<div id="dissolve-boundaries-based-on-attribute-fields"
+class="slide section level1">
+<h1>Dissolve Boundaries Based on Attribute Fields</h1>
+<p>Grouping rows based on a common value of an attribute, and then
+computing one or more summary statistics for each group of rows, is
+extremely common. We a regular data frame, we can use
+<tt><strong>group_by()</strong></tt> and
+<tt><strong>summarise()</strong></tt> from <strong>dplyr</strong>.</p>
+<p>We illustrate this with the attribute table from watersheds layer.
+This table has a column “HU” and “HUNAME” which are the id number and
+name of larger watersheds.</p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>yose_watersheds_sf <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="st">&quot;./data/yose_watersheds.gpkg&quot;</span>, <span class="at">layer=</span><span class="st">&quot;calw221&quot;</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>watersheds_df <span class="ot">&lt;-</span> yose_watersheds_sf <span class="sc">%&gt;%</span> <span class="fu">st_drop_geometry</span>()</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>hu_df <span class="ot">&lt;-</span> watersheds_df <span class="sc">%&gt;%</span> </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(HU) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">HUNAME =</span> <span class="fu">first</span>(HUNAME), </span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">NUM_WATERSHEDS =</span> <span class="fu">n</span>(),</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">AVG_ACRES =</span> <span class="fu">mean</span>(ACRES))</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(hu_df)</span></code></pre></div>
+<pre><code>## Reading layer `calw221&#39; from data source 
+##   `D:\Workshops\R-Spatial\rspatial_mod\outputs\rspatial_bgs23\notebooks\data\yose_watersheds.gpkg&#39; using driver `GPKG&#39;
+## Simple feature collection with 127 features and 12 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 1383.82 ymin: -61442.93 xmax: 81596.71 ymax: 26405.66
+## Projected CRS: NAD83 / California Albers
+## Rows: 6
+## Columns: 4
+## $ HU             &lt;int&gt; 1, 30, 31, 36, 37, 40
+## $ HUNAME         &lt;chr&gt; &quot;MONO&quot;, &quot;EAST WALKER RIVER&quot;, &quot;WEST WALKER RIVER&quot;, &quot;TUOLUMNE RIVER&quot;, &quot;MERCED RIVER&quot;, &quot;SAN JOAQUIN…
+## $ NUM_WATERSHEDS &lt;int&gt; 7, 5, 2, 60, 47, 6
+## $ AVG_ACRES      &lt;dbl&gt; 9311.916, 9385.448, 6426.835, 8128.559, 8399.112, 8911.178</code></pre>
+<p>The exact same dplyr functions can be used with sf dataframes. The
+result is another sf object where the groups of features have been
+unioned together.</p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>hu_sf <span class="ot">&lt;-</span> yose_watersheds_sf <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(HU) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">HUNAME =</span> <span class="fu">first</span>(HUNAME), </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">NUM_WATERSHEDS =</span> <span class="fu">n</span>(),</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">AVG_ACRES =</span> <span class="fu">mean</span>(ACRES))</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>hu_sf</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(hu_sf) <span class="sc">+</span> </span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col=</span><span class="st">&quot;HUNAME&quot;</span>, <span class="at">title=</span><span class="st">&quot;HU Watershed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_watersheds_sf) <span class="sc">+</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">col=</span><span class="st">&quot;gray60&quot;</span>, <span class="at">lwd=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_layout</span>(<span class="at">legend.outside =</span> T)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 4 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 1383.82 ymin: -61442.93 xmax: 81596.71 ymax: 26405.66
+## Projected CRS: NAD83 / California Albers
+## # A tibble: 6 × 5
+##      HU HUNAME            NUM_WATERSHEDS AVG_ACRES                                                                   geom
+##   &lt;int&gt; &lt;chr&gt;                      &lt;int&gt;     &lt;dbl&gt;                                                          &lt;POLYGON [m]&gt;
+## 1     1 MONO                           7     9312. ((73660.22 -23032.77, 73681.14 -23144.08, 73731.29 -23256.44, 73785.7…
+## 2    30 EAST WALKER RIVER              5     9385. ((66826.29 17825.42, 66842.88 17853.58, 66861.79 17868.39, 66915.55 1…
+## 3    31 WEST WALKER RIVER              2     6427. ((41216.82 21006.26, 41275.41 20974.09, 41329.18 20937.78, 41342.79 2…
+## 4    36 TUOLUMNE RIVER                60     8129. ((23207.16 -25556.28, 23146.17 -25588.36, 23112.63 -25612.56, 23054.7…
+## 5    37 MERCED RIVER                  47     8399. ((40429.21 -57294.51, 40357.98 -57362.66, 40260.8 -57430.64, 40091.27…
+## 6    40 SAN JOAQUIN RIVER              6     8911. ((55704.49 -53548.52, 55754.08 -53648.64, 55792.94 -53706.26, 55849 -…</code></pre>
+<p><img src="attrib-tbl_files/figure-slidy/watershed_summarise_union_klippy-1.png" width="768" /></p>
+</div>
+<div id="notebook-time" class="slide section level1">
+<h1>Notebook time!</h1>
+<p><a href='https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/master/notebooks/nb_attrib-qry.Rmd' target='_blank'>nb_attrib-qry.Rmd</a></p> <div class='nb_desc'>Compute descriptive stats for the fire ignition points attribute table, and perform attribute queries for plotting</div> <p style='font-size:80%;'><a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_attrib-qry.nb.html' target='_blank' rel='noopener' style='color:#8993d3;'>preview notebook</a> | <a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_attrib-qry_ans.nb.html' target='_blank' style='color:#8993d3;'>answer key</a></p>
+</div>
+<div id="summary" class="slide section level1">
+<h1>Summary</h1>
+<p>Today we saw how to:</p>
+<div class="compact">
+<ul>
+<li>use <tt>dplyr</tt> functions for data wrangling and attribute
+queries<br />
+</li>
+</ul>
+</div>
+<p>
+<br/>
+<hr/>
+<strong>Next: </strong> <a href="text-functions.html">Working with
+Text</a>
+</p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

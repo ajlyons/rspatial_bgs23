@@ -239,6 +239,15 @@ Automation with Branches and Loops
 <br/><img src='images/code_flowchart_320x280x256.png'/>
   </p>
 </div>
+<div class="slide section level1">
+
+<p><br />
+</p>
+<p><br />
+</p>
+<p><img src="./images/postit_bg-trans_with-note_320x320.png"
+style="display:block; margin:1em auto; border:none;" /></p>
+</div>
 <div id="the-keys-to-automation-branches-and-loops"
 class="slide section level1">
 <h1>The Keys to Automation: Branches and Loops</h1>
@@ -311,8 +320,8 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb9-1"><
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;You picked a prime&quot;</span>)</span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] 4
-## [1] &quot;You picked an even number&quot;</code></pre>
+<pre><code>## [1] 17
+## [1] &quot;You picked a prime&quot;</code></pre>
 <div class="infobox">
 <p>The <strong><code>ifelse()</code></strong> function</p>
 <p>A variation of the <code>if-else</code> statement is the
@@ -415,17 +424,10 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb20-1">
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">round</span>(i,<span class="dv">2</span>))</span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] 0.66
-## [1] 0.38
-## [1] 0.81
-## [1] 0.84
-## [1] 0.34
-## [1] 0.71
-## [1] 0.09
-## [1] 0.53
-## [1] 0.66
-## [1] 0.4
-## [1] 0.98</code></pre>
+<pre><code>## [1] 0.33
+## [1] 0.63
+## [1] 0.55
+## [1] 0.99</code></pre>
 <div class="tip">
 <p><strong>break</strong></p>
 <p>Another way to escape out of a loop is the <code>break</code>
@@ -642,11 +644,11 @@ sequence</strong></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Addition is vectorized, so we don&#39;t need a loop</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">num=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">num_plus_offset=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="fl">0.5</span>))</span></code></pre></div>
 <pre><code>##   num num_plus_offset
-## 1   1        1.107212
-## 2   2        1.672788
-## 3   3        3.073232
-## 4   4        4.072768
-## 5   5        4.985052</code></pre>
+## 1   1        1.625385
+## 2   2        1.637435
+## 3   3        2.521965
+## 4   4        4.834538
+## 5   5        4.935334</code></pre>
 <p>In addition to for and while loops, R has functions like
 <code>sapply()</code> and <code>lapply()</code> that will apply a
 function to each element of a vector/list.</p>
