@@ -407,14 +407,17 @@ followed by computing summaries for each group.</p>
 </p>
 <h2 id="group-and-summarize-a-sf-data-frame">Group and Summarize a sf
 Data Frame</h2>
-<p>If you group_by()</p>
-<p>If you</p>
-<p>Dissolve Boundaries Based on Attribute Fields</p>
-<p>Grouping rows based on a common value of an attribute, and then
-computing one or more summary statistics for each group of rows, is
-extremely common. We a regular data frame, we can use
-<tt><strong>group_by()</strong></tt> and
-<tt><strong>summarise()</strong></tt> from <strong>dplyr</strong>.</p>
+<p>If you use group_by() and summarize() on a sf Data Frame, you’ll get
+back another SF data frame with:</p>
+<div class="indented2">
+<ol style="list-style-type: decimal">
+<li><p>the attribute values summarized for each group of features (as
+usual)</p></li>
+<li><p>the <strong>union</strong> (aka dissolve) of each group of
+features as the geometry</p></li>
+</ol>
+</div>
+<p>Example:</p>
 <p>We illustrate this with the attribute table from watersheds layer.
 This table has a column “HU” and “HUNAME” which are the id number and
 name of larger watersheds.</p>
