@@ -46,7 +46,7 @@ conflict_prefer("arrange", "dplyr", quiet = TRUE)
 epsg_utm11n_nad83 <- 26911
 
 ## Import the YNP border
-yose_bnd_utm <- st_read(dsn="./data", layer="yose_boundary") %>% 
+yose_bnd_utm <- st_read(dsn="./data", layer="yose_boundary") |> 
   st_transform(epsg_utm11n_nad83)
 ```
 
@@ -55,7 +55,7 @@ yose_bnd_utm <- st_read(dsn="./data", layer="yose_boundary") %>%
 Find area with `st_area()`:
 
 ```{r chunk04}
-yose_area <- yose_bnd_utm %>% st_area()
+yose_area <- yose_bnd_utm |> st_area()
 yose_area
 ```
 
@@ -71,11 +71,11 @@ set_units(yose_area, mi^2)
 Next import the watershed boundaries.
 
 ```{r chunk06}
-yose_watersheds_utm <- st_read("./data/yose_watersheds.gpkg", layer="calw221") %>% 
-  st_transform(epsg_utm11n_nad83) %>% 
+yose_watersheds_utm <- st_read("./data/yose_watersheds.gpkg", layer="calw221") |> 
+  st_transform(epsg_utm11n_nad83) |> 
   select(CALWNUM, HRNAME, RBNAME, HUNAME, CDFSPWNAME, CDFPWSNAME, HUC_8, HUC_8_NAME)
 
-yose_watersheds_utm %>% slice(1:10) %>% as_tibble()
+yose_watersheds_utm |> slice(1:10) |> as_tibble()
 
 tm_shape(yose_watersheds_utm) +
   tm_borders() +
@@ -104,17 +104,17 @@ Find the largest watershed, and report the area in acres. [Answer](https://bit.l
 ## Import the Roads
 
 ```{r chunk09}
-yose_roads_utm <- st_read("./data/yose_roads.gdb", "Yosemite_Roads") %>% 
-  st_transform(epsg_utm11n_nad83) %>% 
+yose_roads_utm <- st_read("./data/yose_roads.gdb", "Yosemite_Roads") |> 
+  st_transform(epsg_utm11n_nad83) |> 
   select(RDNAME, RTENUMBER, YOSE_Surface, YOSE_FIRE_ROAD, YOSE_INPARK, YOSE_Type)
 ```
 
 Compute the length of roads and save it in the attribute table:
 
 ```{r chunk10}
-yose_roads_utm <- yose_roads_utm %>% 
+yose_roads_utm <- yose_roads_utm |> 
   mutate(rd_length = st_length(yose_roads_utm))
-yose_roads_utm %>% slice(1:10) %>% as_tibble()
+yose_roads_utm |> slice(1:10) |> as_tibble()
 ```
 
 ## CHALLENGE: Compute Road Lengths
@@ -129,12 +129,12 @@ Find the total length for each type of Road (see YOSE_Type) in miles. [Answer](h
 ## Import the Campgrounds and Cell Towers
 
 ```{r chunk12}
-yose_campgrounds_utm <- st_read("./data", layer="yose_poi") %>% 
-  st_transform(epsg_utm11n_nad83) %>% 
-  filter(POITYPE == 'Campground') %>% 
+yose_campgrounds_utm <- st_read("./data", layer="yose_poi") |> 
+  st_transform(epsg_utm11n_nad83) |> 
+  filter(POITYPE == 'Campground') |> 
   select(POINAME)
   
-yose_celltwrs_utm <- st_read("./data/yose_communications.gdb", "Cell_Towers") %>% 
+yose_celltwrs_utm <- st_read("./data/yose_communications.gdb", "Cell_Towers") |> 
   st_transform(epsg_utm11n_nad83) 
 ```
 

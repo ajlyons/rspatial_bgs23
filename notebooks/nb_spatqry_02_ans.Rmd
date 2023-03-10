@@ -53,7 +53,7 @@ First, we import the boundary:
 epsg_utm11n_nad83 <- 26911
 
 ## Import the YNP border
-yose_bnd_utm <- st_read(dsn="./data", layer="yose_boundary") %>% 
+yose_bnd_utm <- st_read(dsn="./data", layer="yose_boundary") |> 
   st_transform(epsg_utm11n_nad83)
 ```
 
@@ -99,7 +99,7 @@ in_yose_mat <- st_within(rand_pts_sf, yose_bnd_utm, sparse = FALSE)
 head(in_yose_mat)
 
 ## Save those in the park to a new sf object
-pts_in_park_sf <- rand_pts_sf %>% filter(in_yose_mat[,1])
+pts_in_park_sf <- rand_pts_sf |> filter(in_yose_mat[,1])
 nrow(pts_in_park_sf)
 ```
 
@@ -120,7 +120,7 @@ Lastly, all we need is 500 points, so take a random sample:
 
 ```{r chunk08}
 ## Take a random sample of the points 
-yose_sample_pts_utm <- pts_in_park_sf %>% 
+yose_sample_pts_utm <- pts_in_park_sf |> 
   sample_n(n)
 
 ## Plot
@@ -140,18 +140,18 @@ Next we'll use a **spatial join** to do two things at once: 1) find the vegetati
 First import the vegetation class layer and the legend:
 
 ```{r chunk09}
-yose_veg37_utm <- st_read(dsn="./data", layer="veg37") %>% 
-  st_transform(epsg_utm11n_nad83) %>% 
+yose_veg37_utm <- st_read(dsn="./data", layer="veg37") |> 
+  st_transform(epsg_utm11n_nad83) |> 
   select(DOMINANT, ALLIANCE, RIM_CODE)
 
 ## Import the legend for the vegetation layer (saved separately)
 yose_veg37_legend_df <- foreign::read.dbf("./data/veg37_alliances.dbf")
 
 ## Join the legend to the sf data frame on the 'ALLIANCE' column
-yose_veg37leg_utm <- yose_veg37_utm %>% 
+yose_veg37leg_utm <- yose_veg37_utm |> 
   left_join(yose_veg37_legend_df, by = "ALLIANCE")
 
-yose_veg37leg_utm %>% slice(1:10) %>% as_tibble()
+yose_veg37leg_utm |> slice(1:10) |> as_tibble()
 ```
 
 \
@@ -172,10 +172,10 @@ tm_layout(legend.outside = TRUE)
 Now we're ready to spatially join the sample points to the vegetation layer using `st_join()`. This will add the columns from the vegetation layer to the attribute table of the sample points.
 
 ```{r chunk11}
-yose_sample_pts_veg_utm <- yose_sample_pts_utm %>% 
+yose_sample_pts_veg_utm <- yose_sample_pts_utm |> 
   st_join(yose_veg37leg_utm)
 
-yose_sample_pts_veg_utm %>% slice(1:10) %>% as_tibble()
+yose_sample_pts_veg_utm |> slice(1:10) |> as_tibble()
 ```
 
 \
@@ -202,9 +202,9 @@ First we import the campgrounds:
 
 ```{r chunk13}
 ## Import the campground
-yose_campgrounds_utm <- st_read("./data", layer="yose_poi") %>% 
-  st_transform(epsg_utm11n_nad83) %>% 
-  filter(POITYPE == 'Campground') %>% 
+yose_campgrounds_utm <- st_read("./data", layer="yose_poi") |> 
+  st_transform(epsg_utm11n_nad83) |> 
+  filter(POITYPE == 'Campground') |> 
   select(POINAME)
 
 yose_campgrounds_utm
@@ -217,7 +217,7 @@ To identify the sample points within 2km of each campground, we could construct 
 The number of sample points near each campground will vary. Hence we'll save the results in a list (`sparse = TRUE`):
 
 ```{r chunk14}
-samp_pts_near_each_campgrnd_lst <- yose_campgrounds_utm  %>% 
+samp_pts_near_each_campgrnd_lst <- yose_campgrounds_utm  |> 
   st_is_within_distance(yose_sample_pts_utm, 2000, sparse = TRUE)
 
 samp_pts_near_each_campgrnd_lst
@@ -239,8 +239,8 @@ campgrnd_samppts_dist_df <- NULL
 for (i in 1:nrow(yose_campgrounds_utm)) {
   
   if (length(samp_pts_near_each_campgrnd_lst[[i]]) > 0) {
-    dist_mat <- st_distance(x = yose_campgrounds_utm %>% slice(i),
-                          y = yose_sample_pts_utm %>% 
+    dist_mat <- st_distance(x = yose_campgrounds_utm |> slice(i),
+                          y = yose_sample_pts_utm |> 
                             slice(samp_pts_near_each_campgrnd_lst[[i]]))
     
     ## Create a data frame with the campground rown number, the sample point row numbers, and the distances
@@ -249,7 +249,7 @@ for (i in 1:nrow(yose_campgrounds_utm)) {
                                   dist = as.numeric(dist_mat[1,]))
     
     ## Add these rows to campgrnd_samppts_dist_df
-    campgrnd_samppts_dist_df <- campgrnd_samppts_dist_df %>% 
+    campgrnd_samppts_dist_df <- campgrnd_samppts_dist_df |> 
       bind_rows(dist2samppts_df)
     
   }

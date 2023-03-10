@@ -7,7 +7,7 @@ output:
 ---
 
 ```{css echo = FALSE}
-h1,h2 {font-weight:bold;}
+h1, h2 {font-weight:bold;}
 ```
 
 
@@ -60,7 +60,7 @@ Plot the points on top of the circles:
 
 ```{r chunk04, warning = FALSE}
 tm_shape(circles_sf) +
-  tm_borders(col = palette()[2:4] ) +
+  tm_borders() +
   tm_text("circle_id") +
 tm_shape(pts_sf) +
   tm_dots(col = "dimgray") +
@@ -72,9 +72,9 @@ tm_grid(labels.show = TRUE, lines = FALSE)
 Next we identify the points in circle A using a spatial predicate function (st_intersects). We could also copy the points in Cirlce A with st_intersection(), but there are times when you don't need or want to make copies of the data.
 
 ```{r chunk05}
-circle_a_sf <- circles_sf %>% filter(circle_id == "A")
+circle_a_sf <- circles_sf |> filter(circle_id == "A")
 
-pt_in_circle_a_yn_mat <- pts_sf %>% 
+pt_in_circle_a_yn_mat <- pts_sf |> 
   st_intersects(circle_a_sf,
                 sparse = FALSE)
   
@@ -87,12 +87,12 @@ Since we have a column of TRUE/FALSE values, we can subset those features using 
 ## Copy the points in circle A to a new object. Note in the filter expression
 ## we use square bracket notation to pull out the first column of the matrix 
 
-a_pts_sf <- pts_sf %>% 
+a_pts_sf <- pts_sf |> 
   filter(pt_in_circle_a_yn_mat[,1])
 
 ## Plot to verify
 tm_shape(circles_sf) +
-  tm_borders(col = palette()[2:4] ) +
+  tm_borders() +
   tm_text("circle_id") +
 tm_shape(a_pts_sf) +
   tm_dots(col = "red", size = 0.1) +
@@ -155,7 +155,7 @@ gpkg_watershd_fn <- "./data/yose_watersheds.gpkg"
 yose_watersheds_sf <- st_read(gpkg_watershd_fn, layer="calw221") 
 
 ## View attribute table
-yose_watersheds_sf %>% st_drop_geometry() %>% slice(1:6)
+yose_watersheds_sf |> st_drop_geometry() |> slice(1:6)
 
 ## Plot results
 tmap_mode("plot")
@@ -172,8 +172,8 @@ Note the keyword `MAP_COLORS` tells tmap to select colors at random such that ad
 Next we'll group the little planning watersheds into bigger "HUC-8" subbasins. This is easy because there is a column for the HUC 8 id number (`HUC_8`) and name (`HUC_8_NAME`).
 
 ```{r chunk14}
-yose_huc8_sf <- yose_watersheds_sf %>% 
-  group_by(HUC_8) %>% 
+yose_huc8_sf <- yose_watersheds_sf |> 
+  group_by(HUC_8) |> 
   summarise(HUC_8_NAME = first(HUC_8_NAME), num_pws = n())
 
 yose_huc8_sf
@@ -183,7 +183,7 @@ A convenient feature of `group_by()` is that when applied to a simple feature da
 
 ```{r chunk15}
 epsg_utm11n_nad83 <- 26911
-yose_bnd_utm <- st_read(dsn="./data", layer="yose_boundary") %>% 
+yose_bnd_utm <- st_read(dsn="./data", layer="yose_boundary") |> 
   st_transform(epsg_utm11n_nad83)
 
 tm_shape(yose_huc8_sf) + 
@@ -199,7 +199,7 @@ Next, pull out just the Upper Merced subbasin and save it as a separate object:
 
 ```{r chunk16}
 ## Filter out just the Upper Merced Subbasin
-merced_huc8_sf <- yose_huc8_sf %>% 
+merced_huc8_sf <- yose_huc8_sf |> 
   filter(HUC_8_NAME == "UPPER_MERCED")
 merced_huc8_sf
 ```
@@ -212,7 +212,7 @@ Import the Yosemite POIs:
 
 ```{r chunk17}
 ## Import points of interest
-yose_poi_utm <- st_read(dsn="./data", layer="yose_poi") %>% 
+yose_poi_utm <- st_read(dsn="./data", layer="yose_poi") |> 
   select(OBJECTID, POINAME, POILABEL, POITYPE)
 ```
 
@@ -223,7 +223,7 @@ yose_poi_utm <- st_read(dsn="./data", layer="yose_poi") %>%
 Find out which POIs intersect the Upper Merced subbasin with `st_intersects()`:
 
 ```{r chunk18}
-try(merced_poi <- yose_poi_utm %>% st_intersects(merced_watershed))
+try(merced_poi <- yose_poi_utm |> st_intersects(merced_watershed))
 ```
 
 Oh no - **ERROR message**! Spatial querying requires features to be in the same CRS!
@@ -233,7 +233,7 @@ Oh no - **ERROR message**! Spatial querying requires features to be in the same 
 To fix this, we can project the Merced HUC-8 layer (which is in CA Albers) to match the POIs (which are UTM):
 
 ```{r chunk19}
-merced_huc8_utm_sf <- merced_huc8_sf %>% 
+merced_huc8_utm_sf <- merced_huc8_sf |> 
   st_transform(st_crs(yose_poi_utm))
 ```
 
@@ -242,7 +242,7 @@ merced_huc8_utm_sf <- merced_huc8_sf %>%
 Try the intersection test again:
 
 ```{r chunk20}
-yose_poi_merced_mat <- yose_poi_utm %>% st_intersects(merced_huc8_utm_sf, sparse=FALSE)
+yose_poi_merced_mat <- yose_poi_utm |> st_intersects(merced_huc8_utm_sf, sparse=FALSE)
 head(yose_poi_merced_mat)
 ```
 
@@ -268,7 +268,7 @@ To extract the POIs in the Upper Merced subbasin, we can feed the first column o
 
 ```{r chunk22}
 ## Extract the points that intersect the subbasin to a new sf object
-merced_poi_utm <- yose_poi_utm %>% 
+merced_poi_utm <- yose_poi_utm |> 
   filter(yose_poi_merced_mat[,1])
 ```
 

@@ -241,11 +241,20 @@ Spatial Queries &amp; Joins
 <br/><img src='images/spatial_query_410x310.png'/>
   </p>
 </div>
-<div id="spatial-queries" class="slide section level1">
-<h1>Spatial Queries</h1>
+<div class="slide section level1">
+
+<p><br />
+</p>
+<p><br />
+</p>
+<p><img src="./images/postit_bg-trans_with-note_320x320.png"
+style="display:block; margin:1em auto; border:none;" /></p>
 <script>
   addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
 </script>
+</div>
+<div id="spatial-queries" class="slide section level1">
+<h1>Spatial Queries</h1>
 <p>Spatial query = <strong>selecting</strong> features based on their
 <strong>location</strong> or <strong>spatial relationship</strong>
 (relative to another feature)</p>
@@ -469,7 +478,7 @@ notation, putting a sf object as the expression for the rows.</p>
 <p>The following are <strong>equivalent</strong>:</p>
 <div class="indented2 indented2r">
 <div class="sourceCode" id="cb5"><pre
-class="sourceCode r sample_code"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>poi_merced2 <span class="ot">&lt;-</span> yose_poi <span class="sc">%&gt;%</span> <span class="fu">st_intersection</span>(merced_hu_utm)</span>
+class="sourceCode r sample_code"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>poi_merced2 <span class="ot">&lt;-</span> yose_poi <span class="sc">|&gt;</span> <span class="fu">st_intersection</span>(merced_hu_utm)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>poi_merced1 <span class="ot">&lt;-</span> yose_poi[merced_hu_utm, ]</span></code></pre></div>
 </div>
@@ -505,11 +514,11 @@ Compute distances between cell towers</h3>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>epsg_utm11n_nad83 <span class="ot">&lt;-</span> <span class="dv">26911</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>yose_celltwrs_utm <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;./data/yose_communications.gdb&quot;</span>, <span class="st">&quot;Cell_Towers&quot;</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(epsg_utm11n_nad83) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>yose_celltwrs_utm <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;./data/yose_communications.gdb&quot;</span>, <span class="st">&quot;Cell_Towers&quot;</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(epsg_utm11n_nad83) <span class="sc">|&gt;</span> </span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">tower_id =</span> Id, <span class="at">tower_name =</span> Name, <span class="at">x_utm =</span> X_UTM, <span class="at">y_utm =</span> Y_UTM)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_distance</span>(yose_celltwrs_utm) <span class="sc">%&gt;%</span> <span class="fu">round</span>()</span></code></pre></div>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_distance</span>(yose_celltwrs_utm) <span class="sc">|&gt;</span> <span class="fu">round</span>()</span></code></pre></div>
 <pre><code>## Units: [m]
 ##       1     2     3     4     5
 ## 1     0 25216 26523 45311 43318
@@ -531,12 +540,12 @@ id="example-2-compute-distances-between-cell-towers-and-campgrounds">Example
 <div class="indented2 indented2r">
 <div class="sourceCode" id="cb9"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Import the campgrounds</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>yose_campgrnds_utm <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn=</span><span class="st">&quot;./data&quot;</span>, <span class="at">layer=</span><span class="st">&quot;yose_poi&quot;</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(POITYPE <span class="sc">==</span> <span class="st">&#39;Campground&#39;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(POINAME) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>yose_campgrnds_utm <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn=</span><span class="st">&quot;./data&quot;</span>, <span class="at">layer=</span><span class="st">&quot;yose_poi&quot;</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(POITYPE <span class="sc">==</span> <span class="st">&#39;Campground&#39;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(POINAME) <span class="sc">|&gt;</span> </span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(epsg_utm11n_nad83)</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_distance</span>(yose_campgrnds_utm, yose_celltwrs_utm) <span class="sc">%&gt;%</span> <span class="fu">round</span>()</span></code></pre></div>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_distance</span>(yose_campgrnds_utm, yose_celltwrs_utm) <span class="sc">|&gt;</span> <span class="fu">round</span>()</span></code></pre></div>
 <pre><code>## Units: [m]
 ##        [,1]  [,2]  [,3]  [,4]  [,5]
 ##  [1,] 46219 25885 26226 33538  5904
@@ -563,7 +572,7 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb9-1"><
 <p>To identify nearby neighbors, you can use:</p>
 <div class="compact" style="font-family:monospace;">
 <ul>
-<li>st_is_within_distance() ()<br />
+<li>st_is_within_distance()<br />
 </li>
 <li>st_nearest_feature()<br />
 </li>
@@ -594,7 +603,7 @@ rel="noopener"><strong>nngeo</strong></a> package.</p>
 <div class="indented2 indented2r">
 <div class="sourceCode" id="cb11"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Import the trails</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>yose_trails_utm <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;./data/yose_trails.gdb&quot;</span>, <span class="at">layer=</span><span class="st">&quot;Trails&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>yose_trails_utm <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;./data/yose_trails.gdb&quot;</span>, <span class="at">layer=</span><span class="st">&quot;Trails&quot;</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(epsg_utm11n_nad83)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Load the nngeo package</span></span>
@@ -639,7 +648,7 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb13-1">
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>rainbow_cols <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(<span class="fu">nrow</span>(yose_campgrnds_utm), <span class="at">end=</span><span class="dv">5</span><span class="sc">/</span><span class="dv">6</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_trails_utm, <span class="at">bbox=</span>yose_campgrnds_utm) <span class="sc">+</span> </span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>(<span class="at">col=</span><span class="st">&quot;gray90&quot;</span>) <span class="sc">+</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(yose_trails_utm <span class="sc">%&gt;%</span> <span class="fu">slice</span>(closest_trail_idx)) <span class="sc">+</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(yose_trails_utm <span class="sc">|&gt;</span> <span class="fu">slice</span>(closest_trail_idx)) <span class="sc">+</span> </span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(yose_campgrnds_utm) <span class="sc">+</span> </span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_symbols</span>(<span class="at">col=</span><span class="st">&quot;POINAME&quot;</span>, <span class="at">palette =</span> rainbow_cols, <span class="at">size=</span><span class="fl">0.5</span>) <span class="sc">+</span> </span>
@@ -697,7 +706,7 @@ For each campground, join attributes from the nearest cell tower</h3>
 tower to the campgrounds attribute table.</p>
 <div class="indented2 indented2r">
 <div class="sourceCode" id="cb14"><pre
-class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>yose_camp_plus_cell_utm <span class="ot">&lt;-</span> yose_campgrnds_utm <span class="sc">%&gt;%</span> </span>
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>yose_camp_plus_cell_utm <span class="ot">&lt;-</span> yose_campgrnds_utm <span class="sc">|&gt;</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(yose_celltwrs_utm, <span class="at">join =</span> st_nearest_feature)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>yose_camp_plus_cell_utm</span></code></pre></div>
