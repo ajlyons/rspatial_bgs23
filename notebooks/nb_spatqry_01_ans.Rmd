@@ -1,0 +1,462 @@
+---
+title: "Spatial Queries: Find Yosemite POIs in the Upeer Merced Subbasin"
+output: 
+  html_notebook:
+    toc: yes
+    toc_float: yes
+---
+
+```{css echo = FALSE}
+h1,h2 {font-weight:bold;}
+```
+
+
+In this Notebook we'll use geoprocessing functions from `sf` to identify Yosemite Points-of-Interest that fall within the **Upper Merced Subbasin**. 
+
+## Setup
+
+Load the packages we'll need and set tmap mode to 'plot':
+
+```{r chunk01, message = FALSE}
+library(sf)
+library(tmap)
+tmap_mode("plot")
+```
+
+Load `dplyr` and set name conflict preferences:
+
+```{r chunk02, message = FALSE}
+library(dplyr)
+
+## Load the conflicted package
+library(conflicted)
+
+# Set conflict preferences
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("count", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("arrange", "dplyr", quiet = TRUE)
+```
+
+\
+
+# Practice Querying with Sample Data
+
+## Import Practice Data
+
+First we import some practice data:
+
+```{r chunk03}
+circles_sf <- st_read("./data/test_circles.geojson")
+circles_sf
+
+
+circles_sf %>% mutate(col = c("red", "blue", "green"))
+
+
+
+
+
+pts_sf <- st_read("./data/test_pts.geojson")
+pts_sf
+```
+
+\
+
+Plot the points on top of the circles:
+
+```{r chunk04, warning = FALSE}
+
+circles_sf2 <- circles_sf %>% mutate(circle_color = c("red", "blue", "green"))
+circles_sf2
+
+tm_shape(circles_sf2) +
+  tm_polygons(border.col = "circle_color")
+
+  #tm_borders(col = ~circle_id)
+
+  # tm_borders(col = palette()[2:4] )
+
+# +
+#   tm_text("circle_id") +
+# tm_shape(pts_sf) +
+#   tm_dots(col = "dimgray") +
+# tm_grid(labels.show = TRUE, lines = FALSE)
+```
+
+## Identify the points in Circle A
+
+Next we identify the points in circle A using a spatial predicate function (st_intersects). We could also copy the points in Cirlce A with st_intersection(), but there are times when you don't need or want to make copies of the data.
+
+```{r chunk05}
+circle_a_sf <- circles_sf %>% filter(circle_id == "A")
+
+pt_in_circle_a_yn_mat <- pts_sf %>% 
+  st_intersects(circle_a_sf,
+                sparse = FALSE)
+  
+head(pt_in_circle_a_yn_mat)
+```
+
+Since we have a column of TRUE/FALSE values, we can subset those features using the dplyr `filter` function:
+
+```{r chunk06, warning = FALSE}
+## Copy the points in circle A to a new object. Note in the filter expression
+## we use square bracket notation to pull out the first column of the matrix 
+
+a_pts_sf <- pts_sf %>% 
+  filter(pt_in_circle_a_yn_mat[,1])
+
+## Plot to verify
+tm_shape(circles_sf) +
+  tm_borders(col = palette()[2:4] ) +
+  tm_text("circle_id") +
+tm_shape(a_pts_sf) +
+  tm_dots(col = "red", size = 0.1) +
+tm_grid(labels.show = TRUE, lines = FALSE)
+```
+
+\
+
+## CHALLENGE: How many points in cirlce B?
+
+[Answer](https://bit.ly/3xwk0xV)
+
+```{r chunk07}
+circle_b_sf <- circles_sf %>%
+  filter(circle_id == "B")
+
+pts_sf %>% 
+  st_intersects(circle_b_sf, sparse = FALSE) %>% 
+  sum()
+```
+
+\
+
+## CHALLENGE: Plot the points that fall within Circle B *and* Circle C
+
+[Answer](https://bit.ly/3yvJk8H)
+
+```{r chunk08}
+pts_circle_bc_sf <- pts_sf %>% 
+  st_intersection(circles_sf %>% filter(circle_id == "B")) %>% 
+  st_intersection(circles_sf %>% filter(circle_id == "C"))
+
+tm_shape(circles_sf) +
+  tm_borders(col = palette()[2:4] ) +
+  tm_text("circle_id") +
+tm_shape(pts_circle_bc_sf) +
+  tm_dots(col = "red", size = 0.1) +
+tm_grid(labels.show = TRUE, lines = FALSE)
+```
+
+\
+
+## CHALLENGE: How many points don't fall in any circle?
+
+This is a little more challenging. One approach we could take is to test for intersection for all points and all circles. This will return a matrix of TRUE / FALSE values, with one row for each point and one column for each circle. If a row has three FALSE values, it means that point doesn't intersect any circle. 
+
+[Answer](https://bit.ly/2VCUfz3)
+
+```{r chunk09}
+## Approach one: Test intersection for all circles
+intersect_yn_mat <- pts_sf %>% 
+  st_intersects(circles_sf, sparse = FALSE)
+head(intersect_yn_mat)
+
+## Sum up the rows. If a the point doesn't intersect any circle, the sum of the row will be 0
+outside_all_circles <- rowSums(intersect_yn_mat)
+
+## Count the number of rows where the total is 0. These are the points that don't intersect any circle.
+sum(outside_all_circles == 0)
+
+## Plot to make sure
+pts_outside_circles_sf <- pts_sf %>% 
+  filter(outside_all_circles == 0)
+
+tm_shape(circles_sf) +
+  tm_borders(col = palette()[2:4] ) +
+  tm_text("circle_id") +
+tm_shape(pts_outside_circles_sf) +
+  tm_dots(col = "dimgray", size = 0.1) +
+tm_grid(labels.show = TRUE, lines = FALSE)
+```
+
+A second approach would be to union the circles and then take the difference:
+
+```{r chunk10}
+circle_union_sf <- circles_sf %>% st_union(by_feature = FALSE)
+
+pts_outside_circle_union_sf <- pts_sf %>% 
+  st_difference(circle_union_sf)
+
+tm_shape(circle_union_sf) +
+  tm_fill() +
+tm_shape(pts_outside_circle_union_sf) +
+  tm_dots(col = "orange", size = 0.15) +
+tm_grid(labels.show = TRUE, lines = FALSE)
+```
+
+\
+
+## CHALLENGE: Plot the points that lie within 0.25 map units of a circle, but are not contained within the circle
+
+One approach we can use to solve this problem is to feed the point layer into `st_is_within_distance()` (which returns a matrix), then feed that matrix into `rowSums()` (which adds up the rows converting TRUE to 1 and FALSE to 0), and then feed the row sums into a condition check (row sum > 0). This will give us a logical vector (TRUE / FALSE) values that indicate whether each point is close to a circle.
+
+Unfortunately `st_is_within_distance()` also returns TRUE when a point is *within* the circle (because distance = 0). Hence we'll need to remove the points within the circles from our set. We can do this by creating a logical vector for intersects, and then write a logical expression that uses the 'and' and 'not' operators to find the points we want.
+
+[Answer](https://bit.ly/3xsXgyR)
+
+```{r chunk11}
+library(magrittr)
+
+## Test whether points are near a circle. Note st_is_within_distance() also returns
+## TRUE for points that are within the circle (because the distance = 0)
+near_or_within_any_circle_yn <- pts_sf %>% 
+  st_is_within_distance(circles_sf, dist = 0.25, sparse = FALSE) %>% 
+  rowSums() %>% 
+  is_greater_than(0)    ## you could also use {. > 0}
+
+## Test the points that are within circles (so we can remove them)
+within_any_circle_yn <- pts_sf %>% 
+  st_intersects(circles_sf, sparse = FALSE) %>% 
+  rowSums() %>% 
+  is_greater_than(0)    ## you could also use {. > 0}
+
+## Use the logical 'and' operator (&) and 'not' operator (!) to get those
+## rows near but not within circles
+near_but_not_within_yn <- near_or_within_any_circle_yn & !within_any_circle_yn
+
+## Count the TRUEs
+sum(near_but_not_within_yn)
+
+## Plot to make sure
+tm_shape(circles_sf) +
+  tm_borders(col = palette()[2:4] ) +
+  tm_text("circle_id") +
+tm_shape(pts_sf %>% filter(near_but_not_within_yn)) +
+  tm_dots(col = "brown", size = 0.1) +
+tm_grid(labels.show = TRUE, lines = FALSE)
+```
+
+Another approach we can take is to create a 'donut ring' around the union  of the threes circles, and then use `st_intersecs()` or `st_intersection()` to plot the points we want. You can make a donut ring with a combination of `st_buffer()` and `st_difference()`.
+
+```{r chunk12}
+## Merge the circles into a single multipolygon feature
+circles_merged_sf <- circles_sf %>% st_union()
+
+## Create the donut ring:
+circles_ring_sf <- circles_merged_sf %>% 
+  st_buffer(dist = 0.25) %>% 
+  st_difference(circles_merged_sf)
+  
+## Plot to make sure
+tm_shape(circles_ring_sf) +
+  tm_polygons()
+
+## Find and plot the points that fall within the donut ring
+pts_ring_sf <- pts_sf %>% st_intersection(circles_ring_sf)
+
+## Count them
+nrow(pts_ring_sf)
+
+## Plot to verify
+tm_shape(circles_sf) +
+  tm_borders(col = palette()[2:4] ) +
+  tm_text("circle_id") +
+tm_shape(pts_ring_sf) +
+  tm_dots(col = "purple", size = 0.1) +
+tm_grid(labels.show = TRUE, lines = FALSE)
+
+```
+
+
+\
+
+# Plot the Points of Interest that Fall within the Upper Merced Subbasin
+
+Next, we'll apply what we learned to find the Yosemite Points-of-Interest that fall within the Upper Merced HUB-8 Subbasin.
+
+## Import the Watersheds
+
+Start by importing the planning watershed units from [calw221](https://frap.fire.ca.gov/mapping/gis-data/){target="_blank" rel="noopener"}:
+
+```{r chunk13}
+## Import the planning watersheds
+gpkg_watershd_fn <- "./data/yose_watersheds.gpkg"
+yose_watersheds_sf <- st_read(gpkg_watershd_fn, layer="calw221") 
+
+## View attribute table
+yose_watersheds_sf %>% st_drop_geometry() %>% slice(1:6)
+
+## Plot results
+tmap_mode("plot")
+tm_shape(yose_watersheds_sf) + 
+  tm_polygons("MAP_COLORS", palette = "Pastel1") 
+```
+
+Note the keyword `MAP_COLORS` tells tmap to select colors at random such that adjacent polygons have different colors.
+
+\
+
+## Lump the Planning Watersheds into HUC-8 Subbasins
+
+Next we'll group the little planning watersheds into bigger "HUC-8" subbasins. This is easy because there is a column for the HUC 8 id number (`HUC_8`) and name (`HUC_8_NAME`).
+
+```{r chunk14}
+yose_huc8_sf <- yose_watersheds_sf %>% 
+  group_by(HUC_8) %>% 
+  summarise(HUC_8_NAME = first(HUC_8_NAME), num_pws = n())
+
+yose_huc8_sf
+```
+
+A convenient feature of `group_by()` is that when applied to a simple feature data frame it will also spatially aggregate (i.e., union) the features based on common values in the grouping column. Plot to verify:
+
+```{r chunk15}
+epsg_utm11n_nad83 <- 26911
+yose_bnd_utm <- st_read(dsn="./data", layer="yose_boundary") %>% 
+  st_transform(epsg_utm11n_nad83)
+
+tm_shape(yose_huc8_sf) + 
+  tm_polygons("MAP_COLORS", palette = "Pastel1") +
+  tm_text("HUC_8_NAME", size = 0.7) +
+tm_shape(yose_bnd_utm) +
+  tm_borders(col = "red", lwd = 2)
+```
+
+\
+
+## Extract Upper Merced HUC-8 Subbasin
+
+Next, pull out just the Upper Merced subbasin and save it as a separate object:
+
+```{r chunk16}
+## Filter out just the Upper Merced Subbasin
+merced_huc8_sf <- yose_huc8_sf %>% 
+  filter(HUC_8_NAME == "UPPER_MERCED")
+merced_huc8_sf
+```
+
+\
+
+## Import the Points-of-Interest
+
+Import the Yosemite POIs:
+
+```{r chunk17}
+## Import points of interest
+yose_poi_utm <- st_read(dsn="./data", layer="yose_poi") %>% 
+  select(OBJECTID, POINAME, POILABEL, POITYPE)
+```
+
+\
+
+## Identify Intersecting Points-of-Interest
+
+Find out which POIs intersect the Upper Merced subbasin with `st_intersects()`:
+
+```{r chunk18}
+try(merced_poi <- yose_poi_utm %>% st_intersects(merced_watershed))
+```
+
+Oh no - **ERROR message**! Spatial querying requires features to be in the same CRS!
+
+\
+
+To fix this, we can project the Merced HUC-8 layer (which is in CA Albers) to match the POIs (which are UTM):
+
+```{r chunk19}
+merced_huc8_utm_sf <- merced_huc8_sf %>% 
+  st_transform(st_crs(yose_poi_utm))
+```
+
+\
+
+Try the intersection test again:
+
+```{r chunk20}
+yose_poi_merced_mat <- yose_poi_utm %>% st_intersects(merced_huc8_utm_sf, sparse=FALSE)
+head(yose_poi_merced_mat)
+```
+
+\
+
+## CHALLENGE: How many points-of-interest fall within the Upper Merced subbasin?
+
+*Hint 1*: This is equivalent to asking how many TRUE values there are in the first column of `yose_poi_merced_mat`.
+
+*Hint 2*: To get the first column of a matrix `x`, use `x[ , 1]`.
+
+[Answer](https://bit.ly/3rEOnzn)
+
+```{r chunk21}
+## How many points of interest fall in the Upper Merced subbasin?
+
+## Option 1: Sum up the values in the column 1 of the matrix
+sum(yose_poi_merced_mat[,1])
+
+## Option 2: Compute a frequency table of the values column 1
+table(yose_poi_merced_mat[,1])
+```
+
+\
+
+## Subset the POIs that fall within the Upper Merced Subbasin
+
+To extract the POIs in the Upper Merced subbasin, we can feed the first column of `yose_poi_merced_mat` into  `filter()` (which expects TRUE/FALSE values):
+
+```{r chunk22}
+## Extract the points that intersect the subbasin to a new sf object
+merced_poi_utm <- yose_poi_utm %>% 
+  filter(yose_poi_merced_mat[,1])
+```
+
+\
+
+## Plot the Intersection
+
+Plot to visually verify the results:
+
+```{r chunk23}
+## Plot
+tm_shape(merced_huc8_utm_sf) +
+  tm_polygons(col = "khaki") +
+tm_shape(yose_poi_utm) +
+  tm_dots(size = 0.1, col = "gray30") +
+tm_shape(merced_poi_utm) +
+  tm_dots(size = 0.1, col = "dodgerblue")
+```
+
+\
+
+## CHALLENGE: How many YNP POIs fall witin the Upper Tuolumne HUC-8 subbasin?
+
+[Answer](https://bit.ly/3AdasK6)
+
+```{r chunk24}
+uptuol_huc8_utm_sf <- yose_huc8_sf %>% 
+  filter(HUC_8_NAME == "UPPER_TUOLUMNE") %>% 
+  st_transform(st_crs(yose_poi_utm))
+
+## Plot to verify
+tm_shape(uptuol_huc8_utm_sf) + 
+  tm_polygons() +
+tm_shape(yose_poi_utm) +
+  tm_dots()
+
+## Count the intersecting points
+yose_poi_utm %>% 
+  st_intersection(uptuol_huc8_utm_sf) %>% 
+  st_drop_geometry() %>% 
+  count()
+
+```
+
+
+## End
+
+Congratulations, you've completed another Notebook! 
+
+To view your Notebook at HTML, save it (again), then click the 'Preview' button in the RStudio toolbar.
+

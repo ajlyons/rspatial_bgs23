@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Spatial Queries &amp; Joins  " />
+  <meta name="copyright" content="<span class='footer-right'><a href='../acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href=' https://etherpad.wikimedia.org/p/rspatial-bgs23 ' target='_blank'>Forum</a></span><span class='footer-right'><a href=' https://ajlyons.github.io/rspatial_bgs23 '> https://ajlyons.github.io/rspatial_bgs23 </a></span><span class='footer-right'><a href='../index.html'>Home</a></span><span class='footer-subtitle'> Spatial Data Analysis with R </span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Spatial Data Analysis with R  BayGeo, Spring 2023</title>
+  <style type="text/css">
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            pre > code.sourceCode { white-space: pre; position: relative; }
+            pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+            pre > code.sourceCode > span:empty { height: 1.2em; }
+            .sourceCode { overflow: visible; }
+            code.sourceCode > span { color: inherit; text-decoration: inherit; }
+            div.sourceCode { margin: 1em 0; }
+            pre.sourceCode { margin: 0; }
+            @media screen {
+            div.sourceCode { overflow: auto; }
+            }
+            @media print {
+            pre > code.sourceCode { white-space: pre-wrap; }
+            pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+            }
+            pre.numberSource code
+              { counter-reset: source-line 0; }
+            pre.numberSource code > span
+              { position: relative; left: -4em; counter-increment: source-line; }
+            pre.numberSource code > span > a:first-child::before
+              { content: counter(source-line);
+                position: relative; left: -1em; text-align: right; vertical-align: baseline;
+                border: none; display: inline-block;
+                -webkit-touch-callout: none; -webkit-user-select: none;
+                -khtml-user-select: none; -moz-user-select: none;
+                -ms-user-select: none; user-select: none;
+                padding: 0 4px; width: 4em;
+                color: #aaaaaa;
+              }
+            pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+            div.sourceCode
+              {   }
+            @media screen {
+            pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+            }
+            code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+            code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+            code span.at { color: #7d9029; } /* Attribute */
+            code span.bn { color: #40a070; } /* BaseN */
+            code span.bu { color: #008000; } /* BuiltIn */
+            code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+            code span.ch { color: #4070a0; } /* Char */
+            code span.cn { color: #880000; } /* Constant */
+            code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+            code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+            code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+            code span.dt { color: #902000; } /* DataType */
+            code span.dv { color: #40a070; } /* DecVal */
+            code span.er { color: #ff0000; font-weight: bold; } /* Error */
+            code span.ex { } /* Extension */
+            code span.fl { color: #40a070; } /* Float */
+            code span.fu { color: #06287e; } /* Function */
+            code span.im { color: #008000; font-weight: bold; } /* Import */
+            code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+            code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+            code span.op { color: #666666; } /* Operator */
+            code span.ot { color: #007020; } /* Other */
+            code span.pp { color: #bc7a00; } /* Preprocessor */
+            code span.sc { color: #4070a0; } /* SpecialChar */
+            code span.ss { color: #bb6688; } /* SpecialString */
+            code span.st { color: #4070a0; } /* String */
+            code span.va { color: #19177c; } /* Variable */
+            code span.vs { color: #4070a0; } /* VerbatimString */
+            code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+          </style>
+  <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <meta name="robots" content="noindex,nofollow"/>
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) {
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy");
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied")
+  }}
+  </script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163964617-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-163964617-1');
+  </script>
+  <script src="lib/header-attrs-2.19/header-attrs.js"></script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <script src="lib/slidy_shiny-1/slidy_shiny.js"></script>
+  <script src="lib/clipboard-1.7.1/clipboard.min.js"></script>
+  <link href="lib/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+  <link href="lib/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+  <script src="lib/klippy-0.0.0.9500/js/klippy.min.js"></script>
+  <script src="lib/kePrint-0.0.1/kePrint.js"></script>
+  <link href="lib/lightable-0.0.1/lightable.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="../css/slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<script type="text/javascript">w3c_slidy.mouse_click_enabled = false;</script>
+<div class="slide titlepage">
+  <h1 class="title"><span class="course-title">Spatial Data Analysis
+with R </span><br/><span class="course-subtitle">BayGeo, Spring
+2023</span></h1>
+  <p class="author">
+Spatial Queries &amp; Joins
+<br/><img src='images/spatial_query_410x310.png'/>
+  </p>
+</div>
+<div id="spatial-queries" class="slide section level1">
+<h1>Spatial Queries</h1>
+<script>
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<p>Spatial query = <strong>selecting</strong> features based on their
+<strong>location</strong> or <strong>spatial relationship</strong>
+(relative to another feature)</p>
+<div class="infobox">
+<p>Spatial Querying is also known as <em>Spatial Subsetting</em></p>
+</div>
+<p>Spatial relationship functions in <code>sf</code>:</p>
+<table class="tbl_compact">
+<tbody>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_intersects()
+</td>
+<td style="text-align:left;">
+overlaps or touches
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_disjoint()
+</td>
+<td style="text-align:left;">
+opposite of intersect
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_touches()
+</td>
+<td style="text-align:left;">
+touches only
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_crosses()
+</td>
+<td style="text-align:left;">
+cross (but doesn’t touch)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_within()
+</td>
+<td style="text-align:left;">
+within
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_contains()
+</td>
+<td style="text-align:left;">
+contains
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_contains_properly()
+</td>
+<td style="text-align:left;">
+interiors intersect but not edges or exterior
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_overlaps()
+</td>
+<td style="text-align:left;">
+overlaps
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_equals()
+</td>
+<td style="text-align:left;">
+equals
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_covers()
+</td>
+<td style="text-align:left;">
+covers
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_covered_by()
+</td>
+<td style="text-align:left;">
+completely covered
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_equals_exact()
+</td>
+<td style="text-align:left;">
+equals within a tolerance
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+st_is_within_distance()
+</td>
+<td style="text-align:left;">
+within a distance
+</td>
+</tr>
+</tbody>
+</table>
+<div class="infobox">
+<p>These functions are also known as <strong>spatial
+predicates</strong>.</p>
+<p>These are <strong>logical</strong> functions - they return TRUE/FALSE
+values (and/or or row numbers).</p>
+<p>Spatial proximity functions require that layers be in the
+<strong>same CRS</strong>.</p>
+</div>
+<!--- infobox --->
+</div>
+<div id="using-logical-spatial-relationship-functions"
+class="slide section level1">
+<h1>Using Logical Spatial Relationship Functions</h1>
+<p>Let’s look at an example:</p>
+<div class="indented2" style="font-family:monospace;">
+<strong>st_intersects(<em>x</em>, <em>y</em>, sparse=TRUE)</strong>
+</div>
+<p>where</p>
+<div class="indented2">
+<p><strong><code>x</code></strong> (target) and
+<strong><code>y</code></strong> (source) are both <code>sf</code>
+objects</p>
+<code>sparse = TRUE</code><br />
+
+<div class="compact">
+<ul>
+<li>function returns a <strong>list</strong> object with<br />
+</li>
+<li>one element for each feature of <code>x</code>, and<br />
+</li>
+<li>each element contains the <strong>indices of y</strong> where the
+test is TRUE</li>
+</ul>
+</div>
+<p><br />
+</p>
+<code>sparse = FALSE</code><br />
+
+<div class="compact">
+<ul>
+<li>function returns a <strong>matrix</strong> of <strong>logical
+values</strong>, with<br />
+</li>
+<li>one row for each feature of <code>x</code>, and<br />
+</li>
+<li>one column for each features in <code>y</code></li>
+</ul>
+</div>
+</div>
+<!---- class = indented2 ---->
+<p><br />
+</p>
+<h3 id="example-points-and-polygons">Example: Points and Polygons</h3>
+<p>Consider an example where <code>x</code> contains 5 points and
+<code>y</code> contains 2 polygons:</p>
+<p><img src="spatial-queries_files/figure-slidy/show_graphic-1.png" width="768" /></p>
+<p>When <code>sparse = TRUE</code>, you get a <strong>list of
+indices</strong>:</p>
+<div class="indented4 indented2r">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(my_pts, my_polys, <span class="at">sparse =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Sparse geometry binary predicate list of length 5, where the predicate was `intersects&#39;
+##  1: (empty)
+##  2: 1
+##  3: (empty)
+##  4: 2
+##  5: (empty)</code></pre>
+</div>
+<p>When <code>sparse = FALSE</code>, you get a <em>2 x 5</em>
+<strong>matrix of logical values</strong>:</p>
+<div class="indented4 indented2r">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(my_pts, my_polys, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>##       [,1]  [,2]
+## [1,] FALSE FALSE
+## [2,]  TRUE FALSE
+## [3,] FALSE FALSE
+## [4,] FALSE  TRUE
+## [5,] FALSE FALSE</code></pre>
+</div>
+<div class="infobox">
+<p>When you get back the results of a spatial relationship test, you can
+use them to subset features with <code>dplyr</code> functions:</p>
+<div class="indented1">
+<ul>
+<li>feed TRUE / FALSE values into <code>filter()</code></li>
+<li>feed row numbers into <code>slice()</code></li>
+</ul>
+</div>
+</div>
+<!--- infobox--->
+<p><br />
+</p>
+</div>
+<div
+id="r-notebook-1-find-yosemite-pois-that-intersect-the-merced-watershed"
+class="slide section level1">
+<h1>R Notebook 1: Find Yosemite POIs that Intersect the Merced
+Watershed</h1>
+<!---- # R Notebook Exercise 1 --->
+<p><a href='https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/master/notebooks/nb_spatqry_01.Rmd' target='_blank'>nb_spatqry_01.Rmd</a></p> <div class='nb_desc'>Identify points-of-interest that fall within the Merced River watershed</div> <p style='font-size:80%;'><a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_spatqry_01.nb.html' target='_blank' rel='noopener' style='color:#8993d3;'>preview notebook</a> | <a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_spatqry_01_ans.nb.html' target='_blank' style='color:#8993d3;'>answer key</a></p>
+</div>
+<div id="spatial-selection-with-square-bracket-notation"
+class="slide section level1">
+<h1>Spatial Selection with Square Bracket Notation</h1>
+<p>You can also subset spatially use the familiar square bracket
+notation, putting a sf object as the expression for the rows.</p>
+<p>The following are <strong>equivalent</strong>:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode r sample_code"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>poi_merced2 <span class="ot">&lt;-</span> yose_poi <span class="sc">%&gt;%</span> <span class="fu">st_intersection</span>(merced_hu_utm)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>poi_merced1 <span class="ot">&lt;-</span> yose_poi[merced_hu_utm, ]</span></code></pre></div>
+</div>
+<p>By default, when the rows argument is a sf object the result will be
+an <strong>intersection</strong>. To use a different spatial test, add
+the optional <code>op</code> argument:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode r sample_code"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The following will return all features in yose_poi *except* where they intersect</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Note the blank space where the &#39;columns&#39; expression should normally go.</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## You still need that comma!</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>poi_not_merced <span class="ot">&lt;-</span> yose_poi[merced_hu_utm, , op <span class="ot">=</span> st_disjoint]</span></code></pre></div>
+</div>
+<!---- # Example: Select features in a bounding box --->
+</div>
+<div id="computing-distances" class="slide section level1">
+<h1>Computing Distances</h1>
+<p><code>sf::st_distance()</code> computes distances <strong>between
+pairs of features</strong></p>
+<div class="indented2">
+<p>If you pass it <strong>one sf object</strong>, it’ll return a
+distance matrix of features in that layer.</p>
+<p>If you pass it <strong>two sf objects</strong>, it’ll return a
+pairwise distance matrix of features in both layer.</p>
+</div>
+<p><br />
+</p>
+<h3 id="example-1-compute-distances-between-cell-towers">Example 1:
+Compute distances between cell towers</h3>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>epsg_utm11n_nad83 <span class="ot">&lt;-</span> <span class="dv">26911</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>yose_celltwrs_utm <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;./data/yose_communications.gdb&quot;</span>, <span class="st">&quot;Cell_Towers&quot;</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(epsg_utm11n_nad83) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">tower_id =</span> Id, <span class="at">tower_name =</span> Name, <span class="at">x_utm =</span> X_UTM, <span class="at">y_utm =</span> Y_UTM)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_distance</span>(yose_celltwrs_utm) <span class="sc">%&gt;%</span> <span class="fu">round</span>()</span></code></pre></div>
+<pre><code>## Units: [m]
+##       1     2     3     4     5
+## 1     0 25216 26523 45311 43318
+## 2 25216     0  1892 22540 21140
+## 3 26523  1892     0 20686 21215
+## 4 45311 22540 20686     0 27738
+## 5 43318 21140 21215 27738     0</code></pre>
+</div>
+<div class="infobox">
+<p>distance is always computed in <strong>map units</strong> (so use
+projected data!)</p>
+<p><code>st_distance()</code> returns distances using the
+<code>units</code> package</p>
+</div>
+<!--- infobox --->
+<h3
+id="example-2-compute-distances-between-cell-towers-and-campgrounds">Example
+2: Compute distances between cell towers and campgrounds</h3>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Import the campgrounds</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>yose_campgrnds_utm <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn=</span><span class="st">&quot;./data&quot;</span>, <span class="at">layer=</span><span class="st">&quot;yose_poi&quot;</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(POITYPE <span class="sc">==</span> <span class="st">&#39;Campground&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(POINAME) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(epsg_utm11n_nad83)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_distance</span>(yose_campgrnds_utm, yose_celltwrs_utm) <span class="sc">%&gt;%</span> <span class="fu">round</span>()</span></code></pre></div>
+<pre><code>## Units: [m]
+##        [,1]  [,2]  [,3]  [,4]  [,5]
+##  [1,] 46219 25885 26226 33538  5904
+##  [2,] 42064 19211 19163 25492  2385
+##  [3,] 36624 13645 13738 23774  7499
+##  [4,] 26168 15613 17308 36062 19627
+##  [5,] 22083  9689 11543 31666 21313
+##  [6,] 20396  7834  9724 30322 22987
+##  [7,]   541 24683 25995 44831 42783
+##  [8,] 33353  9178  7376 13417 20586
+##  [9,] 46362 23071 21252  1825 26769
+## [10,] 26671  1890  2647 22221 19250
+## [11,] 23859  1411  2822 23428 22413
+## [12,] 23970  1403  2639 23199 22497
+## [13,] 24176  1257  2426 22996 22384
+## [14,] 24211  1734  2314 22612 22844
+## [15,] 33272 26623 28245 45779 23754</code></pre>
+</div>
+<p>Each row represents a campground.</p>
+<p>Each column represents a cell tower.</p>
+</div>
+<div id="nearest-neighbors" class="slide section level1">
+<h1>Nearest Neighbors</h1>
+<p>To identify nearby neighbors, you can use:</p>
+<div class="compact" style="font-family:monospace;">
+<ul>
+<li>st_is_within_distance() ()<br />
+</li>
+<li>st_nearest_feature()<br />
+</li>
+<li>st_nearest_points()<br />
+</li>
+<li>nngeo::st_nn()<br />
+</li>
+</ul>
+</div>
+<p>Some of these return <strong>indices</strong>. Some of them return
+<strong>indices or logicals</strong>, some of them return
+<strong>geometries</strong>. See the help pages for details.</p>
+<p><br />
+</p>
+<div class="tip">
+<p>When computing feature-to-feature distances or identifying nearest
+neighbors, the layers should be in the same CRS.</p>
+</div>
+<!--- tip --->
+<p><br />
+</p>
+<h3 id="example-find-the-closest-trail-to-each-campground">Example: Find
+the closest trail to each campground</h3>
+<p>Here we’ll find the closest trail segment for each campground using
+<strong><code>st_nn()</code></strong> from the <a
+href="https://michaeldorman.github.io/nngeo/" target="_blank"
+rel="noopener"><strong>nngeo</strong></a> package.</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Import the trails</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>yose_trails_utm <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;./data/yose_trails.gdb&quot;</span>, <span class="at">layer=</span><span class="st">&quot;Trails&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(epsg_utm11n_nad83)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Load the nngeo package</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nngeo)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Run st_nn() passing sparse = TRUE so we get back a list of indices</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>closest_trail_lst <span class="ot">&lt;-</span> <span class="fu">st_nn</span>(yose_campgrnds_utm, yose_trails_utm, <span class="at">sparse =</span> <span class="cn">TRUE</span>, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(closest_trail_lst)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Convert the list to a vector</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>closest_trail_idx <span class="ot">&lt;-</span> <span class="fu">unlist</span>(closest_trail_lst)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>closest_trail_idx</span></code></pre></div>
+<pre><code>## Reading layer `Trails&#39; from data source 
+##   `D:\Workshops\R-Spatial\rspatial_mod\outputs\rspatial_bgs23\notebooks\data\yose_trails.gdb&#39; using driver `OpenFileGDB&#39;
+## Simple feature collection with 1074 features and 13 fields
+## Geometry type: MULTILINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: 245134 ymin: 4153668 xmax: 323239.7 ymax: 4250703
+## Projected CRS: NAD83 / UTM zone 11N
+## List of 15
+##  $ : int 610
+##  $ : int 117
+##  $ : int 275
+##  $ : int 467
+##  $ : int 504
+##  $ : int 961
+##  $ : int 237
+##  $ : int 432
+##  $ : int 343
+##  $ : int 563
+##  $ : int 541
+##  $ : int 603
+##  $ : int 566
+##  $ : int 927
+##  $ : int 72
+##  [1] 610 117 275 467 504 961 237 432 343 563 541 603 566 927  72</code></pre>
+</div>
+<p>Plot the results:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot results</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>rainbow_cols <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(<span class="fu">nrow</span>(yose_campgrnds_utm), <span class="at">end=</span><span class="dv">5</span><span class="sc">/</span><span class="dv">6</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_trails_utm, <span class="at">bbox=</span>yose_campgrnds_utm) <span class="sc">+</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>(<span class="at">col=</span><span class="st">&quot;gray90&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(yose_trails_utm <span class="sc">%&gt;%</span> <span class="fu">slice</span>(closest_trail_idx)) <span class="sc">+</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(yose_campgrnds_utm) <span class="sc">+</span> </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_symbols</span>(<span class="at">col=</span><span class="st">&quot;POINAME&quot;</span>, <span class="at">palette =</span> rainbow_cols, <span class="at">size=</span><span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">legend.show =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="spatial-queries_files/figure-slidy/nngeo_plot_results_klippy-1.png" width="768" /></p>
+</div>
+<div class="infobox">
+<p>For large datasets or if you need more options, see also <a
+href="https://cran.r-project.org/package=FNN" target="_blank"
+rel="noopener"><code>FNN</code></a> (Fast Nearest Neighbor) package.</p>
+</div>
+</div>
+<div id="spatial-joins" class="slide section level1">
+<h1>Spatial Joins</h1>
+<p>A spatial join is a lot like <code>dplyr::left_join()</code></p>
+<div class="indented2">
+<p>⇒ you’re copying <strong>attribute columns</strong> from one table to
+another.</p>
+</div>
+<p>But instead of joining two rows based on the <strong>values</strong>
+in a common <strong>column</strong>, you join them based on their
+<strong>spatial relationship</strong>.</p>
+<p><img src="images/spatial_join_372x196.png" /></p>
+<p><br />
+</p>
+<p>In R you can do a spatial join with:</p>
+<div class="indented2">
+<p><tt><strong>st_join(<em>x</em>, <em>y</em>,
+<em>join</em>)</strong></tt></p>
+</div>
+<p>where <strong><code>x</code> </strong>and
+<strong><code>y</code></strong> are sf objects</p>
+<p><strong><code>join</code></strong> is the name of a spatial
+relationship function:</p>
+<div class="compact">
+<ul>
+<li><code>st_intersects</code><br />
+</li>
+<li><code>st_nearest_feature</code><br />
+</li>
+<li><code>st_is_within_distance</code></li>
+<li><code>st_within</code></li>
+<li>see <code>?st_join</code> for others</li>
+</ul>
+</div>
+<p><br />
+</p>
+<div class="tip">
+<p>ESRI calls spatial joins <em>geo-enrichment</em></p>
+</div>
+<h3
+id="example-for-each-campground-join-attributes-from-the-nearest-cell-tower">Example:
+For each campground, join attributes from the nearest cell tower</h3>
+<p>Use a spatial join to save the id and coordinates of the closest cell
+tower to the campgrounds attribute table.</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>yose_camp_plus_cell_utm <span class="ot">&lt;-</span> yose_campgrnds_utm <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(yose_celltwrs_utm, <span class="at">join =</span> st_nearest_feature)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>yose_camp_plus_cell_utm</span></code></pre></div>
+<pre><code>## Simple feature collection with 15 features and 5 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 247625.8 ymin: 4158885 xmax: 292815.1 ymax: 4204389
+## Projected CRS: NAD83 / UTM zone 11N
+## First 10 features:
+##                        POINAME tower_id              tower_name    x_utm   y_utm                 geometry
+## 1    Hodgdon Meadow Campground       30              Crane Flat 251532.4 4182870 POINT (247625.8 4187296)
+## 2        Crane Flat Campground       30              Crane Flat 251532.4 4182870 POINT (253315.9 4181287)
+## 3     Tamarack Flat Campground       30              Crane Flat 251532.4 4182870 POINT (258936.4 4181679)
+## 4        White Wolf Campground        6         Yosemite Valley 272489.8 4180099 POINT (267142.6 4194768)
+## 5    Yosemite Creek Campground        6         Yosemite Valley 272489.8 4180099 POINT (271702.9 4189756)
+## 6    Porcupine Flat Campground        6         Yosemite Valley 272489.8 4180099 POINT (273987.5 4187789)
+## 7  Tuolumne Meadows Campground        3 Tuolumne Meadows (CDWR) 293307.2 4194328 POINT (292815.1 4194103)
+## 8  Bridalveil Creek Campground       21           Sentinel Dome 272232.6 4178225 POINT (268815.7 4171688)
+## 9            Wawona Campground       27                  Wawona 265240.0 4158756 POINT (263419.9 4158885)
+## 10           Camp 4 Campground        6         Yosemite Valley 272489.8 4180099   POINT (270612 4180317)</code></pre>
+</div>
+<p><br />
+</p>
+<div class="infobox">
+<p>To extract values from a raster at feature locations, use
+<code>raster::extract()</code>.</p>
+</div>
+<p><br />
+</p>
+</div>
+<div id="more-practice" class="slide section level1">
+<h1>More Practice</h1>
+<p><a href='https://raw.githubusercontent.com/ajlyons/rspatial_bgs23/master/notebooks/nb_spatqry_02.Rmd' target='_blank'>nb_spatqry_02.Rmd</a></p> <div class='nb_desc'>Generate an exact number of sample points within YNP (random points plus spatial query); get the vegetation value at each sample location (spatial join); identify sample points within 2km of each campground (spatial query)</div> <p style='font-size:80%;'><a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_spatqry_02.nb.html' target='_blank' rel='noopener' style='color:#8993d3;'>preview notebook</a> | <a href='https://ajlyons.github.io/rspatial_bgs23/notebooks/nb_spatqry_02_ans.nb.html' target='_blank' style='color:#8993d3;'>answer key</a></p>
+</div>
+<div id="summary" class="slide section level1">
+<h1>Summary</h1>
+<p>In this session we saw how to:</p>
+<div class="compact">
+<ul>
+<li>use functions like <code>st_intersects()</code> and
+<code>st_is_within_distance()</code> that <strong>test pairs of
+features</strong> for <strong>spatial relationships</strong><br />
+</li>
+<li>use the results of spatial relationship functions to <strong>select
+features</strong><br />
+</li>
+<li>compute distances between features<br />
+</li>
+<li>find the nearest feature(s) with <code>st_nn()</code><br />
+</li>
+<li>do spatial joins</li>
+</ul>
+</div>
+<div class="infobox">
+<p>Additional Resources</p>
+<div class="indented1">
+<p><a href="https://geocompr.robinlovelace.net/spatial-operations.html"
+target="_blank">Geocomputation with R Ch4: Spatial Data Operations</a>.
+Robin Lovelace, Jakub Nowosad, Jannes Muenchow</p>
+</div>
+</div>
+<!--- additional resources --->
+<p>
+<br/>
+<hr/>
+<strong>Next: </strong> <a href="geoprocessing_pt2.html">Geoprocessing
+Pt2</a>
+</p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

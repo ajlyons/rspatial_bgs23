@@ -265,6 +265,7 @@ structures that let you control how a code should execute based on a set
 of pre-established conditions.</p>
 <p>Syntax:</p>
 <p><code>if (condition) {statement} else {other statement}</code></p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example if statement</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">7</span></span>
@@ -274,6 +275,7 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb1-1"><
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;NOT BIG ENOUGH!!&quot;</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;NOT BIG ENOUGH!!&quot;</code></pre>
+</div>
 <div class="infobox">
 <ul>
 <li>the conditional expression after the <code>if</code> statement much
@@ -290,7 +292,7 @@ be in (parentheses)<br />
 <p><strong>Composite tests with ‘and’ and ‘or’</strong></p>
 <p>You can test for multiple conditions using the
 <code>&amp;&amp;</code> (and) and <code>||</code> (or) operators.</p>
-<div class="indented1 indented1-r">
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">8</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -305,6 +307,7 @@ be in (parentheses)<br />
 <!--- tip --->
 <h2 id="if-else-if-else">if () {…} else if () {…} else {…}</h2>
 <p>You can string together multiple ‘else if’ checks.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb9"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Generate a sample number between 1 and 20</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">size=</span><span class="dv">1</span>)</span>
@@ -322,6 +325,7 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb9-1"><
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] 17
 ## [1] &quot;You picked a prime&quot;</code></pre>
+</div>
 <div class="infobox">
 <p>The <strong><code>ifelse()</code></strong> function</p>
 <p>A variation of the <code>if-else</code> statement is the
@@ -330,7 +334,7 @@ for recoding data.</p>
 <p>Syntax:</p>
 <p><span style="font-family:monospace;">ifelse(<em>condition</em>,
 <em>value-if-true</em>, <em>value-if-false</em>)</span></p>
-<div class="indented1 indented1-r">
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>is_cat <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(animal<span class="sc">==</span><span class="st">&quot;cat&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)       </span></code></pre></div>
 </div>
 </div>
@@ -349,6 +353,7 @@ if you need to continue going through the loop</li>
 <p><img src="images/code-loops_506x400x256.png" /></p>
 <h2 id="for-loops">For loops</h2>
 <p>Generic syntax of a for loop:</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode r sample_code"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (xx <span class="cf">in</span> yy) {</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -357,8 +362,10 @@ class="sourceCode r sample_code"><code class="sourceCode r"><span id="cb12-1"><a
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="do">##</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
 <p>You generally loop a variable like <em>i</em> over a vector of values
 to control the loop:</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb13"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Simple &#39;for&#39; loop</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>){</span>
@@ -369,7 +376,9 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb13-1">
 ## [1] 9
 ## [1] 16
 ## [1] 25</code></pre>
+</div>
 <p>Often the loop variable is used as an index:</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb15"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Using a loop variable as an index to grab elements</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
@@ -380,7 +389,9 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb15-1">
 ## [1] &quot;Arizona&quot;
 ## [1] &quot;Arkansas&quot;
 ## [1] &quot;California&quot;</code></pre>
+</div>
 <p>Loops can be combined with if-else statements:</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb17"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Loop with an if-then statement in the middle</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
@@ -402,8 +413,10 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb17-1">
 ## [1] 8
 ## [1] 9
 ## [1] 10</code></pre>
+</div>
 <h2 id="while-loops">While Loops</h2>
 <p>The generic form of a while loop is:</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb19"><pre
 class="sourceCode r sample_code"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (some_condition) {</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -412,8 +425,10 @@ class="sourceCode r sample_code"><code class="sourceCode r"><span id="cb19-1"><a
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="do">##</span></span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
 <p>It’s <em>really</em> important that <em>some_condition</em> will
 eventually be FALSE, otherwise the loop will run forever!</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb20"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Define i</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
@@ -428,11 +443,12 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb20-1">
 ## [1] 0.63
 ## [1] 0.55
 ## [1] 0.99</code></pre>
+</div>
 <div class="tip">
 <p><strong>break</strong></p>
 <p>Another way to escape out of a loop is the <code>break</code>
 statement:</p>
-<div class="indented1 indented1-r">
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb22"><pre
 class="sourceCode r sample_code"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (<span class="cn">TRUE</span>) {</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (something_important_happens) {</span>
@@ -447,6 +463,7 @@ class="sourceCode r sample_code"><code class="sourceCode r"><span id="cb22-1"><a
 <h1>Looping Through Data Frames</h1>
 <p>One of the most common uses of a loop is to loop through a data
 frame.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb23"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Loop thru a data frame</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Orange)) {</span>
@@ -460,6 +477,7 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb23-1">
 ## High ratio found in row  15 
 ## High ratio found in row  22 
 ## High ratio found in row  29</code></pre>
+</div>
 <div class="tryit">
 <p>Loop through the data frame <em>mtcars</em>, and print out the value
 of the <em>wt</em> column.</p>
@@ -513,6 +531,7 @@ row.</p>
 <p>You may want to store or save the results of each pass. A common
 technique is to create a variable to save the results before you start
 the loop, and then update or append it within the loop.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb27"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set up a variable to store the cummulative number of assaults</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>num_assaults <span class="ot">&lt;-</span> <span class="dv">0</span></span>
@@ -526,9 +545,11 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb27-1">
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(num_assaults)</span></code></pre></div>
 <pre><code>## [1] 8538</code></pre>
 </div>
+</div>
 <div id="looping-through-files" class="slide section level1">
 <h1>Looping through Files</h1>
 <p>Create a character vector of file names:</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb29"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>my_shapefiles <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">&quot;./data&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;.shp$&quot;</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -537,13 +558,14 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb29-1">
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Or do something with the file, such as:</span></span>
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">## x &lt;- st_read(file.path(&quot;./data&quot;, fn)) </span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## st_write(x %&gt;% st_transform(4326), file.path(&quot;./unprojected/&quot;, fn))</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## st_write(x |&gt; st_transform(4326), file.path(&quot;./unprojected/&quot;, fn))</span></span>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;sf_schools.shp&quot;
 ## [1] &quot;veg37.shp&quot;
 ## [1] &quot;yose_boundary.shp&quot;
 ## [1] &quot;yose_poi.shp&quot;</code></pre>
+</div>
 <div class="tip">
 <p>The <code>pattern</code> argument in <code>list.files()</code> takes
 a <em>regular expression</em>.<br />
@@ -574,6 +596,7 @@ class="slide section level1">
 <h1>Looping through the Lines of a Text File</h1>
 <p>Another common automation technique is to loop through the lines of a
 text file, which may contain file names, sets of parameters, etc.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb31"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Define a filename to a text file</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>txt_fn <span class="ot">&lt;-</span> <span class="st">&quot;./data/proverbs.txt&quot;</span></span>
@@ -622,6 +645,7 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb31-1">
 ## [1] &quot;You do not need a big stick to break a cock&#39;s head (Akan).&quot;
 ## [1] &quot;Marriage is like a groundnut, you have to crack them to see what is inside (Akan).&quot;
 ## [1] &quot;The rain wets the leopard&#39;s spots but does not wash them off (Akan).&quot;</code></pre>
+</div>
 <div class="tip">
 <p>CSV files are basically text files that have some structure (i.e.,
 columns, column labels, text delimiters, etc.). They’re generally easier
@@ -641,6 +665,7 @@ target="_blank">Loops Tutorial from DataCamp</a>
 </div>
 <p><strong>Example: add a random offset to each element of
 sequence</strong></p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Addition is vectorized, so we don&#39;t need a loop</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">num=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">num_plus_offset=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="fl">0.5</span>))</span></code></pre></div>
 <pre><code>##   num num_plus_offset
@@ -649,6 +674,7 @@ sequence</strong></p>
 ## 3   3        2.521965
 ## 4   4        4.834538
 ## 5   5        4.935334</code></pre>
+</div>
 <p>In addition to for and while loops, R has functions like
 <code>sapply()</code> and <code>lapply()</code> that will apply a
 function to each element of a vector/list.</p>
@@ -659,8 +685,8 @@ faster than traditional loops.</p>
 <p>
 <br/>
 <hr/>
-<strong>Next: </strong> <a href="gis101.html">Foundational GIS
-Concepts</a>
+<strong>Next: </strong> <a href="geoprocessing.html">Geoprocessing
+Pt1</a>
 </p>
 </div>
 

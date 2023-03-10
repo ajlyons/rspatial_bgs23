@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Geoprocessing 2 " />
+  <meta name="copyright" content="<span class='footer-right'><a href='../acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href=' https://etherpad.wikimedia.org/p/rspatial-bgs23 ' target='_blank'>Forum</a></span><span class='footer-right'><a href=' https://ajlyons.github.io/rspatial_bgs23 '> https://ajlyons.github.io/rspatial_bgs23 </a></span><span class='footer-right'><a href='../index.html'>Home</a></span><span class='footer-subtitle'> Spatial Data Analysis with R </span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Spatial Data Analysis with R   BayGeo, Spring 2023</title>
+  <style type="text/css">
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            pre > code.sourceCode { white-space: pre; position: relative; }
+            pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+            pre > code.sourceCode > span:empty { height: 1.2em; }
+            .sourceCode { overflow: visible; }
+            code.sourceCode > span { color: inherit; text-decoration: inherit; }
+            div.sourceCode { margin: 1em 0; }
+            pre.sourceCode { margin: 0; }
+            @media screen {
+            div.sourceCode { overflow: auto; }
+            }
+            @media print {
+            pre > code.sourceCode { white-space: pre-wrap; }
+            pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+            }
+            pre.numberSource code
+              { counter-reset: source-line 0; }
+            pre.numberSource code > span
+              { position: relative; left: -4em; counter-increment: source-line; }
+            pre.numberSource code > span > a:first-child::before
+              { content: counter(source-line);
+                position: relative; left: -1em; text-align: right; vertical-align: baseline;
+                border: none; display: inline-block;
+                -webkit-touch-callout: none; -webkit-user-select: none;
+                -khtml-user-select: none; -moz-user-select: none;
+                -ms-user-select: none; user-select: none;
+                padding: 0 4px; width: 4em;
+                color: #aaaaaa;
+              }
+            pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+            div.sourceCode
+              {   }
+            @media screen {
+            pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+            }
+            code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+            code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+            code span.at { color: #7d9029; } /* Attribute */
+            code span.bn { color: #40a070; } /* BaseN */
+            code span.bu { color: #008000; } /* BuiltIn */
+            code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+            code span.ch { color: #4070a0; } /* Char */
+            code span.cn { color: #880000; } /* Constant */
+            code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+            code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+            code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+            code span.dt { color: #902000; } /* DataType */
+            code span.dv { color: #40a070; } /* DecVal */
+            code span.er { color: #ff0000; font-weight: bold; } /* Error */
+            code span.ex { } /* Extension */
+            code span.fl { color: #40a070; } /* Float */
+            code span.fu { color: #06287e; } /* Function */
+            code span.im { color: #008000; font-weight: bold; } /* Import */
+            code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+            code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+            code span.op { color: #666666; } /* Operator */
+            code span.ot { color: #007020; } /* Other */
+            code span.pp { color: #bc7a00; } /* Preprocessor */
+            code span.sc { color: #4070a0; } /* SpecialChar */
+            code span.ss { color: #bb6688; } /* SpecialString */
+            code span.st { color: #4070a0; } /* String */
+            code span.va { color: #19177c; } /* Variable */
+            code span.vs { color: #4070a0; } /* VerbatimString */
+            code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+          </style>
+  <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <meta name="robots" content="noindex,nofollow"/>
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) {
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy");
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied")
+  }}
+  </script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163964617-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-163964617-1');
+  </script>
+  <script src="lib/header-attrs-2.19/header-attrs.js"></script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <script src="lib/slidy_shiny-1/slidy_shiny.js"></script>
+  <script src="lib/clipboard-1.7.1/clipboard.min.js"></script>
+  <link href="lib/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+  <link href="lib/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+  <script src="lib/klippy-0.0.0.9500/js/klippy.min.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="../css/slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<script type="text/javascript">w3c_slidy.mouse_click_enabled = false;</script>
+<div class="slide titlepage">
+  <h1 class="title"><span class="course-title">Spatial Data Analysis
+with R </span> <br/><span class="course-subtitle">BayGeo, Spring
+2023</span></h1>
+  <p class="author">
+Geoprocessing 2<br/><img src='images/geoprocessing256_498x166.png'/>
+  </p>
+</div>
+<div id="dissolve-boundaries-based-on-attribute-fields"
+class="slide section level1">
+<h1>Dissolve Boundaries Based on Attribute Fields</h1>
+<script>
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<p>Grouping rows based on a common value of an attribute, and then
+computing one or more summary statistics for each group of rows, is
+extremely common. We a regular data frame, we can use
+<tt><strong>group_by()</strong></tt> and
+<tt><strong>summarise()</strong></tt> from <strong>dplyr</strong>.</p>
+<p>We illustrate this with the attribute table from watersheds layer.
+This table has a column “HU” and “HUNAME” which are the id number and
+name of larger watersheds.</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>yose_watersheds_sf <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="st">&quot;./data/yose_watersheds.gpkg&quot;</span>, <span class="at">layer=</span><span class="st">&quot;calw221&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>watersheds_df <span class="ot">&lt;-</span> yose_watersheds_sf <span class="sc">|&gt;</span> <span class="fu">st_drop_geometry</span>()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>hu_df <span class="ot">&lt;-</span> watersheds_df <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(HU) <span class="sc">|&gt;</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">HUNAME =</span> <span class="fu">first</span>(HUNAME), </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">NUM_WATERSHEDS =</span> <span class="fu">n</span>(),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">AVG_ACRES =</span> <span class="fu">mean</span>(ACRES))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(hu_df)</span></code></pre></div>
+<pre><code>## Reading layer `calw221&#39; from data source 
+##   `D:\Workshops\R-Spatial\rspatial_mod\outputs\rspatial_bgs23\notebooks\data\yose_watersheds.gpkg&#39; using driver `GPKG&#39;
+## Simple feature collection with 127 features and 12 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 1383.82 ymin: -61442.93 xmax: 81596.71 ymax: 26405.66
+## Projected CRS: NAD83 / California Albers
+## Rows: 6
+## Columns: 4
+## $ HU             &lt;int&gt; 1, 30, 31, 36, 37, 40
+## $ HUNAME         &lt;chr&gt; &quot;MONO&quot;, &quot;EAST WALKER RIVER&quot;, &quot;WEST WALKER RIVER&quot;, &quot;TUOLUMNE RIVER&quot;, &quot;MERCED RIVER&quot;, &quot;SAN JOAQUIN…
+## $ NUM_WATERSHEDS &lt;int&gt; 7, 5, 2, 60, 47, 6
+## $ AVG_ACRES      &lt;dbl&gt; 9311.916, 9385.448, 6426.835, 8128.559, 8399.112, 8911.178</code></pre>
+</div>
+<p><br />
+</p>
+<p>The exact same dplyr functions can be used with sf dataframes. The
+result is another sf object where the groups of features have been
+unioned together.</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>hu_sf <span class="ot">&lt;-</span> yose_watersheds_sf <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(HU) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">HUNAME =</span> <span class="fu">first</span>(HUNAME), </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">NUM_WATERSHEDS =</span> <span class="fu">n</span>(),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">AVG_ACRES =</span> <span class="fu">mean</span>(ACRES))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>hu_sf</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(hu_sf) <span class="sc">+</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col=</span><span class="st">&quot;HUNAME&quot;</span>, <span class="at">title=</span><span class="st">&quot;HU Watershed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_watersheds_sf) <span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">col=</span><span class="st">&quot;gray60&quot;</span>, <span class="at">lwd=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_layout</span>(<span class="at">legend.outside =</span> T)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 4 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 1383.82 ymin: -61442.93 xmax: 81596.71 ymax: 26405.66
+## Projected CRS: NAD83 / California Albers
+## # A tibble: 6 × 5
+##      HU HUNAME            NUM_WATERSHEDS AVG_ACRES                                                                   geom
+##   &lt;int&gt; &lt;chr&gt;                      &lt;int&gt;     &lt;dbl&gt;                                                          &lt;POLYGON [m]&gt;
+## 1     1 MONO                           7     9312. ((73660.22 -23032.77, 73681.14 -23144.08, 73731.29 -23256.44, 73785.7…
+## 2    30 EAST WALKER RIVER              5     9385. ((66826.29 17825.42, 66842.88 17853.58, 66861.79 17868.39, 66915.55 1…
+## 3    31 WEST WALKER RIVER              2     6427. ((41216.82 21006.26, 41275.41 20974.09, 41329.18 20937.78, 41342.79 2…
+## 4    36 TUOLUMNE RIVER                60     8129. ((23207.16 -25556.28, 23146.17 -25588.36, 23112.63 -25612.56, 23054.7…
+## 5    37 MERCED RIVER                  47     8399. ((40429.21 -57294.51, 40357.98 -57362.66, 40260.8 -57430.64, 40091.27…
+## 6    40 SAN JOAQUIN RIVER              6     8911. ((55704.49 -53548.52, 55754.08 -53648.64, 55792.94 -53706.26, 55849 -…</code></pre>
+<p><img src="geoprocessing_pt2_files/figure-slidy/watershed_summarise_union_klippy-1.png" width="768" /></p>
+</div>
+<p><br />
+</p>
+</div>
+<div id="geoprocessing-chains" class="slide section level1">
+<h1>Geoprocessing Chains</h1>
+<p>What percentage of Yosemite falls within 500m of a road?</p>
+<p>We first create a 500m buffer around the roads within the park
+(representing a disturbance zone for sensitive species, or drive
+transect detection area). Then we’ll compute the total area of the
+buffered area. This task will require us to <strong>buffer</strong>,
+<strong>intersect</strong>, <strong>union</strong>, and another
+<strong>intersection</strong>. This is known as a geoprocessing chain. .
+First, create the buffer:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Import roads</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>yose_roads_utm <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="st">&quot;./data/yose_roads.gdb&quot;</span>, <span class="st">&quot;Yosemite_Roads&quot;</span>)</span></code></pre></div>
+<pre><code>## Reading layer `Yosemite_Roads&#39; from data source 
+##   `D:\Workshops\R-Spatial\rspatial_mod\outputs\rspatial_bgs23\notebooks\data\yose_roads.gdb&#39; using driver `OpenFileGDB&#39;
+## Simple feature collection with 823 features and 40 fields
+## Geometry type: MULTILINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: 234658.1 ymin: 4139484 xmax: 324852.6 ymax: 4250252
+## Projected CRS: NAD83 / UTM zone 11N</code></pre>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create the buffer</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>yose_roads_buff <span class="ot">&lt;-</span> yose_roads_utm <span class="sc">|&gt;</span> <span class="fu">st_buffer</span>(<span class="at">dist=</span><span class="dv">500</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the results</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_roads_buff) <span class="sc">+</span> <span class="fu">tm_polygons</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_bnd_utm) <span class="sc">+</span> <span class="fu">tm_borders</span>(<span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="geoprocessing_pt2_files/figure-slidy/buff_roads_klippy-1.png" width="768" /></p>
+</div>
+<p><br />
+</p>
+<p>There are two problems here:</p>
+<ol style="list-style-type: lower-roman">
+<li>the roads extend <strong>outside the park</strong></li>
+<li>the buffered line segments <strong>overlap each other</strong> (so
+we can’t add up the areas)</li>
+</ol>
+<p>We can fix these by taking the <strong>intersection</strong> of the
+road buffer with the park boundary, and <strong>unioning</strong> the
+individual polygons together.</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Clip to park boundary</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>yose_roads_inpark_buff <span class="ot">&lt;-</span> yose_roads_buff <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(yose_bnd_utm) <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_union</span>()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the results</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_bnd_utm) <span class="sc">+</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">lwd=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(yose_roads_inpark_buff) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="geoprocessing_pt2_files/figure-slidy/buff_roads_clip_klippy-1.png" width="768" /></p>
+</div>
+<p><br />
+</p>
+<p>What is the total area of the buffer?</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>road_area <span class="ot">&lt;-</span> yose_roads_inpark_buff <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_area</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>road_area <span class="sc">|&gt;</span> <span class="fu">set_units</span>(ha)</span></code></pre></div>
+<pre><code>## 23879.94 [ha]</code></pre>
+</div>
+<p><br />
+</p>
+<div class="tryit">
+<p>How big is the buffered roads as a percentage of the total park
+area?</p>
+<p>[<span id="soln_qcdvno" class="showhidesoln"
+onclick="showHide(&#39;qcdvno&#39;);return false;">Solution</span>]</p>
+<div id="qcdvno" class="hint">
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>road_area <span class="sc">/</span> (yose_bnd_utm <span class="sc">|&gt;</span> <span class="fu">st_area</span>())</span></code></pre></div>
+<pre><code>## 0.07907479 [1]</code></pre>
+<p>⇒ Almost 8%</p>
+</div>
+<!--- soln_qcdvno --->
+</div>
+<!--- TryIt --->
+</div>
+<div id="voronoi-tesselation" class="slide section level1">
+<h1>Voronoi Tesselation</h1>
+<p>For a given a set of points, Voronoi tesselation computes a network
+of polygons, such that each polygon contains exactly one point and
+everywhere within a polygon is closest to the enclosed point.</p>
+<p><img src="images/voronoi-diagram_220x220.png" /></p>
+<p>Let’s build Voronoi polygons for the campgrounds. These polygons
+could be thought of as the ‘catchment area’ of each campgrounds, if
+campgrounds were like magnets trying to attract campers.</p>
+<p>We can create a Voronoi tessellation using
+<tt><strong>st_voronoi()</strong></tt>. Note <tt>st_voronoi()</tt>
+expects a single multipart point feature, which you can create from a
+point layer using <tt><strong>st_union()</strong></tt>.</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>epsg_utm11n_nad83 <span class="ot">&lt;-</span> <span class="dv">26911</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Import campgrounds</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>yose_campgrnds_utm <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn=</span><span class="st">&quot;./data&quot;</span>, <span class="at">layer=</span><span class="st">&quot;yose_poi&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(POITYPE <span class="sc">==</span> <span class="st">&#39;Campground&#39;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(POINAME) <span class="sc">|&gt;</span> </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(epsg_utm11n_nad83)</span></code></pre></div>
+<pre><code>## Reading layer `yose_poi&#39; from data source `D:\Workshops\R-Spatial\rspatial_mod\outputs\rspatial_bgs23\notebooks\data&#39; using driver `ESRI Shapefile&#39;
+## Simple feature collection with 2720 features and 30 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 246416.2 ymin: 4153717 xmax: 301510.7 ymax: 4208419
+## Projected CRS: NAD83 / UTM zone 11N</code></pre>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compute Voronoi polygons</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">st_voronoi</span>(<span class="fu">st_union</span>(yose_campgrnds_utm))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Construct polygon sf and simplify (i.e., break multipart into single features)</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>v_sf <span class="ot">&lt;-</span>  <span class="fu">st_sf</span>(v) <span class="sc">|&gt;</span> <span class="fu">st_cast</span>()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(v_sf <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>() , <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">border=</span><span class="st">&quot;gray70&quot;</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yose_bnd_utm <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>(), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="cn">NA</span>, <span class="at">border=</span><span class="st">&quot;darkblue&quot;</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yose_campgrnds_utm <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>(), <span class="at">col=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pch=</span><span class="dv">17</span>, <span class="at">add=</span>T)</span></code></pre></div>
+<p><img src="geoprocessing_pt2_files/figure-slidy/voronoi_polys_klippy-1.png" width="768" /></p>
+</div>
+<p><br />
+</p>
+<div class="tryit">
+<p>Modify the above so the Voronoi polygons are clipped to the park
+boundary.</p>
+<p>[<span id="soln_kfzqvh" class="showhidesoln"
+onclick="showHide(&#39;kfzqvh&#39;);return false;">Solution</span>]</p>
+<div id="kfzqvh" class="hint">
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Clip to the park boundary</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>v_clipped <span class="ot">&lt;-</span> v_sf <span class="sc">|&gt;</span> <span class="fu">st_intersection</span>(yose_bnd_utm)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(v_clipped <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>() , <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">border=</span><span class="st">&quot;gray70&quot;</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yose_bnd_utm <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>(), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="cn">NA</span>, <span class="at">border=</span><span class="st">&quot;darkblue&quot;</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yose_campgrnds_utm <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>(), <span class="at">col=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pch=</span><span class="dv">17</span>, <span class="at">add=</span>T)</span></code></pre></div>
+<p><img src="geoprocessing_pt2_files/figure-slidy/voronoi_clipped_klippy-1.png" width="768" /></p>
+</div>
+<!--- soln_kfzqvh --->
+</div>
+<!--- TryIt --->
+<div class="challenge">
+<p>Create Voronoi polygons for the cell tower infrastructure</p>
+</div>
+<!--- challenge --->
+</div>
+<div id="summary" class="slide section level1">
+<h1>Summary</h1>
+<p>In this session we saw how to:</p>
+<div class="compact">
+<ul>
+<li><p>dissolve boundaries based on a common attribute value</p></li>
+<li><p>combine geoprocessing functions for specific tasks</p></li>
+<li><p>convert units using the <code>units</code> package</p></li>
+<li><p>generate a Voronoi tesselation of points</p></li>
+</ul>
+</div>
+<p>
+<br/>
+<hr/>
+<strong>Next: </strong> <a href="gis101.html">Foundational GIS
+Concepts</a>
+</p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

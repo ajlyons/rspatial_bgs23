@@ -283,9 +283,13 @@ of Chicago. It has functions to import data from a SODA API
 endpoint.</p>
 <p>First install RSocrata from CRAN or GitHub (requires
 <strong>devtools</strong>, see below):</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;Chicago/RSocrata&quot;</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSocrata)</span></code></pre></div>
+</div>
+<p><br />
+</p>
 <p>The main function to read in tabular data is:</p>
 <div class="indented3">
 <tt><strong>read.socrata(<em>url</em>)</strong></tt>
@@ -294,6 +298,7 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb1-1"><
 Data</h3>
 <p>Let’s import a sample dataset of earthquake locations using the SODA
 API</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Import earthquake locations for one week in September 2012</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>earthquakes_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(<span class="st">&quot;http://soda.demo.socrata.com/resource/4334-bgaj.csv&quot;</span>)</span>
@@ -309,6 +314,9 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb2-1"><
 ## $ number_of_stations &lt;int&gt; 15, 35, 21, 29, 29, 6, 17, 36, 29, 13, 30, 4, 17, 10, 39, 108, 19, 13, 53, 14, 6, 16, 26, 15, 17, 47, 19, 13, 8, 40, 3, 93, 45, 4, 9, 8…
 ## $ region             &lt;chr&gt; &quot;Nevada&quot;, &quot;Southern California&quot;, &quot;Northern California&quot;, &quot;Central California&quot;, &quot;Central California&quot;, &quot;north of the Virgin Islands&quot;, &quot;Isl…
 ## $ location           &lt;chr&gt; &quot;(41.1085, -117.6135)&quot;, &quot;(34.525, -118.1527)&quot;, &quot;(38.8023, -122.7685)&quot;, &quot;(36.9447, -117.6778)&quot;, &quot;(36.9417, -117.6903)&quot;, &quot;(19.7859, -64.0…</code></pre>
+</div>
+<p><br />
+</p>
 <h3 id="example-filming-locations-in-sf">Example: Filming Locations in
 SF</h3>
 <p><strong>json</strong> is another common file format for data, and is
@@ -316,10 +324,13 @@ often used to save tabular data.</p>
 <p>Let’s load the <a
 href="https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am"
 target="_blank">movie locations dataset</a> from SF Data.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb4"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>movie_loc_url <span class="ot">&lt;-</span> <span class="st">&quot;https://data.sfgov.org/resource/wwmu-gmzc.json&quot;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>movie_loc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url, <span class="at">app_token=</span><span class="st">&quot;blM04fd69jAL2jNbK8o7VWiEj&quot;</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(movie_loc_df)</span></code></pre></div>
+</div>
+<div class="indented2 indented2r">
 <pre><code>## Rows: 1,976
 ## Columns: 11
 ## $ title              &lt;chr&gt; &quot;A Jitney Elopement&quot;, &quot;A Jitney Elopement&quot;, &quot;Greed&quot;, &quot;Greed&quot;, &quot;Greed&quot;, &quot;The Jazz Singer&quot;, &quot;Barbary Coast&quot;, &quot;After the Thin Man&quot;, &quot;San F…
@@ -333,6 +344,9 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb4-1"><
 ## $ actor_2            &lt;chr&gt; &quot;Edna Purviance&quot;, &quot;Edna Purviance&quot;, &quot;Gibson Gowland&quot;, &quot;Gibson Gowland&quot;, &quot;Gibson Gowland&quot;, &quot;May McAvoy&quot;, &quot;Edward G. Robinson&quot;, &quot;Myrna Lo…
 ## $ fun_facts          &lt;chr&gt; NA, &quot;During San Francisco&#39;s Gold Rush era, the Park was part of an area designated as the \&quot;Great Sand Waste\&quot;.&quot;, &quot;In 1887, the Cliff H…
 ## $ actor_3            &lt;chr&gt; NA, NA, &quot;Jean Hersholt&quot;, &quot;Jean Hersholt&quot;, &quot;Jean Hersholt&quot;, &quot;Warner Oland&quot;, &quot;Joel McCrea&quot;, &quot;James Stewart&quot;, &quot;Spencer Tracy&quot;, &quot;Spencer Tr…</code></pre>
+</div>
+<p><br />
+</p>
 </div>
 <div id="api-tokens" class="slide section level1">
 <h1>API Tokens</h1>
@@ -349,7 +363,11 @@ Portal</a>.</p>
 <!--- info-box --->
 <p>If you have an API token, you can send it using the optional
 <tt><strong>app_token</strong></tt> argument.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>movie_loc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url, <span class="at">app_token=</span><span class="st">&quot;blM04-not-real-token-K8o7VWiEj&quot;</span>)</span></code></pre></div>
+</div>
+<p><br />
+</p>
 <div class="tip">
 <p><strong>API Token Security</strong></p>
 <p>Because APIs are like passwords, and in some cases are connected to a
@@ -395,11 +413,15 @@ Neighborhood Boundaries</h3>
 href="https://data.sfgov.org/Geographic-Locations-and-Boundaries/Analysis-Neighborhoods/p5b7-5n3h"
 target="_blank">SF Neighborhood Boundaries</a>, using the URL above but
 changing the extension to <tt>geojson</tt>.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>nb_bnd <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">&quot;https://data.sfgov.org/resource/xfcw-9evu.geojson&quot;</span> <span class="sc">%&gt;%</span> <span class="fu">URLencode</span>())</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>nb_bnd <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">&quot;https://data.sfgov.org/resource/xfcw-9evu.geojson&quot;</span> <span class="sc">|&gt;</span> <span class="fu">URLencode</span>())</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nb_bnd[<span class="st">&#39;nhood&#39;</span>])</span></code></pre></div>
 <p><img src="socrata-api_files/figure-slidy/load_nb_klippy-1.png" width="768" /></p>
+</div>
+<p><br />
+</p>
 </div>
 <div id="adding-query-parameters-to-an-api-call"
 class="slide section level1">
@@ -451,6 +473,7 @@ target="_blank">more</a>)?<br />
 data by adding a column name and value at the end the of the URL.</p>
 <p>Query parameters should always start with
 ‘<tt><strong>?</strong></tt>’</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb8"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Add a simple parameter query to import 2008 films only </span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>movie2008_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(<span class="st">&quot;https://data.sfgov.org/resource/wwmu-gmzc.json?release_year=2008&quot;</span>)</span>
@@ -467,6 +490,9 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb8-1"><
 ## $ actor_1            &lt;chr&gt; &quot;Sean Penn&quot;, &quot;Sean Penn&quot;, &quot;Sean Penn&quot;, &quot;Sean Penn&quot;, &quot;Sean Penn&quot;, &quot;Sean Penn&quot;, &quot;Sean Penn&quot;, &quot;Sean Penn&quot;, &quot;Sean Penn&quot;, &quot;Sean Penn&quot;, &quot;Sean…
 ## $ actor_2            &lt;chr&gt; &quot;Emile Hirsch&quot;, &quot;Emile Hirsch&quot;, &quot;Emile Hirsch&quot;, &quot;Emile Hirsch&quot;, &quot;Emile Hirsch&quot;, &quot;Emile Hirsch&quot;, &quot;Emile Hirsch&quot;, &quot;Emile Hirsch&quot;, &quot;Emile …
 ## $ fun_facts          &lt;chr&gt; NA, &quot;The dome of SF&#39;s City Hall is almost a foot taller than that of the US Capitol Building. In 1954, Joe DiMaggio and Marilyn Monroe …</code></pre>
+</div>
+<p><br />
+</p>
 <div class="tip">
 <p><strong>Query Parameter Syntax Rules</strong></p>
 <p>SoQL expressions (like SQL), are generally case insensitive. This
@@ -477,9 +503,11 @@ legibility, you may also put spaces around operators like: <tt>= &gt;
 &lt;</tt></p>
 <p>Use single quotes to delineate text with embedded spaces. Field names
 and text values that don’t have spaces don’t need to be quoted.</p>
-<div class="indented1 indented1-r">
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>spi_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(<span class="st">&quot;https://data.sfgov.org/resource/wwmu-gmzc.json?production_company=&#39;SPI Cinemas&#39;&quot;</span>)</span></code></pre></div>
 </div>
+<p><br />
+</p>
 <p>Query parameter syntax can be unforgiving error messages are
 generally unhelpful! A good way to learn is to start with simple queries
 and build-up.</p>
@@ -507,6 +535,7 @@ class="uri">http://</a>…/xxxxx.json?<strong>&amp;#select</strong>=XXXXXXX<stro
 <p>To filter rows use the <a
 href="https://dev.socrata.com/docs/queries/where.html"
 target="_blank"><tt><strong>where</strong></tt></a> clause:</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb11"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Use a WHERE clausee to get locations for movies released in 2010</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>filmloc2010_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(<span class="st">&quot;https://data.sfgov.org/resource/wwmu-gmzc.json?$where=release_year=2010&quot;</span>)</span>
@@ -531,6 +560,9 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb11-1">
 ## [1] 76
 ## [1] 76
 ## [1] 1</code></pre>
+</div>
+<p><br />
+</p>
 <div class="quiz">
 <p>Which film(s) did Alfred Hitchcock shoot in San Francisco in
 1963?</p>
@@ -546,6 +578,7 @@ onclick="showHide(&#39;hzblce&#39;);return false;">Answer</span></p>
 <p>To limit the number of records, add the
 <tt><strong>limit</strong></tt> clause at the end. This is particularly
 helpful when you are testing a query expression for a large dataset.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb15"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Add the LIMIT clause to only get the top-five locations </span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>filmloc2010_five_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(<span class="st">&quot;https://data.sfgov.org/resource/wwmu-gmzc.json?$where=release_year=2010&amp;$limit=5&quot;</span>)</span>
@@ -563,6 +596,9 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb15-1">
 ## 4             &lt;NA&gt;         Sacramento &amp; Washington Streets
 ## 5 Cecile De France     Hobart Building (582 Market Street)</code></pre>
 </div>
+<p><br />
+</p>
+</div>
 <div id="concatenating-text" class="slide section level1">
 <h1>Concatenating Text</h1>
 <p>Before we continue, let’s make our life a little easier.</p>
@@ -575,22 +611,28 @@ to construct them as separate pieces of text, then
 becomes <tt>‘MyDog’</tt></p>
 <p>In R, we concatenate text with <tt><strong>paste0()</strong></tt> and
 <tt><strong>paste()</strong></tt>. Examples:</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&quot;My&quot;</span>, <span class="st">&quot;Dog&quot;</span>, <span class="st">&quot;Has&quot;</span>, <span class="st">&quot;Fleas&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;MyDogHasFleas&quot;</code></pre>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;My&quot;</span>, <span class="st">&quot;Dog&quot;</span>, <span class="st">&quot;Has&quot;</span>, <span class="st">&quot;Fleas&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;My Dog Has Fleas&quot;</code></pre>
+</div>
+<p><br />
+</p>
 <p>As you can see, <tt>paste()</tt> adds a separator character (by
 default a blank space, but you can change it with an argument).
 <tt><strong>paste0()</strong></tt> joins text without a separator.</p>
 <div class="tip">
 <p>You can also use <tt>paste0()</tt> and <tt>paste()</tt> with
 piping:</p>
-<div class="indented1">
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;My&quot;</span> <span class="sc">%&gt;%</span> <span class="fu">paste0</span>(<span class="st">&quot;Dog&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">paste0</span>(<span class="st">&quot;Has&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">paste0</span>(<span class="st">&quot;Fleas&quot;</span>)</span></code></pre></div>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;My&quot;</span> <span class="sc">|&gt;</span> <span class="fu">paste0</span>(<span class="st">&quot;Dog&quot;</span>) <span class="sc">|&gt;</span> <span class="fu">paste0</span>(<span class="st">&quot;Has&quot;</span>) <span class="sc">|&gt;</span> <span class="fu">paste0</span>(<span class="st">&quot;Fleas&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;MyDogHasFleas&quot;</code></pre>
 </div>
 </div>
 <!--- tip --->
+<p><br />
+</p>
 </div>
 <div id="complex-parameter-queries-contd" class="slide section level1">
 <h1>Complex Parameter Queries (cont’d)</h1>
@@ -602,6 +644,7 @@ clauses.</p>
 you want the server to send you, and ii) compute calculated expressions.
 If present, it is usually the <strong>first clause</strong> used in a
 SoQL expression.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb23"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Define a variable for the REST Endpoint, including the &#39;?&#39;</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>movie_loc_url <span class="ot">&lt;-</span> <span class="st">&quot;https://data.sfgov.org/resource/wwmu-gmzc.json?&quot;</span></span>
@@ -611,15 +654,18 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb23-1">
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>pq_select <span class="ot">&lt;-</span> <span class="st">&quot;$select=release_year,title,director&quot;</span></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>pq_where <span class="ot">&lt;-</span> <span class="st">&quot;&amp;$where=release_year=2016&quot;</span></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>filmloc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url <span class="sc">%&gt;%</span> </span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_where) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>filmloc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url <span class="sc">|&gt;</span> </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_where) <span class="sc">|&gt;</span> </span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">URLencode</span>())</span>
 <span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(filmloc_df)</span></code></pre></div>
 <pre><code>## Rows: 168
 ## Columns: 3
-## $ release_year &lt;chr&gt; &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016…
-## $ title        &lt;chr&gt; &quot;Birth of the Dragon&quot;, &quot;Birth of the Dragon&quot;, &quot;Birth of the Dragon&quot;, &quot;Birth of the Dragon&quot;, &quot;Birth of the Dragon&quot;, &quot;Birth of the Dragon&quot;, &quot;Bi…
-## $ director     &lt;chr&gt; &quot;George Nolfi&quot;, &quot;George Nolfi&quot;, &quot;George Nolfi&quot;, &quot;George Nolfi&quot;, &quot;George Nolfi&quot;, &quot;George Nolfi&quot;, &quot;George Nolfi&quot;, &quot;George Nolfi&quot;, &quot;George Nolfi…</code></pre>
+## $ release_year &lt;chr&gt; &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2…
+## $ title        &lt;chr&gt; &quot;Birth of the Dragon&quot;, &quot;Birth of the Dragon&quot;, &quot;Birth of the Dragon&quot;, &quot;Birth of the Dragon&quot;, &quot;Birth…
+## $ director     &lt;chr&gt; &quot;George Nolfi&quot;, &quot;George Nolfi&quot;, &quot;George Nolfi&quot;, &quot;George Nolfi&quot;, &quot;George Nolfi&quot;, &quot;George Nolfi&quot;, &quot;G…</code></pre>
+</div>
+<p><br />
+</p>
 <div class="tip">
 <p><tt>URLencode()</tt> will convert spaces in a URL to <tt>%20</tt>,
 and change other special characters to other percent codes. While not
@@ -630,13 +676,14 @@ always necessary, this is good practice for URLs.</p>
 <tt><strong>ORDER</strong></tt> clause at the very end. Note the
 <tt><strong>ORDER</strong></tt> expression can include fields that
 aren’t selected to be part of the output.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb25"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Specify the order of the rows returned</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>pq_select <span class="ot">&lt;-</span> <span class="st">&quot;$select=director,title&quot;</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>pq_order <span class="ot">&lt;-</span> <span class="st">&quot;&amp;$order=release_year,director&quot;</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>filmloc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url <span class="sc">%&gt;%</span> </span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_where, pq_order) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>filmloc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url <span class="sc">|&gt;</span> </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_where, pq_order) <span class="sc">|&gt;</span> </span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">URLencode</span>())</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(filmloc_df)</span></code></pre></div>
 <pre><code>##                            director                  title
@@ -646,17 +693,21 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb25-1">
 ## 4 Alexandra Cunningham and Kem Nunn Chance- Season 1 ep110
 ## 5 Alexandra Cunningham and Kem Nunn Chance- Season 1 ep110
 ## 6 Alexandra Cunningham and Kem Nunn Chance- Season 1 ep107</code></pre>
+</div>
+<p><br />
+</p>
 <p>If you want to remove duplicates, add
 <tt><strong>distinct</strong></tt> as part of the select clause. This
 will return unique combinations of the fields returned. Note: when using
 distinct, you must also specify the <tt><strong>ORDER</strong></tt>.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb27"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pq_select <span class="ot">&lt;-</span> <span class="st">&quot;$select=distinct release_year,director,title&quot;</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>pq_where <span class="ot">&lt;-</span> <span class="st">&quot;&amp;$where=release_year=2016&quot;</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>pq_order <span class="ot">&lt;-</span> <span class="st">&quot;&amp;$order=release_year,director&quot;</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>filmloc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url <span class="sc">%&gt;%</span> </span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_where, pq_order) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>filmloc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url <span class="sc">|&gt;</span> </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_where, pq_order) <span class="sc">|&gt;</span> </span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">URLencode</span>())</span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(filmloc_df)</span></code></pre></div>
 <table>
@@ -853,6 +904,9 @@ Sense8 - Season 2
 </tbody>
 </table>
 </div>
+<p><br />
+</p>
+</div>
 <div id="calculated-expressions-and-summaries"
 class="slide section level1">
 <h1>Calculated Expressions and Summaries</h1>
@@ -862,17 +916,21 @@ letting the server do calculations for you!</p>
 calculated expressions, including count, sum, avg, min, and max. The
 arguments for these equations is usually a field name, or an expression
 that uses fields.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb28"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Define a select statement that will count the number of records and </span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="do">## sum up the release year values</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>pq_select <span class="ot">&lt;-</span> <span class="st">&quot;$select=count(release_year) as num_locations,sum(release_year)&quot;</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>filmloc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url <span class="sc">%&gt;%</span> </span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>filmloc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url <span class="sc">|&gt;</span> </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select) <span class="sc">|&gt;</span> </span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">URLencode</span>())</span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>filmloc_df</span></code></pre></div>
 <pre><code>##   num_locations sum_release_year
 ## 1          1976          3956616</code></pre>
+</div>
+<p><br />
+</p>
 <div class="tip">
 <p>Note the use of the ‘AS’ keyword above, which allows you to rename a
 column in the results (aka alias)</p>
@@ -896,6 +954,7 @@ often includes a calculated expression.</p>
 <strong>Note</strong>: using GROUP clause <strong>also requires</strong>
 adding the <strong>ORDER</strong> clause.
 </div>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb30"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Count the number of film shoots per year in the 1970s</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>pq_select <span class="ot">&lt;-</span> <span class="st">&quot;$select=release_year,count(title)&quot;</span></span>
@@ -903,8 +962,8 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb30-1">
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>pq_where <span class="ot">&lt;-</span> <span class="st">&quot;&amp;$where=release_year BETWEEN 1970 and 1979&quot;</span></span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>pq_order <span class="ot">&lt;-</span> <span class="st">&quot;&amp;$order=release_year&quot;</span></span>
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>filmloc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url <span class="sc">%&gt;%</span> </span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_group, pq_where, pq_order) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>filmloc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url <span class="sc">|&gt;</span> </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_group, pq_where, pq_order) <span class="sc">|&gt;</span> </span>
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">URLencode</span>())</span>
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>filmloc_df</span></code></pre></div>
 <pre><code>##   release_year count_title
@@ -917,6 +976,9 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb30-1">
 ## 7         1977           3
 ## 8         1978          45
 ## 9         1979          25</code></pre>
+</div>
+<p><br />
+</p>
 <div class="tip">
 <p>In general, the order of SoQL clauses should be:</p>
 <div class="indented1 compact">
@@ -946,8 +1008,8 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb32-1">
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>pq_where <span class="ot">&lt;-</span> <span class="st">&quot;&amp;$where=release_year BETWEEN 1970 and 1979&quot;</span></span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>pq_order <span class="ot">&lt;-</span> <span class="st">&quot;&amp;$order=num_locations desc&quot;</span></span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>filmloc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url <span class="sc">%&gt;%</span> </span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_group, pq_where, pq_order) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>filmloc_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(movie_loc_url <span class="sc">|&gt;</span> </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_group, pq_where, pq_order) <span class="sc">|&gt;</span> </span>
 <span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">URLencode</span>())</span>
 <span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(filmloc_df)</span></code></pre></div>
 <pre><code>##         director num_locations
@@ -1035,6 +1097,7 @@ really interested in the exact locations, just the neighborhood name
 <p>We’ll build our expression in stages. First let’s just see if we can
 select a few records using the <strong>select</strong> and
 <strong>limit</strong> clauses:</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb34"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ems_resp_url <span class="ot">&lt;-</span> <span class="st">&quot;https://data.sfgov.org/resource/nuek-vuh3.json?&quot;</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1042,48 +1105,59 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb34-1">
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>pq_select <span class="ot">&lt;-</span> <span class="st">&quot;$select=call_date,incident_number,neighborhoods_analysis_boundaries&quot;</span></span>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>pq_limit <span class="ot">&lt;-</span> <span class="st">&quot;&amp;$limit=10&quot;</span></span>
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>ems_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(ems_resp_url <span class="sc">%&gt;%</span> </span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_limit) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>ems_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(ems_resp_url <span class="sc">|&gt;</span> </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_limit) <span class="sc">|&gt;</span> </span>
 <span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">URLencode</span>())</span>
 <span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ems_df) </span></code></pre></div>
 <pre><code>## Rows: 10
 ## Columns: 3
-## $ call_date                         &lt;dttm&gt; 2020-11-30, 2008-06-21, 2010-07-20, 2011-09-18, 2021-01-04, 2020-09-14, 2002-01-28, 2020-09-12, 2020-09-16, 2020-09-24
-## $ incident_number                   &lt;chr&gt; &quot;20136551&quot;, &quot;08053494&quot;, &quot;10063592&quot;, &quot;11086150&quot;, &quot;21001419&quot;, &quot;20105986&quot;, &quot;02008168&quot;, &quot;20105214&quot;, &quot;20106956&quot;, &quot;20110327&quot;
-## $ neighborhoods_analysis_boundaries &lt;chr&gt; &quot;Marina&quot;, &quot;Tenderloin&quot;, &quot;Chinatown&quot;, &quot;Lakeshore&quot;, &quot;South of Market&quot;, &quot;Mission Bay&quot;, &quot;Nob Hill&quot;, &quot;Tenderloin&quot;, &quot;Hayes Va…</code></pre>
+## $ call_date                         &lt;dttm&gt; 2020-11-30, 2008-06-21, 2010-07-20, 2011-09-18, 2021-01-04, 2020-09-14, 2002…
+## $ incident_number                   &lt;chr&gt; &quot;20136551&quot;, &quot;08053494&quot;, &quot;10063592&quot;, &quot;11086150&quot;, &quot;21001419&quot;, &quot;20105986&quot;, &quot;0200…
+## $ neighborhoods_analysis_boundaries &lt;chr&gt; &quot;Marina&quot;, &quot;Tenderloin&quot;, &quot;Chinatown&quot;, &quot;Lakeshore&quot;, &quot;South of Market&quot;, &quot;Mission…</code></pre>
+</div>
+<p><br />
+</p>
 <p>Next, let swap the <strong>limit</strong> clause with a
 <strong>where</strong> clause to filter the results on
 <tt><strong>call_date</strong></tt>:</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb36"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>pq_where <span class="ot">&lt;-</span> <span class="st">&quot;&amp;$where=call_date between &#39;2019-10-01T00:00:00&#39; and &#39;2019-10-07T23:59:59&#39;&quot;</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>ems_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(ems_resp_url <span class="sc">%&gt;%</span> </span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_where) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>ems_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(ems_resp_url <span class="sc">|&gt;</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_where) <span class="sc">|&gt;</span> </span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">URLencode</span>())</span>
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ems_df) </span></code></pre></div>
 <pre><code>## Rows: 6,466
 ## Columns: 3
-## $ call_date                         &lt;dttm&gt; 2019-10-01, 2019-10-03, 2019-10-01, 2019-10-02, 2019-10-02, 2019-10-02, 2019-10-01, 2019-10-01, 2019-10-01, 2019-10-01,…
-## $ incident_number                   &lt;chr&gt; &quot;19117756&quot;, &quot;19118431&quot;, &quot;19117873&quot;, &quot;19118215&quot;, &quot;19118038&quot;, &quot;19118026&quot;, &quot;19117937&quot;, &quot;19117649&quot;, &quot;19117756&quot;, &quot;19117652&quot;, …
-## $ neighborhoods_analysis_boundaries &lt;chr&gt; &quot;Nob Hill&quot;, &quot;Marina&quot;, &quot;Haight Ashbury&quot;, &quot;Tenderloin&quot;, &quot;Lakeshore&quot;, &quot;Western Addition&quot;, &quot;Financial District/South Beach&quot;,…</code></pre>
+## $ call_date                         &lt;dttm&gt; 2019-10-01, 2019-10-03, 2019-10-01, 2019-10-02, 2019-10-02, 2019-10-02, 2019…
+## $ incident_number                   &lt;chr&gt; &quot;19117756&quot;, &quot;19118431&quot;, &quot;19117873&quot;, &quot;19118215&quot;, &quot;19118038&quot;, &quot;19118026&quot;, &quot;1911…
+## $ neighborhoods_analysis_boundaries &lt;chr&gt; &quot;Nob Hill&quot;, &quot;Marina&quot;, &quot;Haight Ashbury&quot;, &quot;Tenderloin&quot;, &quot;Lakeshore&quot;, &quot;Western A…</code></pre>
+</div>
+<p><br />
+</p>
 <p>Lastly we add <tt><strong>distinct</strong></tt> to the
 <strong>select</strong> clause so we get unique combinations of
 neighborhood name and incident number. As noted before, when using
 ‘distinct’ we also need to add the <tt><strong>order</strong></tt>
 clause:</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb38"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Download unique rows for neighborhood &amp; incident id</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>pq_select <span class="ot">&lt;-</span> <span class="st">&quot;$select=distinct neighborhoods_analysis_boundaries as nhood,incident_number&quot;</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>pq_order <span class="ot">&lt;-</span> <span class="st">&quot;&amp;$order=neighborhoods_analysis_boundaries&quot;</span></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>ems_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(ems_resp_url <span class="sc">%&gt;%</span> </span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_where, pq_order) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>ems_df <span class="ot">&lt;-</span> <span class="fu">read.socrata</span>(ems_resp_url <span class="sc">|&gt;</span> </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">paste0</span>(pq_select, pq_where, pq_order) <span class="sc">|&gt;</span> </span>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">URLencode</span>())</span>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ems_df)</span></code></pre></div>
 <pre><code>## Rows: 3,038
 ## Columns: 2
-## $ nhood           &lt;chr&gt; &quot;Bayview Hunters Point&quot;, &quot;Bayview Hunters Point&quot;, &quot;Bayview Hunters Point&quot;, &quot;Bayview Hunters Point&quot;, &quot;Bayview Hunters Point&quot;, &quot;Bayview Hunt…
-## $ incident_number &lt;chr&gt; &quot;19117577&quot;, &quot;19117601&quot;, &quot;19117622&quot;, &quot;19117635&quot;, &quot;19117648&quot;, &quot;19117654&quot;, &quot;19117663&quot;, &quot;19117695&quot;, &quot;19117697&quot;, &quot;19117700&quot;, &quot;19117711&quot;, &quot;19117…</code></pre>
+## $ nhood           &lt;chr&gt; &quot;Bayview Hunters Point&quot;, &quot;Bayview Hunters Point&quot;, &quot;Bayview Hunters Point&quot;, &quot;Bayview Hunters Poi…
+## $ incident_number &lt;chr&gt; &quot;19117577&quot;, &quot;19117601&quot;, &quot;19117622&quot;, &quot;19117635&quot;, &quot;19117648&quot;, &quot;19117654&quot;, &quot;19117663&quot;, &quot;19117695&quot;,…</code></pre>
+</div>
+<p><br />
+</p>
 <div class="infobox">
 <p>Because the rows represent responses, and the SoQL language doesn’t
 have a function like <em>count_distinct()</em>, we’ll have to count up
@@ -1092,10 +1166,11 @@ the records in R.</p>
 <!--- info-box --->
 <p>4. In R, we can now count the number of incidents per
 neighborhood:</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb40"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compute the number of incidents per neighborhood</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>nb_num_calls <span class="ot">&lt;-</span> ems_df <span class="sc">%&gt;%</span> </span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(nhood) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>nb_num_calls <span class="ot">&lt;-</span> ems_df <span class="sc">|&gt;</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(nhood) <span class="sc">|&gt;</span> </span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">num_calls =</span> <span class="fu">n</span>())</span>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>nb_num_calls</span></code></pre></div>
 <pre><code>## # A tibble: 41 × 2
@@ -1112,8 +1187,12 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb40-1">
 ##  9 Haight Ashbury                        38
 ## 10 Hayes Valley                          65
 ## # … with 31 more rows</code></pre>
+</div>
+<p><br />
+</p>
 <p>5.Download the neighborhood boundaries. This is a geojson object so
 we use <tt><strong>sf::read_sf</strong></tt>.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb42"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Download the neighborhood boundaries</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>nb_bnd <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">read_sf</span>(<span class="st">&quot;https://data.sfgov.org/resource/xfcw-9evu.geojson&quot;</span>)</span>
@@ -1122,14 +1201,18 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb42-1">
 ## Columns: 2
 ## $ nhood    &lt;chr&gt; &quot;Western Addition&quot;, &quot;West of Twin Peaks&quot;, &quot;Visitacion Valley&quot;, &quot;Twin Peaks&quot;, &quot;South of Market&quot;, &quot;Treasure Island&quot;, &quot;Presidio Heights&quot;, &quot;Presidio&quot;…
 ## $ geometry &lt;MULTIPOLYGON [°]&gt; MULTIPOLYGON (((-122.4214 3..., MULTIPOLYGON (((-122.461 37..., MULTIPOLYGON (((-122.4039 3..., MULTIPOLYGON (((-122.4469 3..., MULT…</code></pre>
+</div>
+<p><br />
+</p>
 <p>6. Use <strong>dplyr</strong> to join the incidents-per-neighborhood
 table to the neighborhood boundaries attribute table, linking them by
 the neighboorhood name column (conveniently called ‘nhood’ in both
 tables).</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb44"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Join nb_num_calls to the attribute table of nb_bnd, so the </span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="do">## column(s) in nb_num_calls will be availabe for symbolization.</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>nb_bnd <span class="ot">&lt;-</span> nb_bnd <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(nb_num_calls)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>nb_bnd <span class="ot">&lt;-</span> nb_bnd <span class="sc">|&gt;</span> <span class="fu">left_join</span>(nb_num_calls)</span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nb_bnd)</span></code></pre></div>
 <pre><code>## Simple feature collection with 6 features and 2 fields
 ## Geometry type: MULTIPOLYGON
@@ -1145,9 +1228,13 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb44-1">
 ## 4 Twin Peaks         (((-122.4469 37.75655, -122.4459 37.75641, -122.4458 37.75642, -122.4456 37.75645, -...        15
 ## 5 South of Market    (((-122.4037 37.78404, -122.4027 37.78326, -122.4005 37.78503, -122.3999 37.78456, -...       376
 ## 6 Treasure Island    (((-122.3636 37.82087, -122.3605 37.82012, -122.3606 37.8198, -122.3636 37.82054, -1...        11</code></pre>
+</div>
+<p><br />
+</p>
 <p>7. Finally, make the map.</p>
 <p>We’ll make the map with tmap, which offers the greatest number of
 options.</p>
+<div class="indented2 indented2r">
 <div class="sourceCode" id="cb46"><pre
 class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Make a choropleth map</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
@@ -1159,6 +1246,7 @@ class="sourceCode r klippy copyme"><code class="sourceCode r"><span id="cb46-1">
 <span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.fontface =</span> <span class="dv">2</span>,</span>
 <span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.fontfamily =</span> <span class="st">&quot;serif&quot;</span>)</span></code></pre></div>
 <p><img src="socrata-api_files/figure-slidy/nb_map_klippy-1.png" width="768" /></p>
+</div>
 </div>
 <div id="summary" class="slide section level1">
 <h1>Summary</h1>
